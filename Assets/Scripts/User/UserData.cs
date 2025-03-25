@@ -1,20 +1,58 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
-using Util;
 
 namespace User
 {
-    public class UserData : Singleton<UserData>
+    public class UserData : Util.Singleton<UserData>
     {   
         private int _score;
-        private float _distance;
+        private float _distanceTraveled;
         private int _enemiesKilled;
         private int _enemiesKilledScore;
         
         public int Score { get => _score; private set => _score = value; }
-        public float Distance { get => _distance; set => _distance = value; }
-        public int EnemiesKilled { get => _enemiesKilled; set => _enemiesKilled = value; }
         public int EnemiesKilledScore { get => _enemiesKilledScore; private set => _enemiesKilledScore = value; }
+        public int EnemiesKilled { get => _enemiesKilled; set => _enemiesKilled = value; }
+        
+        public float DistanceTraveled { get => _distanceTraveled; set => _distanceTraveled = value; }
+        
+        public Action<int> OnScoreChange;
+        public Action<int> OnEnemyKilled;
 
 
+        private void Awake()
+        {
+            AssignEvents();
+        }
+
+        private void OnDestroy()
+        {
+            UnAssignEvents();
+        }
+
+        private void EnemyKilled(int scoreChange)
+        {
+            EnemiesKilled++;
+            EnemiesKilledScore += scoreChange; 
+            Score += scoreChange;
+        }
+        
+        private void ScoreChange(int scoreChange)
+        {
+            Score += scoreChange;
+        }
+        
+        private void AssignEvents()
+        {
+            OnScoreChange += ScoreChange;
+            OnEnemyKilled += EnemyKilled;
+        }
+        
+        private void UnAssignEvents()
+        {
+            OnScoreChange -= ScoreChange;
+            OnEnemyKilled -= EnemyKilled;
+        }
     }
 }
