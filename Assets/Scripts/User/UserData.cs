@@ -11,20 +11,14 @@ namespace User
         private int _enemiesKilled;             //The amount of enemies killed in the current run
         private int _enemiesKilledScore;        //The amount of points gained by killing enemies in the current run
         
-        public int Score 
-        {
-            get => _score; 
-            private set => _score = value;
-        }
+        public int Score { get => _score; private set => _score = value; }
         public int EnemiesKilledScore { get => _enemiesKilledScore; private set => _enemiesKilledScore = value; }
         public int EnemiesKilled { get => _enemiesKilled; set => _enemiesKilled = value; }
-        
         public float DistanceTraveled { get => _distanceTraveled; set => _distanceTraveled = value; }
         
         public Action<int> OnScoreChange;      //Will increase the score by <int>
         public Action<int> OnEnemyKilled;      //Invoked whenever an enemy dies, increases the score by <int>
-
-
+        
         private void Awake()
         {
             AssignEvents();
