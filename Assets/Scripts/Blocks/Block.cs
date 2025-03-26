@@ -10,18 +10,18 @@ namespace Blocks
     {
         [SerializeField] private Image image;           // the image of the block
         [SerializeField] private RectTransform rect;    // the rect of the grid element
-
-        public RectTransform Rect => rect;              // getter of the rect of the grid element
-
+        
         private BlockType _blockType;                   // the block type of the block
         
-        private Vector3 _gridPosition;
+        private Vector3 _gridPosition;                  // the default position of the block
         private int _x;
         private int _y;
         
-        private float _placeDistance;                  // the available block types
-        private float _springBackDistance;             // the available block types
+        private float _placeDistance;                   // the available block types
+        private float _springBackDistance;              // the available block types
 
+        
+        public RectTransform Rect => rect;              // getter of the rect of the grid element
 
         public void OnBeginDrag(PointerEventData eventData)
         {
