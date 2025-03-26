@@ -1,3 +1,4 @@
+using Grid;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
@@ -15,6 +16,12 @@ namespace Blocks
         private BlockType _blockType;                   // the block type of the block
         
         private Vector3 _gridPosition;
+        private int _x;
+        private int _y;
+        
+        private float _placeDistance;                  // the available block types
+        private float _springBackDistance;             // the available block types
+
 
         public void OnBeginDrag(PointerEventData eventData)
         {
@@ -26,21 +33,29 @@ namespace Blocks
         public void OnDrag(PointerEventData eventData)
         {
             transform.position = Input.mousePosition;
+            if (Vector3.Distance(transform.position, _gridPosition) > _placeDistance)
+            {
+                
+            }
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
             transform.position = _gridPosition;
         }
-        
+
         /// <summary>
         /// Sets the block type and sprite
         /// </summary>
         /// <param name="data"> the block type data </param>
-        public void Initialize(BlockTypeData data)
+        /// <param name="placeDistance"></param>
+        /// <param name="springBackDistance"></param>
+        public void Initialize(BlockTypeData data, float placeDistance, float springBackDistance)
         {
             _blockType = data.blockTypes;
             image.sprite = data.blockSprite;
+            _placeDistance = placeDistance;
+            _springBackDistance = springBackDistance;
         }
         
         /// <summary>

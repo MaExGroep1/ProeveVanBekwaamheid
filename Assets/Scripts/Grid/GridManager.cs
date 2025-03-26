@@ -18,6 +18,8 @@ namespace Grid
         [SerializeField] private GridElement gridElementTemplate;           // the template of the grid element
         [SerializeField] private Block blockTemplate;                       // the template of the block
         [SerializeField] private BlockTypeTableData blockTypeTableData;     // the available block types
+        [SerializeField] private float blockPlaceDistance;                  // the available block types
+        [SerializeField] private float blockSpringBackDistance;             // the available block types
         
         [Header("Spawn animation")]
         [SerializeField] private float fallTime;                            // the time it takes to fall to the ground
@@ -108,7 +110,7 @@ namespace Grid
 
                     StartCoroutine(WaitToDrop(newBlock.gameObject, position.y, waitTime));
                 
-                    newBlock.Initialize(block);
+                    newBlock.Initialize(block, blockPlaceDistance, blockSpringBackDistance);
                 
                     _grid[i,j].SetBlock(newBlock);
                 }
