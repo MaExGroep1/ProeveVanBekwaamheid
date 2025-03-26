@@ -20,12 +20,12 @@ namespace Grid
         [SerializeField] private BlockTypeTableData blockTypeTableData;     // the available block types
         
         [Header("Spawn animation")]
-        [SerializeField] private float fallTime;
-        [SerializeField] private RectTransform gridRect;
-        [SerializeField] private float gridRectOffset;
+        [SerializeField] private float fallTime;                            // the time it takes to fall to the ground
+        [SerializeField] private RectTransform gridRect;                    // the rect of the grid object
+        [SerializeField] private float gridRectOffset;                      // the offset to add to the fall
         
         private GridElement[,] _grid;                                       // the grid of grid elements
-        private Transform _blocksParent;
+        private Transform _blocksParent;                                    // the parent of all the blocks
 
 
         private void Start()
@@ -113,7 +113,14 @@ namespace Grid
                     _grid[i,j].SetBlock(newBlock);
                 }
         }
-
+        
+        /// <summary>
+        /// Waits for a set amount of time then moves the block to the position
+        /// </summary>
+        /// <param name="newBlockGameObject"> the block to move</param>
+        /// <param name="to"> the place to move it to </param>
+        /// <param name="waitTime"> the time to wait before falling </param>
+        /// <returns></returns>
         private IEnumerator WaitToDrop(GameObject newBlockGameObject, float to, float waitTime)
         {
             yield return new WaitForSeconds(waitTime);

@@ -32,7 +32,11 @@ namespace Blocks
         {
             transform.position = _gridPosition;
         }
-
+        
+        /// <summary>
+        /// Sets the block type and sprite
+        /// </summary>
+        /// <param name="data"> the block type data </param>
         public void Initialize(BlockTypeData data)
         {
             _blockType = data.blockTypes;
@@ -45,6 +49,10 @@ namespace Blocks
         /// <returns> the current block type </returns>
         public BlockType GetBlockType() => _blockType;
         
+        /// <summary>
+        /// Sets the default position of the block
+        /// </summary>
+        /// <param name="position"></param>
         public void SetPosition(Vector3 position) => _gridPosition = position;
     }
 }
