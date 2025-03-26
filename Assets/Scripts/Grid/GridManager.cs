@@ -25,15 +25,12 @@ namespace Grid
         [SerializeField] private float gridRectOffset;
         
         private GridElement[,] _grid;                                       // the grid of grid elements
+        private Transform _blocksParent;
 
 
         private void Start()
         {
             CreateGrid();
-            foreach (var gridElement in _grid)
-            {
-                Debug.Log(gridElement.ToString());
-            }
         }
         
         /// <summary>
@@ -49,6 +46,7 @@ namespace Grid
                     grid = CreateGridElement(i,j, grid);
             
             _grid = grid;
+            _blocksParent = _grid[gridHeight-1,gridWidth-1].transform;
             
             AlignGrid();
             PopulateGrid();
@@ -100,12 +98,15 @@ namespace Grid
                 for (int j = 0; j < gridWidth; j++)
                 {
                     var block = blockTypeTableData.GetRandomBlock();
-                    var newBlock = Instantiate(blockTemplate, _grid[i,j].transform);
+                    var newBlock = Instantiate(blockTemplate, _blocksParent);
                     var waitTime = i * j * 0.01f;
-                
-                    newBlock.Rect.position = new Vector3(_grid[i,j].transform.position.x,_grid[i,j].transform.position.y + gridRect.rect.height + gridRectOffset ,0);
+                    var position = new Vector3(_grid[i,j].transform.position.x, _grid[i,j].transform.position.y,0);
+                    var offset = new Vector3(0,gridRect.rect.height + gridRectOffset ,0);
+                    newBlock.Rect.position = position + offset;
+                    
+                    newBlock.SetPosition(position);
 
-                    StartCoroutine(WaitToDrop(newBlock.gameObject,waitTime));
+                    StartCoroutine(WaitToDrop(newBlock.gameObject, position.y, waitTime));
                 
                     newBlock.Initialize(block);
                 
@@ -113,10 +114,10 @@ namespace Grid
                 }
         }
 
-        private IEnumerator WaitToDrop(GameObject newBlockGameObject,float waitTime)
+        private IEnumerator WaitToDrop(GameObject newBlockGameObject, float to, float waitTime)
         {
             yield return new WaitForSeconds(waitTime);
-            LeanTween.moveLocalY(newBlockGameObject, 0, fallTime).setEase(LeanTweenType.easeOutExpo);
+            LeanTween.moveY(newBlockGameObject, to, fallTime).setEase(LeanTweenType.easeInCubic);
         }
     }
 }

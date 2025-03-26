@@ -14,10 +14,13 @@ namespace Blocks
 
         private BlockType _blockType;                   // the block type of the block
         
+        private Vector3 _gridPosition;
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            throw new System.NotImplementedException();
+            var parent = transform.parent;
+            transform.SetParent(parent.parent);
+            transform.SetParent(parent);
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -27,7 +30,7 @@ namespace Blocks
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            transform.localPosition = Vector2.zero;
+            transform.position = _gridPosition;
         }
 
         public void Initialize(BlockTypeData data)
@@ -41,5 +44,7 @@ namespace Blocks
         /// </summary>
         /// <returns> the current block type </returns>
         public BlockType GetBlockType() => _blockType;
+        
+        public void SetPosition(Vector3 position) => _gridPosition = position;
     }
 }
