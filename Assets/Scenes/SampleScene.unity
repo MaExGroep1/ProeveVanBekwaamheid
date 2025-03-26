@@ -390,6 +390,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &1375038072 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8644439616899263263, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+  m_PrefabInstance: {fileID: 8257311985010801516}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8257311985010801516
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -871,8 +876,20 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+      propertyPath: gridRect
+      value: 
+      objectReference: {fileID: 1375038072}
+    - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+      propertyPath: gridWidth
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: topHeight
-      value: 2500
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+      propertyPath: gridHeight
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: unitPadding
@@ -882,6 +899,10 @@ PrefabInstance:
       propertyPath: blockTemplate
       value: 
       objectReference: {fileID: 7365303183506815987, guid: c6a4f02942efacd4e8077938b067832e, type: 3}
+    - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+      propertyPath: gridRectOffset
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: blockTypeTableData
       value: 

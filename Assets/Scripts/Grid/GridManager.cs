@@ -1,3 +1,4 @@
+using System.Collections;
 using Blocks;
 using UnityEngine;
 using Util;
@@ -19,8 +20,9 @@ namespace Grid
         [SerializeField] private BlockTypeTableData blockTypeTableData;     // the available block types
         
         [Header("Spawn animation")]
-        [SerializeField] private float topHeight;
         [SerializeField] private float fallTime;
+        [SerializeField] private RectTransform gridRect;
+        [SerializeField] private float gridRectOffset;
         
         private GridElement[,] _grid;                                       // the grid of grid elements
 
@@ -94,19 +96,27 @@ namespace Grid
         /// </summary>
         private void PopulateGrid()
         {
-            foreach (var element in _grid)
-            {
-                var block = blockTypeTableData.GetRandomBlock();
-                var newBlock = Instantiate(blockTemplate, element.transform);
+            for (int i = 0; i < gridHeight; i++)
+                for (int j = 0; j < gridWidth; j++)
+                {
+                    var block = blockTypeTableData.GetRandomBlock();
+                    var newBlock = Instantiate(blockTemplate, _grid[i,j].transform);
+                    var waitTime = i * j * 0.01f;
                 
-                newBlock.Rect.position = new Vector3(element.transform.position.x,element.transform.position.y + topHeight,0);
+                    newBlock.Rect.position = new Vector3(_grid[i,j].transform.position.x,_grid[i,j].transform.position.y + gridRect.rect.height + gridRectOffset ,0);
 
-                LeanTween.moveLocalY(newBlock.gameObject, 0, fallTime);
+                    StartCoroutine(WaitToDrop(newBlock.gameObject,waitTime));
                 
-                newBlock.Initialize(block);
+                    newBlock.Initialize(block);
                 
-                element.SetBlock(newBlock);
-            }
+                    _grid[i,j].SetBlock(newBlock);
+                }
+        }
+
+        private IEnumerator WaitToDrop(GameObject newBlockGameObject,float waitTime)
+        {
+            yield return new WaitForSeconds(waitTime);
+            LeanTween.moveLocalY(newBlockGameObject, 0, fallTime).setEase(LeanTweenType.easeOutExpo);
         }
     }
 }
