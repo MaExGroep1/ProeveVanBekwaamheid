@@ -5,7 +5,6 @@ namespace Util
 {
 	public abstract class Singleton<T> : MonoBehaviour where T:Component{
 		private static T _instance;
-		[Obsolete("Obsolete")]
 		public  static T  Instance 
 		{
 			get 

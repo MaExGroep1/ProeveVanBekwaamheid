@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Blocks;
 using UnityEngine;
@@ -20,6 +21,7 @@ namespace Grid
         [SerializeField] private BlockTypeTableData blockTypeTableData;     // the available block types
         [SerializeField] private float blockPlaceDistance;                  // the available block types
         [SerializeField] private float blockSpringBackDistance;             // the available block types
+        [SerializeField] private float blockSpringBackSpeed;                          // the available block types
         
         [Header("Spawn animation")]
         [SerializeField] private float fallTime;                            // the time it takes to fall to the ground
@@ -28,6 +30,11 @@ namespace Grid
         
         private GridElement[,] _grid;                                       // the grid of grid elements
         private Transform _blocksParent;                                    // the parent of all the blocks
+        
+        public float BlockPlaceDistance => blockPlaceDistance;              // the available block types
+        public float BlockSpringBackDistance => blockSpringBackDistance;    // the available block types
+        public float BlockSpringBackSpeed => blockSpringBackSpeed;          // the available block types
+
 
 
         private void Start()
@@ -110,7 +117,7 @@ namespace Grid
 
                     StartCoroutine(WaitToDrop(newBlock.gameObject, position.y, waitTime));
                 
-                    newBlock.Initialize(block, blockPlaceDistance, blockSpringBackDistance);
+                    newBlock.Initialize(block, new Vector2Int(i,j), blockPlaceDistance, blockSpringBackDistance);
                 
                     _grid[i,j].SetBlock(newBlock);
                 }
@@ -127,6 +134,20 @@ namespace Grid
         {
             yield return new WaitForSeconds(waitTime);
             LeanTween.moveY(newBlockGameObject, to, fallTime).setEase(LeanTweenType.easeInCubic);
+        }
+
+        public void TryMatch(Vector2Int cords ,Direction direction)
+        {
+            var offset = direction switch
+            {
+                Direction.Up    => new Vector2Int( 1, 0),
+                Direction.Down  => new Vector2Int(-1, 0),
+                Direction.Left  => new Vector2Int( 0,-1),
+                Direction.Right => new Vector2Int( 0, 1),
+                _               => new Vector2Int( 0, 0)
+            };
+            var index = offset + cords;
+            Debug.Log(_grid[index.x, index.y].GetBlockType());
         }
     }
 }
