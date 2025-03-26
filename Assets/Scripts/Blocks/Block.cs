@@ -55,8 +55,8 @@ namespace Blocks
                 normalized.x > 0 ? 
                     Direction.Right: 
                     Direction.Left;
-            
-            GridManager.Instance.TryMatch(_cords, dir);
+
+            GridManager.Instance.TryMatch(_cords, dir, _blockType);
         }
 
         /// <summary>

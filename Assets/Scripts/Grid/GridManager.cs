@@ -136,7 +136,35 @@ namespace Grid
             LeanTween.moveY(newBlockGameObject, to, fallTime).setEase(LeanTweenType.easeInCubic);
         }
 
-        public void TryMatch(Vector2Int cords ,Direction direction)
+        private int CheckUp(Vector2Int cords, BlockType blockType)
+        {
+            var i = 1;
+            while (cords.x + i <= gridHeight && _grid[cords.x + i, cords.y].GetBlockType() == blockType) i++;
+            return i-1;
+        }
+        
+        private int CheckDown(Vector2Int cords, BlockType blockType)
+        {
+            var i = 1;
+            while (cords.x - i >= 0 && _grid[cords.x - i, cords.y].GetBlockType() == blockType) i++;
+            return i-1;
+        }
+        private int CheckRight(Vector2Int cords, BlockType blockType)
+        {
+            var i = 1;
+            while (cords.y + i <= gridWidth && _grid[cords.x, cords.y + i].GetBlockType() == blockType) i++;
+            return i-1;
+        }
+        
+        private int CheckLeft(Vector2Int cords, BlockType blockType)
+        {
+            var i = 1;
+            while (cords.y - i >= 0 && _grid[cords.x, cords.y - i].GetBlockType() == blockType) i++;
+            return i-1;
+        }
+
+
+        public void TryMatch(Vector2Int cords ,Direction direction ,BlockType blockType)
         {
             var offset = direction switch
             {
@@ -147,7 +175,21 @@ namespace Grid
                 _               => new Vector2Int( 0, 0)
             };
             var index = offset + cords;
-            Debug.Log(_grid[index.x, index.y].GetBlockType());
+            int hor = 1;
+            int ver = 1;
+            hor += direction == Direction.Down ? 0 : CheckUp(index, blockType);
+            hor += direction == Direction.Up ? 0 :CheckDown(index, blockType);
+            ver += direction == Direction.Right ? 0 :CheckLeft(index, blockType);
+            ver += direction == Direction.Left ? 0 :CheckRight(index, blockType);
+            if (hor > 2 || ver > 2)
+            {
+                
+            }
+        }
+
+        private void SwapBlocks(Vector2Int blockA, Vector2Int blockB)
+        {
+            
         }
     }
 }
