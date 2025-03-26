@@ -10,19 +10,10 @@ namespace User
 {
     public class UserData : Util.Singleton<UserData>
     {
-        [Tooltip("The starting amount of upgrade points required for the first upgrade.")]
-        [SerializeField] private int upgradePointsBaseRequirement;      //The starting amount of upgrade points required for the first upgrade
-        
-        [Tooltip("The amount of extra points required after a part has been upgraded.")]
-        [SerializeField] private int upgradePointsRequirementIncrease;  //The amount of extra points required after a part has been upgraded
-        
         private int _score;                                             //The total score of the current run
         private float _distanceTraveled;                                //The distance traveled in the current run
         private int _enemiesKilled;                                     //The amount of enemies killed in the current run
         private int _enemiesKilledScore;                                //The amount of points gained by killing enemies in the current run
-
-        private Dictionary<BlockType, int> _upgradePoints;
-        
         public int Score { get => _score; private set => _score = value; }
         public int EnemiesKilledScore { get => _enemiesKilledScore; private set => _enemiesKilledScore = value; }
         public int EnemiesKilled { get => _enemiesKilled; set => _enemiesKilled = value; }
@@ -35,14 +26,16 @@ namespace User
         private void Awake()
         {
             AssignEvents();
-            AssignUpgradePoints();
         }
 
-        //Unassigns events onDestroy to avoid null refs
+        /// <summary>
+        /// Unassigns events onDestroy to avoid null refs
+        /// </summary>
         private void OnDestroy()
         {
             UnAssignEvents();
         }
+
         
         /// <summary>
         /// Gets called whenever an enemy dies and updates the scores and enemies killed count
@@ -63,18 +56,7 @@ namespace User
         {
             Score += scoreChange;
         }
-        
-        private void AssignUpgradePoints()
-        {
-            Dictionary<BlockType, int> upgradePoints = new Dictionary<BlockType, int>();
-            upgradePoints.Add(BlockType.Attack, 0);
-            upgradePoints.Add(BlockType.Defense, 0);
-            upgradePoints.Add(BlockType.Fuel, 0);
-            upgradePoints.Add(BlockType.Speed, 0);
-            upgradePoints.Add(BlockType.Weapon, 0);
-            
-            _upgradePoints = upgradePoints;
-        }
+
         
         /// <summary>
         /// assigns events
