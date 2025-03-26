@@ -6,10 +6,10 @@ namespace Grid
 {
     public class GridElement : MonoBehaviour
     {
-        private Block _currentBlock;                    // the current block on the grid element
-        
         [SerializeField] private RectTransform rect;    // the rect of the grid element
 
+        private Block _currentBlock;                    // the current block on the grid element
+        
         public RectTransform Rect => rect;              // getter of the rect of the grid element
         
         /// <summary>
