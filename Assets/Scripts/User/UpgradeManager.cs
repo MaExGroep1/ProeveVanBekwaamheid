@@ -56,7 +56,10 @@ namespace User
             _requiredUpgradePoints[upgradeType] += upgradePointsRequirementIncrease;
             OnUpgrade[upgradeType]?.Invoke();
             
-            
+            if (_upgradePoints[upgradeType] == 0) return;
+            var pointsLeft = _upgradePoints[upgradeType];
+            _upgradePoints[upgradeType] = 0;
+            IncreaseUpgradePoints(upgradeType, pointsLeft);
             //todo upgrade car
         }
         

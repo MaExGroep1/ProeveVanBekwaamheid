@@ -15,7 +15,6 @@ public class UpgradeUiBehaviour : MonoBehaviour
     [SerializeField] private Button upgradeButton;
 
     private float _progressAmountPerPointPercentage;
-
     private void Start()
     {
         AssignEvents();
@@ -33,10 +32,11 @@ public class UpgradeUiBehaviour : MonoBehaviour
         completedImage.fillAmount = 1;
     }
     
-    
     private void Upgrade()
     {
+        upgradeButton.interactable = false;
         _progressAmountPerPointPercentage = CalculateProgressAmountPerPoint(UpgradeManager.Instance.RequiredUpgradePoints[upgradeType]);
+        completedImage.fillAmount = 0;
     }
 
     private float CalculateProgressAmountPerPoint(int upgradePointsRequired)
