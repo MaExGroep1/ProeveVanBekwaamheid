@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Blocks;
 using UnityEngine;
 using Util;
@@ -157,11 +159,19 @@ namespace Grid
             for (int i = 0; i < gridHeight; i++)
                 for (int j = 0; j < gridWidth; j++)
                 {
-                    var block = blockTypeTableData.GetRandomBlock();
+                    var exclusions = new List<BlockType>();
                     var newBlock = Instantiate(blockTemplate, _blocksParent);
                     var waitTime = i * j * 0.01f;
                     var position = new Vector3(_grid[i,j].transform.position.x, _grid[i,j].transform.position.y,0);
                     var offset = new Vector3(0,gridRect.rect.height + gridRectOffset ,0);
+                    
+                    if (i > 1 && _grid[i - 1, j].GetBlockType() == _grid[i - 2, j].GetBlockType())
+                        exclusions.Add(_grid[i - 1, j].GetBlockType());
+                    if (j > 1 && _grid[i ,j - 1].GetBlockType() == _grid[i ,j - 2].GetBlockType())
+                        exclusions.Add(_grid[i, j + - 1].GetBlockType());
+
+                    var block = blockTypeTableData.GetRandomBlocksExcluding(exclusions.ToArray());
+
                     newBlock.Rect.position = position + offset;
                     
                     newBlock.Initialize(block, new Vector2Int(i,j));
@@ -170,6 +180,7 @@ namespace Grid
                     
                     StartCoroutine(WaitToDrop(newBlock, waitTime));
                 }
+            
         }
         
         /// <summary>
