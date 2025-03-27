@@ -896,6 +896,10 @@ PrefabInstance:
       value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+      propertyPath: blockFallTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: blockTemplate
       value: 
       objectReference: {fileID: 7365303183506815987, guid: c6a4f02942efacd4e8077938b067832e, type: 3}
@@ -904,9 +908,25 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+      propertyPath: blockTravelTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+      propertyPath: blockPlaceDistance
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: blockTypeTableData
       value: 
       objectReference: {fileID: 11400000, guid: 59593c9c486455342977553d06124829, type: 2}
+    - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+      propertyPath: blockSpringBackSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+      propertyPath: blockSpringBackDistance
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 2664016528490751377, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

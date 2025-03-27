@@ -15,8 +15,17 @@ namespace Grid
         /// <summary>
         /// Sets the current block to the "block"
         /// </summary>
+        public Block GetBlock() => _currentBlock;
+
+        /// <summary>
+        /// Sets the current block to the "block"
+        /// </summary>
         /// <param name="block"> the new block to set</param>
-        public void SetBlock(Block block) => _currentBlock = block;
+        public void SetBlock(Block block)
+        {
+            block.SetPosition(transform.position);
+            _currentBlock = block;
+        }
         
         /// <summary>
         /// Gets the current block type of the block
