@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Blocks;
 using UnityEngine;
 using Util;
@@ -113,83 +114,101 @@ namespace Grid
                     var offset = new Vector3(0,gridRect.rect.height + gridRectOffset ,0);
                     newBlock.Rect.position = position + offset;
                     
-                    newBlock.SetPosition(position);
-
-                    StartCoroutine(WaitToDrop(newBlock.gameObject, position.y, waitTime));
-                
-                    newBlock.Initialize(block, new Vector2Int(i,j), blockPlaceDistance, blockSpringBackDistance);
+                    newBlock.Initialize(block, new Vector2Int(i,j));
                 
                     _grid[i,j].SetBlock(newBlock);
+                    
+                    StartCoroutine(WaitToDrop(newBlock, waitTime));
                 }
         }
         
         /// <summary>
         /// Waits for a set amount of time then moves the block to the position
         /// </summary>
-        /// <param name="newBlockGameObject"> the block to move</param>
-        /// <param name="to"> the place to move it to </param>
+        /// <param name="newBlock"> the block to move</param>
         /// <param name="waitTime"> the time to wait before falling </param>
         /// <returns></returns>
-        private IEnumerator WaitToDrop(GameObject newBlockGameObject, float to, float waitTime)
+        private IEnumerator WaitToDrop(Block newBlock, float waitTime)
         {
             yield return new WaitForSeconds(waitTime);
-            LeanTween.moveY(newBlockGameObject, to, fallTime).setEase(LeanTweenType.easeInCubic);
+            newBlock.GoToOrigin(null);
         }
 
-        private int CheckUp(Vector2Int cords, BlockType blockType)
+        private int CheckDirection(Vector2Int cords, Vector2Int direction, BlockType blockType)
         {
-            var i = 1;
-            while (cords.x + i <= gridHeight && _grid[cords.x + i, cords.y].GetBlockType() == blockType) i++;
-            return i-1;
+            int i = 1;
+            while (IsWithinBounds(cords + i * direction) && _grid[cords.x + i * direction.x, cords.y + i * direction.y].GetBlockType() == blockType) i++;
+            return i - 1;
+        }
+
+        private bool IsWithinBounds(Vector2Int cords)
+        {
+            return cords.x >= 0 && cords.x < gridHeight && cords.y >= 0 && cords.y < gridWidth;
         }
         
-        private int CheckDown(Vector2Int cords, BlockType blockType)
-        {
-            var i = 1;
-            while (cords.x - i >= 0 && _grid[cords.x - i, cords.y].GetBlockType() == blockType) i++;
-            return i-1;
-        }
-        private int CheckRight(Vector2Int cords, BlockType blockType)
-        {
-            var i = 1;
-            while (cords.y + i <= gridWidth && _grid[cords.x, cords.y + i].GetBlockType() == blockType) i++;
-            return i-1;
-        }
-        
-        private int CheckLeft(Vector2Int cords, BlockType blockType)
-        {
-            var i = 1;
-            while (cords.y - i >= 0 && _grid[cords.x, cords.y - i].GetBlockType() == blockType) i++;
-            return i-1;
-        }
-
-
-        public void TryMatch(Vector2Int cords ,Direction direction ,BlockType blockType)
+        public void TryMatch(Vector2Int cords, Direction direction, BlockType blockType)
         {
             var offset = direction switch
             {
-                Direction.Up    => new Vector2Int( 1, 0),
-                Direction.Down  => new Vector2Int(-1, 0),
-                Direction.Left  => new Vector2Int( 0,-1),
-                Direction.Right => new Vector2Int( 0, 1),
-                _               => new Vector2Int( 0, 0)
+                Direction.Up    => new Vector2Int( 1,  0),
+                Direction.Down  => new Vector2Int(-1,  0),
+                Direction.Left  => new Vector2Int( 0, -1),
+                Direction.Right => new Vector2Int( 0,  1),
+                _               => Vector2Int.zero
             };
-            var index = offset + cords;
-            int hor = 1;
-            int ver = 1;
-            hor += direction == Direction.Down ? 0 : CheckUp(index, blockType);
-            hor += direction == Direction.Up ? 0 :CheckDown(index, blockType);
-            ver += direction == Direction.Right ? 0 :CheckLeft(index, blockType);
-            ver += direction == Direction.Left ? 0 :CheckRight(index, blockType);
-            if (hor > 2 || ver > 2)
+
+            var index = cords + offset;
+
+            int horizontal = 1 + (direction == Direction.Down  ? 0 : CheckDirection(index, new Vector2Int(1, 0), blockType)) 
+                               + (direction == Direction.Up    ? 0 : CheckDirection(index, new Vector2Int(-1, 0), blockType));
+
+            int vertical = 1 + (direction == Direction.Right ? 0 : CheckDirection(index, new Vector2Int(0, -1), blockType)) 
+                             + (direction == Direction.Left  ? 0 : CheckDirection(index, new Vector2Int(0, 1), blockType));
+
+            if (horizontal <= 2 && vertical <= 2) return;
+
+            SwapBlocks(cords, index, () => DestroyMatchingBlocks(index, blockType, horizontal > 2, vertical > 2));
+        }
+
+        private void SwapBlocks(Vector2Int blockAIndex, Vector2Int blockBIndex, Action onComplete)
+        {
+            var blockAElement = _grid[blockAIndex.x, blockAIndex.y];
+            var blockBElement = _grid[blockBIndex.x, blockBIndex.y];
+            var blockA = blockAElement.GetBlock();
+            var blockB = blockBElement.GetBlock();
+            
+            blockAElement.SetBlock(blockB);
+            blockBElement.SetBlock(blockA);
+            
+            blockA.GoToOrigin(null);
+            blockB.GoToOrigin(() => onComplete?.Invoke());
+        }
+
+        private void DestroyMatchingBlocks(Vector2Int cords, BlockType blockType, bool horizontal, bool vertical)
+        {
+            if (horizontal)
             {
-                
+                DestroyBlocksFromDirection(cords, new Vector2Int( 1, 0), blockType);
+                DestroyBlocksFromDirection(cords, new Vector2Int(-1, 0), blockType);
+            }
+            if (vertical)
+            {
+                DestroyBlocksFromDirection(cords, new Vector2Int( 0, 1), blockType);
+                DestroyBlocksFromDirection(cords, new Vector2Int( 0,-1), blockType);
+            }
+
+            StartCoroutine(_grid[cords.x, cords.y].GetBlock().DestroyBlock(0.2f));
+        }
+        
+        private void DestroyBlocksFromDirection(Vector2Int cords, Vector2Int direction, BlockType blockType)
+        {
+            int i = 1;
+            while (IsWithinBounds(cords + i * direction) && _grid[cords.x + i * direction.x, cords.y + i * direction.y].GetBlockType() == blockType)
+            {
+                StartCoroutine(_grid[cords.x + i * direction.x, cords.y + i * direction.y].GetBlock().DestroyBlock(0.2f));
+                i++;
             }
         }
 
-        private void SwapBlocks(Vector2Int blockA, Vector2Int blockB)
-        {
-            
-        }
     }
 }

@@ -1,7 +1,10 @@
+using System;
+using System.Collections;
 using Grid;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Screen = UnityEngine.Screen;
 
 namespace Blocks
 {
@@ -14,12 +17,14 @@ namespace Blocks
         
         private Vector3 _gridPosition;                  // the default position of the block
         private Vector2Int _cords;                      // the cords in the grid
-        
+
+        private bool _isMoving;
         
         public RectTransform Rect => rect;              // getter of the rect of the grid element
 
         public void OnBeginDrag(PointerEventData eventData)
         {
+            if(_isMoving) return;
             var parent = transform.parent;
             transform.SetParent(parent.parent);
             transform.SetParent(parent);
@@ -27,6 +32,7 @@ namespace Blocks
 
         public void OnDrag(PointerEventData eventData)
         {
+            if(_isMoving) return;
             transform.position = Input.mousePosition;
             if (Vector3.Distance(transform.position, _gridPosition) > GridManager.Instance.BlockPlaceDistance * Screen.height / 1920)
                 TryToMatch();
@@ -35,13 +41,14 @@ namespace Blocks
 
         public void OnEndDrag(PointerEventData eventData)
         {
+            if(_isMoving) return;
             if (Vector3.Distance(transform.position, _gridPosition) > GridManager.Instance.BlockSpringBackDistance* Screen.height / 1920)
             {
                 TryToMatch();
                 return;
             }
 
-            GoToOrigin();
+            GoToOrigin(null);
         }
 
         private void TryToMatch()
@@ -64,9 +71,7 @@ namespace Blocks
         /// </summary>
         /// <param name="data"> the block type data </param>
         /// <param name="cords"> the cords of the block</param>
-        /// <param name="placeDistance"></param>
-        /// <param name="springBackDistance"></param>
-        public void Initialize(BlockTypeData data, Vector2Int cords, float placeDistance, float springBackDistance)
+        public void Initialize(BlockTypeData data, Vector2Int cords)
         {
             _blockType = data.blockTypes;
             image.sprite = data.blockSprite;
@@ -84,7 +89,25 @@ namespace Blocks
         /// </summary>
         /// <param name="position"></param>
         public void SetPosition(Vector3 position) => _gridPosition = position;
-        
-        public void GoToOrigin() => LeanTween.move(gameObject, _gridPosition, GridManager.Instance.BlockSpringBackSpeed);
+
+        public void GoToOrigin(Action onComplete)
+        {
+            _isMoving = true;
+            LeanTween.move(gameObject, _gridPosition, GridManager.Instance.BlockSpringBackSpeed).
+                setEase(LeanTweenType.easeInCubic).
+                setOnComplete(()=>StopMoving(onComplete));
+        }
+
+        private void StopMoving(Action onComplete)
+        {
+            _isMoving = false;
+            onComplete?.Invoke();
+        }
+
+        public IEnumerator DestroyBlock(float time)
+        {
+            yield return new WaitForSeconds(time);
+            Destroy(gameObject);
+        }
     }
 }
