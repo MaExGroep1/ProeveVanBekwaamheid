@@ -1,19 +1,55 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Blocks;
 using UnityEngine;
+using UnityEngine.UIElements;
 using User;
+using Button = UnityEngine.UI.Button;
+using Image = UnityEngine.UI.Image;
 
 public class UpgradeUiBehaviour : MonoBehaviour
 {
     [SerializeField] private BlockType upgradeType;
-    public void ReadyForUpgrade()
+    [SerializeField] private Image completedImage;
+    [SerializeField] private Button upgradeButton;
+
+    private float _progressAmountPerPointPercentage;
+
+    private void Start()
     {
-        Debug.Log(gameObject.name + " = ready for upgrade!");
+        AssignEvents();
+        _progressAmountPerPointPercentage = CalculateProgressAmountPerPoint(UpgradeManager.Instance.RequiredUpgradePoints[upgradeType]);
     }
 
-    public void Upgrade()
+    private void UpdateProgressBar(int points)
     {
-        UpgradeManager.Instance.OnUpgrade.Invoke(upgradeType);
+        completedImage.fillAmount += _progressAmountPerPointPercentage * points;
+    }
+
+    private void ReadyForUpgrade()
+    {
+        upgradeButton.interactable = true;
+        completedImage.fillAmount = 1;
+    }
+    
+    
+    private void Upgrade()
+    {
+        _progressAmountPerPointPercentage = CalculateProgressAmountPerPoint(UpgradeManager.Instance.RequiredUpgradePoints[upgradeType]);
+    }
+
+    private float CalculateProgressAmountPerPoint(int upgradePointsRequired)
+    {
+        if (upgradePointsRequired == 0) return 0;
+        var increasePerPoint = 100f / upgradePointsRequired;
+        return increasePerPoint / 100f;
+    }
+
+    private void AssignEvents()
+    {
+        UpgradeManager.Instance.OnPointIncreaseByType.TryAdd(upgradeType, UpdateProgressBar); 
+        UpgradeManager.Instance.OnUpgradeRequirementReached.TryAdd(upgradeType, ReadyForUpgrade);
+        UpgradeManager.Instance.OnUpgrade.TryAdd(upgradeType, Upgrade);
     }
 }
