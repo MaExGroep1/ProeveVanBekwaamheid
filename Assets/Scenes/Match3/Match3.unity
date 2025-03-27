@@ -896,12 +896,20 @@ PrefabInstance:
       value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+      propertyPath: blockFallTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: blockTemplate
       value: 
       objectReference: {fileID: 7365303183506815987, guid: c6a4f02942efacd4e8077938b067832e, type: 3}
     - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: gridRectOffset
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+      propertyPath: blockTravelTime
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: blockPlaceDistance

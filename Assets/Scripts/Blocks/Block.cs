@@ -19,6 +19,7 @@ namespace Blocks
         private Vector2Int _cords;                      // the cords in the grid
 
         private bool _isMoving;
+        private bool _canMoveWithMouse;
         
         public RectTransform Rect => rect;              // getter of the rect of the grid element
         
@@ -52,33 +53,47 @@ namespace Blocks
         /// <param name="onComplete"> when the block gets to its origin</param>
         public void GoToOrigin(Action onComplete)
         {
+            _canMoveWithMouse = false;
             _isMoving = true;
             LeanTween.move(gameObject, _gridPosition, GridManager.Instance.BlockTravelTime).
                 setEase(LeanTweenType.easeInCubic).
                 setOnComplete(()=>StopMoving(onComplete));
         }
         
+        /// <summary>
+        /// Makes the block go to its origin point
+        /// </summary>
+        public void FallToOrigin()
+        {
+            _canMoveWithMouse = false;
+            _isMoving = true;
+            LeanTween.move(gameObject, _gridPosition, GridManager.Instance.BlockFallTime).
+                setEase(LeanTweenType.easeInCubic).
+                setOnComplete(()=>StopMoving(null));
+        }
+
+        
         public void OnBeginDrag(PointerEventData eventData)
         {
             if(_isMoving) return;
             var parent = transform.parent;
+            _canMoveWithMouse = true;
             transform.SetParent(parent.parent);
             transform.SetParent(parent);
         }
 
         public void OnDrag(PointerEventData eventData)
         {
-            if(_isMoving) return;
+            if(_isMoving || !_canMoveWithMouse) return;
             transform.position = Input.mousePosition;
             if (Vector3.Distance(transform.position, _gridPosition) > GridManager.Instance.BlockPlaceDistance * Screen.height / 1920)
                 TryToMatch();
-            
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
             if(_isMoving) return;
-            if (Vector3.Distance(transform.position, _gridPosition) > GridManager.Instance.BlockSpringBackDistance* Screen.height / 1920)
+            if (Vector3.Distance(transform.position, _gridPosition) > GridManager.Instance.BlockSpringBackDistance * Screen.height / 1920)
             {
                 TryToMatch();
                 return;

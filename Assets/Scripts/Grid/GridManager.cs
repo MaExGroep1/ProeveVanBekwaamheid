@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Blocks;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Util;
 
 namespace Grid
@@ -24,6 +22,7 @@ namespace Grid
         [SerializeField] private float blockPlaceDistance;                  // the distance the block can travel before swapping 
         [SerializeField] private float blockSpringBackDistance;             // the distance the block can travel before not snapping back to its origin
         [SerializeField] private float blockTravelTime;                     // the time it takes for the block to travel someware
+        [SerializeField] private float blockFallTime;                       // the time it takes for the block to travel someware
         
         [Header("Spawn animation")]
         [SerializeField] private RectTransform gridRect;                    // the rect of the grid object
@@ -35,6 +34,8 @@ namespace Grid
         public float BlockPlaceDistance => blockPlaceDistance;              // the available block types
         public float BlockSpringBackDistance => blockSpringBackDistance;    // the available block types
         public float BlockTravelTime => blockTravelTime;                    // the available block types
+        public float BlockFallTime => blockFallTime;                    // the available block types
+
 
 
 
@@ -59,18 +60,40 @@ namespace Grid
                 Direction.Right => new Vector2Int( 0,  1),
                 _               => Vector2Int.zero
             };
+            var otherDir = direction switch
+            {
+                Direction.Up    => Direction.Down,
+                Direction.Down  => Direction.Up,
+                Direction.Left  => Direction.Right,
+                Direction.Right => Direction.Left,
+                _               => direction 
+            };
 
             var index = cords + offset;
-
-            int horizontal = 1 + (direction == Direction.Down  ? 0 : CheckDirection(index, new Vector2Int(1, 0), blockType)) 
+            
+            var otherType = _grid[index.x, index.y].GetBlockType();
+            int horizontalA = 1 + (direction == Direction.Down  ? 0 : CheckDirection(index, new Vector2Int(1, 0), blockType)) 
                                + (direction == Direction.Up    ? 0 : CheckDirection(index, new Vector2Int(-1, 0), blockType));
 
-            int vertical = 1 + (direction == Direction.Right ? 0 : CheckDirection(index, new Vector2Int(0, -1), blockType)) 
+            int verticalA = 1 + (direction == Direction.Right ? 0 : CheckDirection(index, new Vector2Int(0, -1), blockType)) 
                              + (direction == Direction.Left  ? 0 : CheckDirection(index, new Vector2Int(0, 1), blockType));
+            
+            int horizontalB = 1 + (otherDir == Direction.Down  ? 0 : CheckDirection(cords, new Vector2Int(1, 0), otherType)) 
+                               + (otherDir == Direction.Up    ? 0 : CheckDirection(cords, new Vector2Int(-1, 0), otherType));
 
-            if (horizontal <= 2 && vertical <= 2) return;
+            int verticalB = 1 + (otherDir == Direction.Right ? 0 : CheckDirection(cords, new Vector2Int(0, -1), otherType)) 
+                             + (otherDir == Direction.Left  ? 0 : CheckDirection(cords, new Vector2Int(0, 1), otherType));
 
-            SwapBlocks(cords, index, () => DestroyMatchingBlocks(index, blockType, horizontal > 2, vertical > 2));
+
+            if (horizontalA <= 2 && verticalA <= 2 && horizontalB <= 2 && verticalB <= 2)
+            {
+                _grid[cords.x, cords.y].GetBlock().GoToOrigin(null);
+                return;
+            }
+            SwapBlocks(cords, index, () => 
+                DestroyAllMatchingBlocks(
+                    index, horizontalA > 2, verticalA > 2,
+                    cords,horizontalB > 2, verticalB > 2));
         }
         
         /// <summary>
@@ -192,6 +215,12 @@ namespace Grid
             blockA.GoToOrigin(null);
             blockB.GoToOrigin(() => onComplete?.Invoke());
         }
+
+        private void DestroyAllMatchingBlocks(Vector2Int cordsA, bool horizontalA, bool verticalA,Vector2Int cordsB , bool horizontalB, bool verticalB )
+        {
+            DestroyMatchingBlocks(cordsA, _grid[cordsA.x, cordsA.y].GetBlock().GetBlockType(), horizontalA, verticalA);
+            DestroyMatchingBlocks(cordsB, _grid[cordsB.x, cordsB.y].GetBlock().GetBlockType(), horizontalB, verticalB);
+        }
         
         /// <summary>
         /// Destroys all adjacent blocks of the same type
@@ -213,7 +242,9 @@ namespace Grid
                 DestroyBlocksFromDirection(cords, new Vector2Int( 0,-1), blockType);
             }
 
-            StartCoroutine(_grid[cords.x, cords.y].GetBlock().DestroyBlock(0.2f));
+            if (vertical || horizontal)
+                StartCoroutine(_grid[cords.x, cords.y].GetBlock().DestroyBlock(0.2f));
+            
         }
         
         /// <summary>
@@ -241,7 +272,7 @@ namespace Grid
         private IEnumerator WaitToDrop(Block newBlock, float waitTime)
         {
             yield return new WaitForSeconds(waitTime);
-            newBlock.GoToOrigin(null);
+            newBlock.FallToOrigin();
         }
     }
 }
