@@ -21,8 +21,8 @@ namespace Grid
         [SerializeField] private BlockTypeTableData blockTypeTableData;     // the available block types
         [SerializeField] private float blockPlaceDistance;                  // the distance the block can travel before swapping 
         [SerializeField] private float blockSpringBackDistance;             // the distance the block can travel before not snapping back to its origin
-        [SerializeField] private float blockTravelTime;                     // the time it takes for the block to travel someware
-        [SerializeField] private float blockFallTime;                       // the time it takes for the block to travel someware
+        [SerializeField] private float blockTravelTime;                     // the time it takes for the block to travel somewhere
+        [SerializeField] private float blockFallTime;                       // the time it takes for the block to fall somewhere
         
         [Header("Spawn animation")]
         [SerializeField] private RectTransform gridRect;                    // the rect of the grid object
@@ -35,10 +35,7 @@ namespace Grid
         public float BlockSpringBackDistance => blockSpringBackDistance;    // the available block types
         public float BlockTravelTime => blockTravelTime;                    // the available block types
         public float BlockFallTime => blockFallTime;                    // the available block types
-
-
-
-
+        
         private void Start()
         {
             CreateGrid();
@@ -215,7 +212,16 @@ namespace Grid
             blockA.GoToOrigin(null);
             blockB.GoToOrigin(() => onComplete?.Invoke());
         }
-
+        
+        /// <summary>
+        /// Destroys all matching blocks near block A and block B
+        /// </summary>
+        /// <param name="cordsA"> the cords of block A </param>
+        /// <param name="horizontalA"> weather to delete on A horizontal </param>
+        /// <param name="verticalA"> weather to delete on A vertical </param>
+        /// <param name="cordsB"> the cords of block B </param>
+        /// <param name="horizontalB"> weather to delete on A horizontal </param>
+        /// <param name="verticalB"> weather to delete on A vertical </param>
         private void DestroyAllMatchingBlocks(Vector2Int cordsA, bool horizontalA, bool verticalA,Vector2Int cordsB , bool horizontalB, bool verticalB )
         {
             DestroyMatchingBlocks(cordsA, _grid[cordsA.x, cordsA.y].GetBlock().GetBlockType(), horizontalA, verticalA);

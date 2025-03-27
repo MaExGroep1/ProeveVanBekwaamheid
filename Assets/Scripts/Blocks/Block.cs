@@ -18,8 +18,8 @@ namespace Blocks
         private Vector3 _gridPosition;                  // the default position of the block
         private Vector2Int _cords;                      // the cords in the grid
 
-        private bool _isMoving;
-        private bool _canMoveWithMouse;
+        private bool _isMoving;                         // weather the block is moving
+        private bool _canMoveWithMouse;                 // weather the block can stick to the mouse
         
         public RectTransform Rect => rect;              // getter of the rect of the grid element
         
@@ -61,17 +61,9 @@ namespace Blocks
         }
         
         /// <summary>
-        /// Makes the block go to its origin point
+        /// Makes the block fall to its origin point
         /// </summary>
-        public void FallToOrigin()
-        {
-            _canMoveWithMouse = false;
-            _isMoving = true;
-            LeanTween.move(gameObject, _gridPosition, GridManager.Instance.BlockFallTime).
-                setEase(LeanTweenType.easeInCubic).
-                setOnComplete(()=>StopMoving(null));
-        }
-
+        public void FallToOrigin() => LeanTween.moveY(gameObject, _gridPosition.y, GridManager.Instance.BlockFallTime).setEase(LeanTweenType.easeInCubic);
         
         public void OnBeginDrag(PointerEventData eventData)
         {
@@ -140,7 +132,5 @@ namespace Blocks
             yield return new WaitForSeconds(time);
             Destroy(gameObject);
         }
-
-
     }
 }
