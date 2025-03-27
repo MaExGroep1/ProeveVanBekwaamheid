@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6983604023932374873}
   - component: {fileID: 4098351085518235287}
+  - component: {fileID: 1950052793891823386}
   - component: {fileID: 2022073412473019729}
   - component: {fileID: 2182295021544738434}
   m_Layer: 5
@@ -46,6 +47,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 34434855202857648}
   m_CullTransparentMesh: 1
+--- !u!114 &1950052793891823386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34434855202857648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f6f7843a0510c04087e07c927f6481c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeType: 3
 --- !u!114 &2022073412473019729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,7 +103,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2182295021544738434}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1950052793891823386}
+        m_TargetAssemblyTypeName: UpgradeCarMediator, Assembly-CSharp
+        m_MethodName: UpgradeCar
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2182295021544738434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,6 +334,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2644371861285410304}
   - component: {fileID: 5526116180948736149}
+  - component: {fileID: 7637346814961034996}
   - component: {fileID: 7056810325597424945}
   - component: {fileID: 709796254281366064}
   m_Layer: 5
@@ -344,6 +371,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1745750562646164676}
   m_CullTransparentMesh: 1
+--- !u!114 &7637346814961034996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745750562646164676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f6f7843a0510c04087e07c927f6481c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeType: 1
 --- !u!114 &7056810325597424945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,7 +427,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 709796254281366064}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7637346814961034996}
+        m_TargetAssemblyTypeName: UpgradeCarMediator, Assembly-CSharp
+        m_MethodName: UpgradeCar
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &709796254281366064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,7 +650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74e78812818b7640bf9a416b681764a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeType: 0
+  upgradeType: 3
   completedImage: {fileID: 1129836877929588600}
   upgradeButton: {fileID: 2022073412473019729}
 --- !u!1 &3250876228676023960
@@ -795,7 +847,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74e78812818b7640bf9a416b681764a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeType: 0
+  upgradeType: 4
   completedImage: {fileID: 2369904166017940844}
   upgradeButton: {fileID: 3310868404553471033}
 --- !u!1 &3928270300684198894
@@ -1047,6 +1099,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7836154695637897483}
   - component: {fileID: 4441504122955638075}
+  - component: {fileID: 6772383522159404471}
   - component: {fileID: 3310868404553471033}
   - component: {fileID: 711319691370359936}
   m_Layer: 5
@@ -1083,6 +1136,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5656448398062655913}
   m_CullTransparentMesh: 1
+--- !u!114 &6772383522159404471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656448398062655913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f6f7843a0510c04087e07c927f6481c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeType: 4
 --- !u!114 &3310868404553471033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1126,7 +1192,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 711319691370359936}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6772383522159404471}
+        m_TargetAssemblyTypeName: UpgradeCarMediator, Assembly-CSharp
+        m_MethodName: UpgradeCar
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &711319691370359936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1208,7 +1286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74e78812818b7640bf9a416b681764a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeType: 0
+  upgradeType: 1
   completedImage: {fileID: 1139519642857426931}
   upgradeButton: {fileID: 7056810325597424945}
 --- !u!1 &6092165535983833549
@@ -1412,7 +1490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74e78812818b7640bf9a416b681764a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeType: 0
+  upgradeType: 2
   completedImage: {fileID: 552494242917162035}
   upgradeButton: {fileID: 7812423780527366321}
 --- !u!1 &8099127237786830091
@@ -1425,6 +1503,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2294170768167467237}
   - component: {fileID: 4973132209358051603}
+  - component: {fileID: 6792428790426157761}
   - component: {fileID: 7812423780527366321}
   - component: {fileID: 3796306636974303426}
   m_Layer: 5
@@ -1461,6 +1540,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8099127237786830091}
   m_CullTransparentMesh: 1
+--- !u!114 &6792428790426157761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8099127237786830091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f6f7843a0510c04087e07c927f6481c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeType: 2
 --- !u!114 &7812423780527366321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1504,7 +1596,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3796306636974303426}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6792428790426157761}
+        m_TargetAssemblyTypeName: UpgradeCarMediator, Assembly-CSharp
+        m_MethodName: UpgradeCar
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3796306636974303426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1620,6 +1724,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5937812880590306418}
   - component: {fileID: 2855936901111825204}
+  - component: {fileID: 2598742949651684516}
   - component: {fileID: 5829911161629000529}
   - component: {fileID: 4942474515394572300}
   m_Layer: 5
@@ -1656,6 +1761,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8973182859788567011}
   m_CullTransparentMesh: 1
+--- !u!114 &2598742949651684516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8973182859788567011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f6f7843a0510c04087e07c927f6481c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upgradeType: 0
 --- !u!114 &5829911161629000529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1696,10 +1814,22 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 0
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 4942474515394572300}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2598742949651684516}
+        m_TargetAssemblyTypeName: UpgradeCarMediator, Assembly-CSharp
+        m_MethodName: UpgradeCar
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4942474515394572300
 MonoBehaviour:
   m_ObjectHideFlags: 0
