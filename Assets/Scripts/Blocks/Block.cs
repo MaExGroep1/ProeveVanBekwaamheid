@@ -21,7 +21,43 @@ namespace Blocks
         private bool _isMoving;
         
         public RectTransform Rect => rect;              // getter of the rect of the grid element
-
+        
+        /// <summary>
+        /// Sets the block type and sprite
+        /// </summary>
+        /// <param name="data"> the block type data </param>
+        /// <param name="cords"> the cords of the block</param>
+        public void Initialize(BlockTypeData data, Vector2Int cords)
+        {
+            _blockType = data.blockTypes;
+            image.sprite = data.blockSprite;
+            _cords = cords;
+        }
+        
+        /// <summary>
+        /// Gets the block type of the block
+        /// </summary>
+        /// <returns> the current block type </returns>
+        public BlockType GetBlockType() => _blockType;
+        
+        /// <summary>
+        /// Sets the default position of the block
+        /// </summary>
+        /// <param name="position"> the origin of the block </param>
+        public void SetPosition(Vector3 position) => _gridPosition = position;
+        
+        /// <summary>
+        /// Makes the block go to its origin point
+        /// </summary>
+        /// <param name="onComplete"> when the block gets to its origin</param>
+        public void GoToOrigin(Action onComplete)
+        {
+            _isMoving = true;
+            LeanTween.move(gameObject, _gridPosition, GridManager.Instance.BlockTravelTime).
+                setEase(LeanTweenType.easeInCubic).
+                setOnComplete(()=>StopMoving(onComplete));
+        }
+        
         public void OnBeginDrag(PointerEventData eventData)
         {
             if(_isMoving) return;
@@ -50,7 +86,10 @@ namespace Blocks
 
             GoToOrigin(null);
         }
-
+        
+        /// <summary>
+        /// Starts the matching process
+        /// </summary>
         private void TryToMatch()
         {
             var direction =  transform.position - _gridPosition;
@@ -65,49 +104,28 @@ namespace Blocks
 
             GridManager.Instance.TryMatch(_cords, dir, _blockType);
         }
-
-        /// <summary>
-        /// Sets the block type and sprite
-        /// </summary>
-        /// <param name="data"> the block type data </param>
-        /// <param name="cords"> the cords of the block</param>
-        public void Initialize(BlockTypeData data, Vector2Int cords)
-        {
-            _blockType = data.blockTypes;
-            image.sprite = data.blockSprite;
-            _cords = cords;
-        }
         
         /// <summary>
-        /// Gets the block type of the block
+        /// Sets the block to immobile 
         /// </summary>
-        /// <returns> the current block type </returns>
-        public BlockType GetBlockType() => _blockType;
-        
-        /// <summary>
-        /// Sets the default position of the block
-        /// </summary>
-        /// <param name="position"></param>
-        public void SetPosition(Vector3 position) => _gridPosition = position;
-
-        public void GoToOrigin(Action onComplete)
-        {
-            _isMoving = true;
-            LeanTween.move(gameObject, _gridPosition, GridManager.Instance.BlockSpringBackSpeed).
-                setEase(LeanTweenType.easeInCubic).
-                setOnComplete(()=>StopMoving(onComplete));
-        }
-
+        /// <param name="onComplete"> invokes the stop movement</param>
         private void StopMoving(Action onComplete)
         {
             _isMoving = false;
             onComplete?.Invoke();
         }
-
+        
+        /// <summary>
+        /// Destroys the block after a certain time
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns></returns>
         public IEnumerator DestroyBlock(float time)
         {
             yield return new WaitForSeconds(time);
             Destroy(gameObject);
         }
+
+
     }
 }
