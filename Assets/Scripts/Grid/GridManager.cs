@@ -1,4 +1,5 @@
 using System;
+using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,17 +33,49 @@ namespace Grid
         
         private GridElement[,] _grid;                                       // the grid of grid elements
         private Transform _blocksParent;                                    // the parent of all the blocks
+        private List<int> _checkedColumns = new();
+        private float _heightOffset;
         
         public float BlockPlaceDistance => blockPlaceDistance;              // the available block types
         public float BlockSpringBackDistance => blockSpringBackDistance;    // the available block types
         public float BlockTravelTime => blockTravelTime;                    // the available block types
         public float BlockFallTime => blockFallTime;                    // the available block types
+        public GridElement[,] Grid => _grid;
+
         
         private void Start()
         {
             CreateGrid();
         }
         
+        public void GenerateNewBlocks(int y)
+        {
+            if (_checkedColumns.Contains(y)) return;
+            _checkedColumns.Add(y);
+            var emptyElements = 0;
+            for (int i = 0; i < gridHeight ; i++)
+            {
+                if (_grid[i, y].GetBlock() == null)
+                    emptyElements++;
+            }
+            Debug.Log(emptyElements);
+            var blocks = new List<Block>();
+            for (int i = 0; i < emptyElements; i++)
+            {
+                var newBlock = Instantiate(blockTemplate, _blocksParent);
+                var block = blockTypeTableData.GetRandomBlock();
+                var position = new Vector2(_grid[gridHeight-1,y].transform.position.x, _grid[gridHeight-1,y].transform.position.y);
+                var offset = new Vector2(0, _heightOffset * (i + 1));
+                
+                newBlock.Initialize(block);
+                newBlock.Rect.position = position + offset;
+                blocks.Add(newBlock);
+            }
+            var reverse = blocks.ToArray();
+            Array.Reverse(reverse);
+            FallBlocks(y,reverse);
+        }
+
         /// <summary>
         /// Checks if the block has a match
         /// </summary>
@@ -69,6 +102,12 @@ namespace Grid
             };
 
             var index = cords + offset;
+
+            if (!IsWithinBounds(index))
+            {
+                _grid[cords.x, cords.y].GetBlock().GoToOrigin(null);
+                return;
+            }
             
             var otherType = _grid[index.x, index.y].GetBlockType();
             int horizontalA = 1 + (direction == Direction.Down  ? 0 : CheckDirection(index, new Vector2Int(1, 0), blockType)) 
@@ -94,7 +133,48 @@ namespace Grid
                     index, horizontalA > 2, verticalA > 2,
                     cords,horizontalB > 2, verticalB > 2));
         }
-        
+
+        private void TryMatchFromFall(Vector2Int cords , BlockType blockType)
+        {
+            
+            int vertical = 1 + CheckDirection(cords, new Vector2Int(1, 0), blockType);
+
+            int horizontal = 1 + CheckDirection(cords, new Vector2Int(0, 1), blockType)
+                               + CheckDirection(cords, new Vector2Int(0, -1), blockType);
+
+            // Only perform actions if we have a match
+            if (vertical <= 2 && horizontal <= 2) return;
+            DestroyMatchingBlocks(cords, blockType ,vertical > 2, horizontal > 2);
+        }
+
+        private void FallBlocks(int y , Block[] extraBlocks)
+        {
+            for (int i = 0; i < gridHeight; i++)
+            {
+                if (_grid[i,y].GetBlock() != null) continue;
+                for (int j = i; j < gridHeight; j++)
+                {
+                    if (_grid[j,y].GetBlock() == null) continue;
+                    _grid[i,y].SetBlock(_grid[j, y].GetBlock());
+                    _grid[j,y].SetBlock(null);
+                    break;
+                }
+            }
+
+            for (int i = 0; i < extraBlocks.Length; i++)
+                _grid[gridHeight-i-1,y].SetBlock(extraBlocks[i]);
+
+            for (int i = 0; i < gridHeight; i++)
+            {
+                if (_grid[i,y].GetBlock() == null) return;
+                var i1 = i;
+                _grid[i,y].GetBlock().FallToOrigin(()=> 
+                    TryMatchFromFall(new Vector2Int(i1,y),_grid[i1,y].GetBlock().GetBlockType())
+                );
+            }
+            _checkedColumns.Clear();
+        }
+
         /// <summary>
         /// Creates a grid
         /// Then aligns the grid
@@ -106,6 +186,7 @@ namespace Grid
             for (int i = 0; i < gridHeight; i++)
                 for (int j = 0; j < gridWidth; j++)
                     grid = CreateGridElement(i,j, grid);
+
             
             _grid = grid;
             _blocksParent = _grid[gridHeight-1,gridWidth-1].transform;
@@ -124,6 +205,8 @@ namespace Grid
         private GridElement[,] CreateGridElement(int x, int y, GridElement[,] grid)
         {
             var newElement = Instantiate(gridElementTemplate, transform);
+            
+            newElement.SetCords(x, y);
             
             grid[x,y] = newElement;
             
@@ -149,6 +232,8 @@ namespace Grid
                     _grid[i,j].Rect.anchorMin = new Vector2(widthStart, heightStart);
                 }
             }
+
+            _heightOffset = _grid[1, 0].transform.position.y - _grid[0, 0].transform.position.y;
         }
         
         /// <summary>
@@ -162,19 +247,19 @@ namespace Grid
                     var exclusions = new List<BlockType>();
                     var newBlock = Instantiate(blockTemplate, _blocksParent);
                     var waitTime = i * j * 0.01f;
-                    var position = new Vector3(_grid[i,j].transform.position.x, _grid[i,j].transform.position.y,0);
-                    var offset = new Vector3(0,gridRect.rect.height + gridRectOffset ,0);
+                    var position = new Vector2(_grid[i,j].transform.position.x, _grid[i,j].transform.position.y);
+                    var offset = new Vector2(0,gridRect.rect.height + gridRectOffset);
                     
                     if (i > 1 && _grid[i - 1, j].GetBlockType() == _grid[i - 2, j].GetBlockType())
                         exclusions.Add(_grid[i - 1, j].GetBlockType());
                     if (j > 1 && _grid[i ,j - 1].GetBlockType() == _grid[i ,j - 2].GetBlockType())
-                        exclusions.Add(_grid[i, j + - 1].GetBlockType());
+                        exclusions.Add(_grid[i, j - 1].GetBlockType());
 
                     var block = blockTypeTableData.GetRandomBlocksExcluding(exclusions.ToArray());
 
                     newBlock.Rect.position = position + offset;
                     
-                    newBlock.Initialize(block, new Vector2Int(i,j));
+                    newBlock.Initialize(block);
                 
                     _grid[i,j].SetBlock(newBlock);
                     
@@ -289,7 +374,7 @@ namespace Grid
         private IEnumerator WaitToDrop(Block newBlock, float waitTime)
         {
             yield return new WaitForSeconds(waitTime);
-            newBlock.FallToOrigin();
+            newBlock.FallToOrigin(null);
         }
     }
 }

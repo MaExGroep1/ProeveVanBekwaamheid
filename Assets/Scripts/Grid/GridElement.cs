@@ -10,7 +10,11 @@ namespace Grid
 
         private Block _currentBlock;                    // the current block on the grid element
         
+        private Vector2Int _cords;                      // the cords in the grid
+        
         public RectTransform Rect => rect;              // getter of the rect of the grid element
+        
+        public void SetCords(int x, int y) => _cords = new Vector2Int(x, y);
         
         /// <summary>
         /// Sets the current block to the "block"
@@ -23,8 +27,10 @@ namespace Grid
         /// <param name="block"> the new block to set</param>
         public void SetBlock(Block block)
         {
-            block.SetPosition(transform.position);
             _currentBlock = block;
+            if (block == null) return;
+            block.SetPosition(transform.position);
+            block.SetCords(_cords);
         }
         
         /// <summary>

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Attack
   m_EditorClassIdentifier: 
   blockTypes: 0
-  blockSprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  blockSprite: {fileID: 1112960454, guid: 5776f8d76f6e9b042b1c01dd953950be, type: 3}
   levelSprites: []

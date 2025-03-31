@@ -27,13 +27,17 @@ namespace Blocks
         /// Sets the block type and sprite
         /// </summary>
         /// <param name="data"> the block type data </param>
-        /// <param name="cords"> the cords of the block</param>
-        public void Initialize(BlockTypeData data, Vector2Int cords)
+        public void Initialize(BlockTypeData data)
         {
             _blockType = data.blockTypes;
             image.sprite = data.blockSprite;
-            _cords = cords;
         }
+        
+        /// <summary>
+        /// Sets the cords of this block
+        /// </summary>
+        /// <param name="cords"> the cords of the block</param>
+        public void SetCords(Vector2Int cords) => _cords = cords;
         
         /// <summary>
         /// Gets the block type of the block
@@ -53,18 +57,28 @@ namespace Blocks
         /// <param name="onComplete"> when the block gets to its origin</param>
         public void GoToOrigin(Action onComplete)
         {
+            if (LeanTween.isTweening(gameObject)) LeanTween.cancel(gameObject);
+
             _canMoveWithMouse = false;
             _isMoving = true;
             LeanTween.move(gameObject, _gridPosition, GridManager.Instance.BlockTravelTime).
                 setEase(LeanTweenType.easeInCubic).
                 setOnComplete(()=>StopMoving(onComplete));
         }
-        
+
         /// <summary>
         /// Makes the block fall to its origin point
         /// </summary>
-        public void FallToOrigin() => LeanTween.moveY(gameObject, _gridPosition.y, GridManager.Instance.BlockFallTime).setEase(LeanTweenType.easeInCubic);
-        
+        public void FallToOrigin(Action onComplete)
+        {
+            if (LeanTween.isTweening(gameObject)) LeanTween.cancel(gameObject);
+            
+            _canMoveWithMouse = false;
+            _isMoving = true;
+            LeanTween.moveY(gameObject, _gridPosition.y, GridManager.Instance.BlockFallTime).
+                setEase(LeanTweenType.easeInCubic).
+                setOnComplete(()=>StopMoving(onComplete));
+        }      
         public void OnBeginDrag(PointerEventData eventData)
         {
             if(_isMoving) return;
@@ -131,6 +145,8 @@ namespace Blocks
         {
             yield return new WaitForSeconds(time);
             Destroy(gameObject);
+            yield return 0;
+            GridManager.Instance.GenerateNewBlocks(_cords.y);
         }
     }
 }
