@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Speed
   m_EditorClassIdentifier: 
   blockTypes: 3
-  blockSprite: {fileID: 179240252, guid: e943ff4e81f138945a48c4d05e170d46, type: 3}
+  blockSprite: {fileID: 1668844539, guid: 4b80e74263d7ae74d98f83bafbfc99fa, type: 3}
   levelSprites: []
