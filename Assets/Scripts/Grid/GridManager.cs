@@ -1,8 +1,6 @@
 using System;
-using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Blocks;
 using UnityEngine;
 using Util;
@@ -31,23 +29,107 @@ namespace Grid
         [SerializeField] private RectTransform gridRect;                    // the rect of the grid object
         [SerializeField] private float gridRectOffset;                      // the offset to add to the fall
         
+        [Header("Shuffle data")]
+        [SerializeField] private int maxAttempts = 100;                     // the max amount of attempts a shuffle can try a shuffle combination
+        
         private GridElement[,] _grid;                                       // the grid of grid elements
         private Transform _blocksParent;                                    // the parent of all the blocks
-        private List<int> _checkedColumns = new();
-        private float _heightOffset;
+        private readonly List<int> _checkedColumns = new();                 // a list of columns that have been checked
+        private float _heightOffset;                                        // the vertical distance between grid rows
         
         public float BlockPlaceDistance => blockPlaceDistance;              // the available block types
         public float BlockSpringBackDistance => blockSpringBackDistance;    // the available block types
         public float BlockTravelTime => blockTravelTime;                    // the available block types
-        public float BlockFallTime => blockFallTime;                    // the available block types
+        public float BlockFallTime => blockFallTime;                        // the available block types
         public GridElement[,] Grid => _grid;
-
         
         private void Start()
         {
             CreateGrid();
         }
         
+        /// <summary>
+        /// Shuffles all blocks on the grid while ensuring no immediate matches exist.
+        /// </summary>
+        public void Shuffle()
+        {
+            var allBlocks = new List<Block>();
+    
+            foreach (var element in _grid)
+            {
+                if (element.GetBlock() == null) continue;
+                allBlocks.Add(element.GetBlock());
+                element.SetBlock(null);
+            }
+
+            var validShuffle = false;
+            var attempts = 0;
+
+            while (!validShuffle && attempts < maxAttempts)
+            {
+                attempts++;
+
+                for (var i = allBlocks.Count - 1; i > 0; i--)
+                {
+                    var randomIndex = UnityEngine.Random.Range(0, i + 1);
+                    (allBlocks[i], allBlocks[randomIndex]) = (allBlocks[randomIndex], allBlocks[i]);
+                }
+
+                var index = 0;
+                foreach (var element in _grid)
+                {
+                    element.SetBlock(allBlocks[index]);
+                    index++;
+                }
+
+                validShuffle = !HasThreeInARow();
+            }
+
+            foreach (var element in _grid)
+                element.GetBlock()?.GoToOrigin(null);   
+        }
+
+        /// <summary>
+        /// Checks if the grid contains any three or more matching blocks in a row or column.
+        /// </summary>
+        private bool HasThreeInARow()
+        {
+            var rows = _grid.GetLength(0);
+            var cols = _grid.GetLength(1);
+
+            for (int i = 0; i < rows; i++)
+                for (int j = 0; j < cols - 2; j++)
+                {
+                    var a = _grid[i, j].GetBlock();
+                    var b = _grid[i, j + 1].GetBlock();
+                    var c = _grid[i, j + 2].GetBlock();
+
+                    if (a != null && b != null && c != null &&
+                        a.GetBlockType() == b.GetBlockType() && 
+                        b.GetBlockType() == c.GetBlockType())
+                        return true;
+                }
+    
+
+            for (int i = 0; i < cols; i++)
+                for (int j = 0; j < rows - 2; j++)
+                {
+                    var a = _grid[j, i].GetBlock();
+                    var b = _grid[j + 1, i].GetBlock();
+                    var c = _grid[j + 2, i].GetBlock();
+
+                    if (a != null && b != null && c != null &&
+                        a.GetBlockType() == b.GetBlockType() && 
+                        b.GetBlockType() == c.GetBlockType())
+                        return true;
+                }
+            return false;
+        }
+        
+        /// <summary>
+        /// Generates new blocks in a specified column to replace missing ones.
+        /// </summary>
+        /// <param name="y"> the index where new blocks should be generated </param>
         public void GenerateNewBlocks(int y)
         {
             if (_checkedColumns.Contains(y)) return;
@@ -133,7 +215,12 @@ namespace Grid
                     index, horizontalA > 2, verticalA > 2,
                     cords,horizontalB > 2, verticalB > 2));
         }
-
+        
+        /// <summary>
+        /// Attempts to match a block after it has fallen into position.
+        /// </summary>
+        /// <param name="cords"> the coordinates of the block </param>
+        /// <param name="blockType"> the type of the block </param>
         private void TryMatchFromFall(Vector2Int cords , BlockType blockType)
         {
             
@@ -147,6 +234,11 @@ namespace Grid
             DestroyMatchingBlocks(cords, blockType ,vertical > 2, horizontal > 2);
         }
 
+        /// <summary>
+        /// Causes blocks to fall into empty spaces within a column.
+        /// </summary>
+        /// <param name="y"> the column index </param>
+        /// <param name="extraBlocks"> the new blocks to be placed at the top </param>
         private void FallBlocks(int y , Block[] extraBlocks)
         {
             for (int i = 0; i < gridHeight; i++)
