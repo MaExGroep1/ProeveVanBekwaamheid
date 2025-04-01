@@ -68,7 +68,9 @@ namespace Grid
         public void Shuffle()
         {
             var allBlocks = new List<Block>();
-    
+            var validShuffle = false;
+            var attempts = 0;
+            
             foreach (var element in _grid)
             {
                 if (element.GetBlock() == null) continue;
@@ -76,11 +78,9 @@ namespace Grid
                 element.SetBlock(null);
             }
 
-            var validShuffle = false;
-            var attempts = 0;
-
             while (!validShuffle && attempts < maxAttempts)
             {
+                var index = 0;
                 attempts++;
 
                 for (var i = allBlocks.Count - 1; i > 0; i--)
@@ -89,7 +89,6 @@ namespace Grid
                     (allBlocks[i], allBlocks[randomIndex]) = (allBlocks[randomIndex], allBlocks[i]);
                 }
 
-                var index = 0;
                 foreach (var element in _grid)
                 {
                     element.SetBlock(allBlocks[index]);
@@ -147,14 +146,15 @@ namespace Grid
         public void GenerateNewBlocks(int y)
         {
             if (_checkedColumns.Contains(y)) return;
-            _checkedColumns.Add(y);
+            var blocks = new List<Block>();
             var emptyElements = 0;
+
+            _checkedColumns.Add(y);
             for (int i = 0; i < gridHeight ; i++)
             {
                 if (_grid[i, y].GetBlock() == null)
                     emptyElements++;
             }
-            var blocks = new List<Block>();
             for (int i = 0; i < emptyElements; i++)
             {
                 var newBlock = Instantiate(blockTemplate, _blocksParent);
