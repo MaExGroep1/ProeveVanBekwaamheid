@@ -6,6 +6,8 @@ using User;
 
 public class UpgradePointsIncreaseTesting : MonoBehaviour
 {
+   //Each function increases the points for a specific upgradeType
+   //Designed to be used by UI buttons and only used for testing purposes
    public void IncreaseUpgradePointsAttack(int upgradeAmount)
    {
       UpgradeManager.Instance.IncreaseUpgradePoints(BlockType.Attack, upgradeAmount);
