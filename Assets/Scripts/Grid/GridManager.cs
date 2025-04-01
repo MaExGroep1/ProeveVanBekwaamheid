@@ -1,4 +1,5 @@
 using System;
+using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,17 +33,53 @@ namespace Grid
         
         private GridElement[,] _grid;                                       // the grid of grid elements
         private Transform _blocksParent;                                    // the parent of all the blocks
+        private readonly List<int> _checkedColumns = new();                 // a list of columns that have been checked
+        private float _heightOffset;                                        // the vertical distance between grid rows
         
         public float BlockPlaceDistance => blockPlaceDistance;              // the available block types
         public float BlockSpringBackDistance => blockSpringBackDistance;    // the available block types
         public float BlockTravelTime => blockTravelTime;                    // the available block types
-        public float BlockFallTime => blockFallTime;                    // the available block types
+        public float BlockFallTime => blockFallTime;                        // the available block types
+        public GridElement[,] Grid => _grid;
+
         
         private void Start()
         {
             CreateGrid();
         }
         
+        /// <summary>
+        /// Generates new blocks in a specified column to replace missing ones
+        /// </summary>
+        /// <param name="y"> the column index where new blocks should be generated </param>
+        public void GenerateNewBlocks(int y)
+        {
+            if (_checkedColumns.Contains(y)) return;
+            _checkedColumns.Add(y);
+            var emptyElements = 0;
+            for (int i = 0; i < gridHeight ; i++)
+            {
+                if (_grid[i, y].GetBlock() == null)
+                    emptyElements++;
+            }
+            Debug.Log(emptyElements);
+            var blocks = new List<Block>();
+            for (int i = 0; i < emptyElements; i++)
+            {
+                var newBlock = Instantiate(blockTemplate, _blocksParent);
+                var block = blockTypeTableData.GetRandomBlock();
+                var position = new Vector2(_grid[gridHeight-1,y].transform.position.x, _grid[gridHeight-1,y].transform.position.y);
+                var offset = new Vector2(0, _heightOffset * (i + 1));
+                
+                newBlock.Initialize(block);
+                newBlock.Rect.position = position + offset;
+                blocks.Add(newBlock);
+            }
+            var reverse = blocks.ToArray();
+            Array.Reverse(reverse);
+            FallBlocks(y,reverse);
+        }
+
         /// <summary>
         /// Checks if the block has a match
         /// </summary>
@@ -69,6 +106,12 @@ namespace Grid
             };
 
             var index = cords + offset;
+
+            if (!IsWithinBounds(index))
+            {
+                _grid[cords.x, cords.y].GetBlock().GoToOrigin(null);
+                return;
+            }
             
             var otherType = _grid[index.x, index.y].GetBlockType();
             int horizontalA = 1 + (direction == Direction.Down  ? 0 : CheckDirection(index, new Vector2Int(1, 0), blockType)) 
@@ -94,7 +137,57 @@ namespace Grid
                     index, horizontalA > 2, verticalA > 2,
                     cords,horizontalB > 2, verticalB > 2));
         }
+
+        /// <summary>
+        /// Attempts to match a block after it has fallen into position
+        /// </summary>
+        /// <param name="cords"> the coordinates of the block </param>
+        /// <param name="blockType"> the type of the block </param>
+        private void TryMatchFromFall(Vector2Int cords , BlockType blockType)
+        {
+            
+            int vertical = 1 + CheckDirection(cords, new Vector2Int(1, 0), blockType);
+
+            int horizontal = 1 + CheckDirection(cords, new Vector2Int(0, 1), blockType)
+                               + CheckDirection(cords, new Vector2Int(0, -1), blockType);
+
+            if (vertical <= 2 && horizontal <= 2) return;
+            DestroyMatchingBlocks(cords, blockType ,vertical > 2, horizontal > 2);
+        }
         
+        /// <summary>
+        /// Causes blocks to fall into empty spaces within a column
+        /// </summary>
+        /// <param name="y"> the column index </param>
+        /// <param name="extraBlocks"> the new blocks to be placed at the top </param>
+        private void FallBlocks(int y , Block[] extraBlocks)
+        {
+            for (int i = 0; i < gridHeight; i++)
+            {
+                if (_grid[i,y].GetBlock() != null) continue;
+                for (int j = i; j < gridHeight; j++)
+                {
+                    if (_grid[j,y].GetBlock() == null) continue;
+                    _grid[i,y].SetBlock(_grid[j, y].GetBlock());
+                    _grid[j,y].SetBlock(null);
+                    break;
+                }
+            }
+
+            for (int i = 0; i < extraBlocks.Length; i++)
+                _grid[gridHeight-i-1,y].SetBlock(extraBlocks[i]);
+
+            for (int i = 0; i < gridHeight; i++)
+            {
+                if (_grid[i,y].GetBlock() == null) return;
+                var i1 = i;
+                _grid[i,y].GetBlock().FallToOrigin(()=> 
+                    TryMatchFromFall(new Vector2Int(i1,y),_grid[i1,y].GetBlock().GetBlockType())
+                );
+            }
+            _checkedColumns.Clear();
+        }
+
         /// <summary>
         /// Creates a grid
         /// Then aligns the grid
@@ -106,6 +199,7 @@ namespace Grid
             for (int i = 0; i < gridHeight; i++)
                 for (int j = 0; j < gridWidth; j++)
                     grid = CreateGridElement(i,j, grid);
+
             
             _grid = grid;
             _blocksParent = _grid[gridHeight-1,gridWidth-1].transform;
@@ -124,6 +218,8 @@ namespace Grid
         private GridElement[,] CreateGridElement(int x, int y, GridElement[,] grid)
         {
             var newElement = Instantiate(gridElementTemplate, transform);
+            
+            newElement.SetCords(x, y);
             
             grid[x,y] = newElement;
             
@@ -149,6 +245,8 @@ namespace Grid
                     _grid[i,j].Rect.anchorMin = new Vector2(widthStart, heightStart);
                 }
             }
+
+            _heightOffset = _grid[1, 0].transform.position.y - _grid[0, 0].transform.position.y;
         }
         
         /// <summary>
@@ -162,122 +260,25 @@ namespace Grid
                     var exclusions = new List<BlockType>();
                     var newBlock = Instantiate(blockTemplate, _blocksParent);
                     var waitTime = i * j * 0.01f;
-                    var position = new Vector3(_grid[i,j].transform.position.x, _grid[i,j].transform.position.y,0);
-                    var offset = new Vector3(0,gridRect.rect.height + gridRectOffset ,0);
+                    var position = new Vector2(_grid[i,j].transform.position.x, _grid[i,j].transform.position.y);
+                    var offset = new Vector2(0,gridRect.rect.height + gridRectOffset);
                     
                     if (i > 1 && _grid[i - 1, j].GetBlockType() == _grid[i - 2, j].GetBlockType())
                         exclusions.Add(_grid[i - 1, j].GetBlockType());
                     if (j > 1 && _grid[i ,j - 1].GetBlockType() == _grid[i ,j - 2].GetBlockType())
-                        exclusions.Add(_grid[i, j + - 1].GetBlockType());
+                        exclusions.Add(_grid[i, j - 1].GetBlockType());
 
                     var block = blockTypeTableData.GetRandomBlocksExcluding(exclusions.ToArray());
 
                     newBlock.Rect.position = position + offset;
                     
-                    newBlock.Initialize(block, new Vector2Int(i,j));
+                    newBlock.Initialize(block);
                 
                     _grid[i,j].SetBlock(newBlock);
                     
                     StartCoroutine(WaitToDrop(newBlock, waitTime));
                 }
             
-        }
-        
-        /// <summary>
-        /// Checks how many blocks are the same type
-        /// </summary>
-        /// <param name="cords"> the cords to check from </param>
-        /// <param name="direction"> the direction to check </param>
-        /// <param name="blockType"> the type the current block is </param>
-        /// <returns> the amount of blocks of the same type in a row </returns>
-        private int CheckDirection(Vector2Int cords, Vector2Int direction, BlockType blockType)
-        {
-            int i = 1;
-            while (IsWithinBounds(cords + i * direction) && _grid[cords.x + i * direction.x, cords.y + i * direction.y].GetBlockType() == blockType) i++;
-            return i - 1;
-        }
-        
-        /// <summary>
-        /// Checks if the cord is in the bound of the grid
-        /// </summary>
-        /// <param name="cords"> the cords to check from </param>
-        /// <returns> if the cord is in the bound of the grid </returns>
-        private bool IsWithinBounds(Vector2Int cords) => cords.x >= 0 && cords.x < gridHeight && cords.y >= 0 && cords.y < gridWidth;
-        
-        /// <summary>
-        /// Swaps two blocks in the grid 
-        /// </summary>
-        /// <param name="blockAIndex"> the first block </param>
-        /// <param name="blockBIndex"> the second block </param>
-        /// <param name="onComplete"> when the blocks are done moving </param>
-        private void SwapBlocks(Vector2Int blockAIndex, Vector2Int blockBIndex, Action onComplete)
-        {
-            var blockAElement = _grid[blockAIndex.x, blockAIndex.y];
-            var blockBElement = _grid[blockBIndex.x, blockBIndex.y];
-            var blockA = blockAElement.GetBlock();
-            var blockB = blockBElement.GetBlock();
-            
-            blockAElement.SetBlock(blockB);
-            blockBElement.SetBlock(blockA);
-            
-            blockA.GoToOrigin(null);
-            blockB.GoToOrigin(() => onComplete?.Invoke());
-        }
-        
-        /// <summary>
-        /// Destroys all matching blocks near block A and block B
-        /// </summary>
-        /// <param name="cordsA"> the cords of block A </param>
-        /// <param name="horizontalA"> weather to delete on A horizontal </param>
-        /// <param name="verticalA"> weather to delete on A vertical </param>
-        /// <param name="cordsB"> the cords of block B </param>
-        /// <param name="horizontalB"> weather to delete on A horizontal </param>
-        /// <param name="verticalB"> weather to delete on A vertical </param>
-        private void DestroyAllMatchingBlocks(Vector2Int cordsA, bool horizontalA, bool verticalA,Vector2Int cordsB , bool horizontalB, bool verticalB )
-        {
-            DestroyMatchingBlocks(cordsA, _grid[cordsA.x, cordsA.y].GetBlock().GetBlockType(), horizontalA, verticalA);
-            DestroyMatchingBlocks(cordsB, _grid[cordsB.x, cordsB.y].GetBlock().GetBlockType(), horizontalB, verticalB);
-        }
-        
-        /// <summary>
-        /// Destroys all adjacent blocks of the same type
-        /// </summary>
-        /// <param name="cords"> the cords to delete from </param>
-        /// <param name="blockType"> the type of block </param>
-        /// <param name="horizontal"> weather to delete on horizontal </param>
-        /// <param name="vertical"> weather to delete on vertical </param>
-        private void DestroyMatchingBlocks(Vector2Int cords, BlockType blockType, bool horizontal, bool vertical)
-        {
-            if (horizontal)
-            {
-                DestroyBlocksFromDirection(cords, new Vector2Int( 1, 0), blockType);
-                DestroyBlocksFromDirection(cords, new Vector2Int(-1, 0), blockType);
-            }
-            if (vertical)
-            {
-                DestroyBlocksFromDirection(cords, new Vector2Int( 0, 1), blockType);
-                DestroyBlocksFromDirection(cords, new Vector2Int( 0,-1), blockType);
-            }
-
-            if (vertical || horizontal)
-                StartCoroutine(_grid[cords.x, cords.y].GetBlock().DestroyBlock(0.2f));
-            
-        }
-        
-        /// <summary>
-        /// Destroys all blocks of 1 type in a direction from a point
-        /// </summary>
-        /// <param name="cords"> the cord where to delete from </param>
-        /// <param name="direction"> the direction to delete </param>
-        /// <param name="blockType"> the type to delete </param>
-        private void DestroyBlocksFromDirection(Vector2Int cords, Vector2Int direction, BlockType blockType)
-        {
-            int i = 1;
-            while (IsWithinBounds(cords + i * direction) && _grid[cords.x + i * direction.x, cords.y + i * direction.y].GetBlockType() == blockType)
-            {
-                StartCoroutine(_grid[cords.x + i * direction.x, cords.y + i * direction.y].GetBlock().DestroyBlock(0.2f));
-                i++;
-            }
         }
         
         /// <summary>
@@ -386,7 +387,7 @@ namespace Grid
         private IEnumerator WaitToDrop(Block newBlock, float waitTime)
         {
             yield return new WaitForSeconds(waitTime);
-            newBlock.FallToOrigin();
+            newBlock.FallToOrigin(null);
         }
     }
 }
