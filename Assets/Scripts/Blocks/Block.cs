@@ -18,8 +18,8 @@ namespace Blocks
         private Vector3 _gridPosition;                  // the default position of the block
         private Vector2Int _cords;                      // the cords in the grid
 
-        private bool _isMoving;                         // weather the block is moving
-        private bool _canMoveWithMouse;                 // weather the block can stick to the mouse
+        private bool _isMoving;                         // whether the block is moving
+        private bool _canMoveWithMouse;                 // whether the block can stick to the mouse
         
         public RectTransform Rect => rect;              // getter of the rect of the grid element
         
