@@ -43,14 +43,23 @@ namespace Grid
         public float BlockFallTime => blockFallTime;                        // the available block types
         public GridElement[,] Grid => _grid;
         
-        private Action<int, BlockType> _onMatch;
+        private Action<int, BlockType> _onMatch;                            // the event to invoke when a match is made
         
         private void Start()
         {
             CreateGrid();
         }
         
+        /// <summary>
+        /// Adds function to the onMatch event
+        /// </summary>
+        /// <param name="onMatch"> the function to add </param>
         public void ListenToOnMatch(Action<int, BlockType> onMatch) => _onMatch += onMatch;
+        
+        /// <summary>
+        /// Removes function to the onMatch event
+        /// </summary>
+        /// <param name="onMatch"> the function to remove </param>
         public void StopListeningToOnMatch(Action<int, BlockType> onMatch) => _onMatch -= onMatch;
         
         /// <summary>
