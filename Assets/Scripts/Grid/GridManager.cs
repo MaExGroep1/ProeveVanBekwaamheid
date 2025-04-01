@@ -43,10 +43,24 @@ namespace Grid
         public float BlockFallTime => blockFallTime;                        // the available block types
         public GridElement[,] Grid => _grid;
         
+        private Action<int, BlockType> _onMatch;                            // the event to invoke when a match is made
+        
         private void Start()
         {
             CreateGrid();
         }
+        
+        /// <summary>
+        /// Adds function to the onMatch event
+        /// </summary>
+        /// <param name="onMatch"> the function to add </param>
+        public void ListenToOnMatch(Action<int, BlockType> onMatch) => _onMatch += onMatch;
+        
+        /// <summary>
+        /// Removes function to the onMatch event
+        /// </summary>
+        /// <param name="onMatch"> the function to remove </param>
+        public void StopListeningToOnMatch(Action<int, BlockType> onMatch) => _onMatch -= onMatch;
         
         /// <summary>
         /// Shuffles all blocks on the grid while ensuring no immediate matches exist.
@@ -141,7 +155,6 @@ namespace Grid
                 if (_grid[i, y].GetBlock() == null)
                     emptyElements++;
             }
-            
             for (int i = 0; i < emptyElements; i++)
             {
                 var newBlock = Instantiate(blockTemplate, _blocksParent);
@@ -340,7 +353,6 @@ namespace Grid
                     var waitTime = i * j * 0.01f;
                     var position = new Vector2(_grid[i,j].transform.position.x, _grid[i,j].transform.position.y);
                     var offset = new Vector2(0,gridRect.rect.height + gridRectOffset);
-                    
                     if (i > 1 && _grid[i - 1, j].GetBlockType() == _grid[i - 2, j].GetBlockType())
                         exclusions.Add(_grid[i - 1, j].GetBlockType());
                     if (j > 1 && _grid[i ,j - 1].GetBlockType() == _grid[i ,j - 2].GetBlockType())
@@ -424,20 +436,22 @@ namespace Grid
         /// <param name="vertical"> whether to delete on vertical </param>
         private void DestroyMatchingBlocks(Vector2Int cords, BlockType blockType, bool horizontal, bool vertical)
         {
+            var hor = 0;
+            var ver = 0;
             if (horizontal)
             {
-                DestroyBlocksFromDirection(cords, new Vector2Int( 1, 0), blockType);
-                DestroyBlocksFromDirection(cords, new Vector2Int(-1, 0), blockType);
+                hor += DestroyBlocksFromDirection(cords, new Vector2Int( 1, 0), blockType);
+                hor += DestroyBlocksFromDirection(cords, new Vector2Int(-1, 0), blockType);
             }
             if (vertical)
             {
-                DestroyBlocksFromDirection(cords, new Vector2Int( 0, 1), blockType);
-                DestroyBlocksFromDirection(cords, new Vector2Int( 0,-1), blockType);
+                ver += DestroyBlocksFromDirection(cords, new Vector2Int( 0, 1), blockType);
+                ver += DestroyBlocksFromDirection(cords, new Vector2Int( 0,-1), blockType);
             }
 
-            if (vertical || horizontal)
-                StartCoroutine(_grid[cords.x, cords.y].GetBlock().DestroyBlock(0.2f));
-            
+            if (!vertical && !horizontal) return;
+            StartCoroutine(_grid[cords.x, cords.y].GetBlock().DestroyBlock(0.2f));
+            _onMatch.Invoke(hor+ver+1,blockType);
         }
         
         /// <summary>
@@ -446,7 +460,7 @@ namespace Grid
         /// <param name="cords"> the cord where to delete from </param>
         /// <param name="direction"> the direction to delete </param>
         /// <param name="blockType"> the type to delete </param>
-        private void DestroyBlocksFromDirection(Vector2Int cords, Vector2Int direction, BlockType blockType)
+        private int DestroyBlocksFromDirection(Vector2Int cords, Vector2Int direction, BlockType blockType)
         {
             int i = 1;
             while (IsWithinBounds(cords + i * direction) && _grid[cords.x + i * direction.x, cords.y + i * direction.y].GetBlockType() == blockType)
@@ -454,6 +468,8 @@ namespace Grid
                 StartCoroutine(_grid[cords.x + i * direction.x, cords.y + i * direction.y].GetBlock().DestroyBlock(0.2f));
                 i++;
             }
+
+            return i - 1;
         }
         
         /// <summary>
