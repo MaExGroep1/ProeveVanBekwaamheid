@@ -24,8 +24,7 @@ namespace User
         public Dictionary<BlockType, int> RequiredUpgradePoints  { get => _requiredUpgradePoints; private set => _requiredUpgradePoints = value; }                  //getter/setter for _requiredUpgradePoints
         public Dictionary<BlockType, Action<int>> OnPointIncreaseByType { get => _onPointIncreaseByType; set => _onPointIncreaseByType = value; }                   //getter/setter for _onPointIncreaseByType
         public Dictionary<BlockType, Action> OnUpgradeRequirementReached { get => _onUpgradeRequirementReached; set => _onUpgradeRequirementReached = value; }      //getter/setter for _onUpgradeRequirementReached
-        public Dictionary<BlockType, Action> OnUpgrade { get => _onUpgrade; set => _onUpgrade = value; }                                                            //getter/setter for _onUpgrade    
-
+        public Dictionary<BlockType, Action> OnUpgrade { get => _onUpgrade; set => _onUpgrade = value; }                                                            //getter/setter for _onUpgrade
         
         protected override void Awake()
         {

@@ -18,8 +18,7 @@ namespace User
         public int EnemiesKilledScore { get => _enemiesKilledScore; private set => _enemiesKilledScore = value; }       //getter/setter for _enemiesKilledScore
         public int EnemiesKilled { get => _enemiesKilled; set => _enemiesKilled = value; }                              //getter/setter for _enemiesKilled
         public float DistanceTraveled { get => _distanceTraveled; set => _distanceTraveled = value; }                   //getter/setter for _distanceTraveled
-
-
+        
         public Action<int> OnScoreChange;      //Will increase the score by <int>
         public Action<int> OnEnemyKilled;      //Invoked whenever an enemy dies, increases the score by <int>
         
@@ -59,7 +58,6 @@ namespace User
         {
             Score += scoreChange;
         }
-
         
         /// <summary>
         /// assigns events
