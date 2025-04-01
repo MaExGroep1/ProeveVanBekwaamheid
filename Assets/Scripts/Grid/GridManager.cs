@@ -127,7 +127,7 @@ namespace Grid
         }
         
         /// <summary>
-        /// Generates new blocks in a specified column to replace missing ones.
+        /// Generates new blocks in a specified column to replace missing ones
         /// </summary>
         /// <param name="y"> the index where new blocks should be generated </param>
         public void GenerateNewBlocks(int y)
@@ -215,9 +215,9 @@ namespace Grid
                     index, horizontalA > 2, verticalA > 2,
                     cords,horizontalB > 2, verticalB > 2));
         }
-        
+
         /// <summary>
-        /// Attempts to match a block after it has fallen into position.
+        /// Attempts to match a block after it has fallen into position
         /// </summary>
         /// <param name="cords"> the coordinates of the block </param>
         /// <param name="blockType"> the type of the block </param>
@@ -229,13 +229,12 @@ namespace Grid
             int horizontal = 1 + CheckDirection(cords, new Vector2Int(0, 1), blockType)
                                + CheckDirection(cords, new Vector2Int(0, -1), blockType);
 
-            // Only perform actions if we have a match
             if (vertical <= 2 && horizontal <= 2) return;
             DestroyMatchingBlocks(cords, blockType ,vertical > 2, horizontal > 2);
         }
-
+        
         /// <summary>
-        /// Causes blocks to fall into empty spaces within a column.
+        /// Causes blocks to fall into empty spaces within a column
         /// </summary>
         /// <param name="y"> the column index </param>
         /// <param name="extraBlocks"> the new blocks to be placed at the top </param>
@@ -405,11 +404,11 @@ namespace Grid
         /// Destroys all matching blocks near block A and block B
         /// </summary>
         /// <param name="cordsA"> the cords of block A </param>
-        /// <param name="horizontalA"> weather to delete on A horizontal </param>
-        /// <param name="verticalA"> weather to delete on A vertical </param>
+        /// <param name="horizontalA"> whether to delete on A horizontal </param>
+        /// <param name="verticalA"> whether to delete on A vertical </param>
         /// <param name="cordsB"> the cords of block B </param>
-        /// <param name="horizontalB"> weather to delete on A horizontal </param>
-        /// <param name="verticalB"> weather to delete on A vertical </param>
+        /// <param name="horizontalB"> whether to delete on A horizontal </param>
+        /// <param name="verticalB"> whether to delete on A vertical </param>
         private void DestroyAllMatchingBlocks(Vector2Int cordsA, bool horizontalA, bool verticalA,Vector2Int cordsB , bool horizontalB, bool verticalB )
         {
             DestroyMatchingBlocks(cordsA, _grid[cordsA.x, cordsA.y].GetBlock().GetBlockType(), horizontalA, verticalA);
@@ -421,8 +420,8 @@ namespace Grid
         /// </summary>
         /// <param name="cords"> the cords to delete from </param>
         /// <param name="blockType"> the type of block </param>
-        /// <param name="horizontal"> weather to delete on horizontal </param>
-        /// <param name="vertical"> weather to delete on vertical </param>
+        /// <param name="horizontal"> whether to delete on horizontal </param>
+        /// <param name="vertical"> whether to delete on vertical </param>
         private void DestroyMatchingBlocks(Vector2Int cords, BlockType blockType, bool horizontal, bool vertical)
         {
             if (horizontal)
