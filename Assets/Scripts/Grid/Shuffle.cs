@@ -5,11 +5,14 @@ namespace Grid
 {
     public class Shuffle : MonoBehaviour
     {
-        [SerializeField] private Button shuffleButton;
+        [SerializeField] private Button shuffleButton;  // the shuffle button
 
         private void Awake() => shuffleButton.onClick.AddListener(StartShuffle);
         
-        private void StartShuffle() => GridManager.Instance.Shuffle();
+        /// <summary>
+        /// Starts to shuffle the grid
+        /// </summary>
+        private static void StartShuffle() => GridManager.Instance.Shuffle();
         
     }
 }
