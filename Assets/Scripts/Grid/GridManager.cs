@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Blocks;
 using UnityEngine;
 using Util;
@@ -157,11 +159,19 @@ namespace Grid
             for (int i = 0; i < gridHeight; i++)
                 for (int j = 0; j < gridWidth; j++)
                 {
-                    var block = blockTypeTableData.GetRandomBlock();
+                    var exclusions = new List<BlockType>();
                     var newBlock = Instantiate(blockTemplate, _blocksParent);
                     var waitTime = i * j * 0.01f;
                     var position = new Vector3(_grid[i,j].transform.position.x, _grid[i,j].transform.position.y,0);
                     var offset = new Vector3(0,gridRect.rect.height + gridRectOffset ,0);
+                    
+                    if (i > 1 && _grid[i - 1, j].GetBlockType() == _grid[i - 2, j].GetBlockType())
+                        exclusions.Add(_grid[i - 1, j].GetBlockType());
+                    if (j > 1 && _grid[i ,j - 1].GetBlockType() == _grid[i ,j - 2].GetBlockType())
+                        exclusions.Add(_grid[i, j + - 1].GetBlockType());
+
+                    var block = blockTypeTableData.GetRandomBlocksExcluding(exclusions.ToArray());
+
                     newBlock.Rect.position = position + offset;
                     
                     newBlock.Initialize(block, new Vector2Int(i,j));
@@ -170,6 +180,104 @@ namespace Grid
                     
                     StartCoroutine(WaitToDrop(newBlock, waitTime));
                 }
+            
+        }
+        
+        /// <summary>
+        /// Checks how many blocks are the same type
+        /// </summary>
+        /// <param name="cords"> the cords to check from </param>
+        /// <param name="direction"> the direction to check </param>
+        /// <param name="blockType"> the type the current block is </param>
+        /// <returns> the amount of blocks of the same type in a row </returns>
+        private int CheckDirection(Vector2Int cords, Vector2Int direction, BlockType blockType)
+        {
+            int i = 1;
+            while (IsWithinBounds(cords + i * direction) && _grid[cords.x + i * direction.x, cords.y + i * direction.y].GetBlockType() == blockType) i++;
+            return i - 1;
+        }
+        
+        /// <summary>
+        /// Checks if the cord is in the bound of the grid
+        /// </summary>
+        /// <param name="cords"> the cords to check from </param>
+        /// <returns> if the cord is in the bound of the grid </returns>
+        private bool IsWithinBounds(Vector2Int cords) => cords.x >= 0 && cords.x < gridHeight && cords.y >= 0 && cords.y < gridWidth;
+        
+        /// <summary>
+        /// Swaps two blocks in the grid 
+        /// </summary>
+        /// <param name="blockAIndex"> the first block </param>
+        /// <param name="blockBIndex"> the second block </param>
+        /// <param name="onComplete"> when the blocks are done moving </param>
+        private void SwapBlocks(Vector2Int blockAIndex, Vector2Int blockBIndex, Action onComplete)
+        {
+            var blockAElement = _grid[blockAIndex.x, blockAIndex.y];
+            var blockBElement = _grid[blockBIndex.x, blockBIndex.y];
+            var blockA = blockAElement.GetBlock();
+            var blockB = blockBElement.GetBlock();
+            
+            blockAElement.SetBlock(blockB);
+            blockBElement.SetBlock(blockA);
+            
+            blockA.GoToOrigin(null);
+            blockB.GoToOrigin(() => onComplete?.Invoke());
+        }
+        
+        /// <summary>
+        /// Destroys all matching blocks near block A and block B
+        /// </summary>
+        /// <param name="cordsA"> the cords of block A </param>
+        /// <param name="horizontalA"> weather to delete on A horizontal </param>
+        /// <param name="verticalA"> weather to delete on A vertical </param>
+        /// <param name="cordsB"> the cords of block B </param>
+        /// <param name="horizontalB"> weather to delete on A horizontal </param>
+        /// <param name="verticalB"> weather to delete on A vertical </param>
+        private void DestroyAllMatchingBlocks(Vector2Int cordsA, bool horizontalA, bool verticalA,Vector2Int cordsB , bool horizontalB, bool verticalB )
+        {
+            DestroyMatchingBlocks(cordsA, _grid[cordsA.x, cordsA.y].GetBlock().GetBlockType(), horizontalA, verticalA);
+            DestroyMatchingBlocks(cordsB, _grid[cordsB.x, cordsB.y].GetBlock().GetBlockType(), horizontalB, verticalB);
+        }
+        
+        /// <summary>
+        /// Destroys all adjacent blocks of the same type
+        /// </summary>
+        /// <param name="cords"> the cords to delete from </param>
+        /// <param name="blockType"> the type of block </param>
+        /// <param name="horizontal"> weather to delete on horizontal </param>
+        /// <param name="vertical"> weather to delete on vertical </param>
+        private void DestroyMatchingBlocks(Vector2Int cords, BlockType blockType, bool horizontal, bool vertical)
+        {
+            if (horizontal)
+            {
+                DestroyBlocksFromDirection(cords, new Vector2Int( 1, 0), blockType);
+                DestroyBlocksFromDirection(cords, new Vector2Int(-1, 0), blockType);
+            }
+            if (vertical)
+            {
+                DestroyBlocksFromDirection(cords, new Vector2Int( 0, 1), blockType);
+                DestroyBlocksFromDirection(cords, new Vector2Int( 0,-1), blockType);
+            }
+
+            if (vertical || horizontal)
+                StartCoroutine(_grid[cords.x, cords.y].GetBlock().DestroyBlock(0.2f));
+            
+        }
+        
+        /// <summary>
+        /// Destroys all blocks of 1 type in a direction from a point
+        /// </summary>
+        /// <param name="cords"> the cord where to delete from </param>
+        /// <param name="direction"> the direction to delete </param>
+        /// <param name="blockType"> the type to delete </param>
+        private void DestroyBlocksFromDirection(Vector2Int cords, Vector2Int direction, BlockType blockType)
+        {
+            int i = 1;
+            while (IsWithinBounds(cords + i * direction) && _grid[cords.x + i * direction.x, cords.y + i * direction.y].GetBlockType() == blockType)
+            {
+                StartCoroutine(_grid[cords.x + i * direction.x, cords.y + i * direction.y].GetBlock().DestroyBlock(0.2f));
+                i++;
+            }
         }
         
         /// <summary>

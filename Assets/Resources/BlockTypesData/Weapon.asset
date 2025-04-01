@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Weapon
   m_EditorClassIdentifier: 
   blockTypes: 4
-  blockSprite: {fileID: 0}
+  blockSprite: {fileID: -1117178750, guid: ee9b084d4a8bf2f448c1d1de5a55ace4, type: 3}
   levelSprites: []
