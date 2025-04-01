@@ -26,7 +26,9 @@ namespace Editor
                 GUILayout.BeginHorizontal();
                 for (int j = 0; j < myTarget.Grid.GetLength(1); j++)
                 {
-                    EditorGUILayout.TextField(myTarget.Grid[i, j].GetBlockType().ToString(), GUILayout.Width(100));
+                    var array = myTarget.Grid[i, j].GetBlockType().ToString();
+        
+                    GUILayout.Box(array.Substring(0, 3), GUILayout.Width(30), GUILayout.Height(30));
                 }
                 GUILayout.EndHorizontal();
             }
