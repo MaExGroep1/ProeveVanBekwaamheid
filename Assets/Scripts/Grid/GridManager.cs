@@ -33,13 +33,13 @@ namespace Grid
         
         private GridElement[,] _grid;                                       // the grid of grid elements
         private Transform _blocksParent;                                    // the parent of all the blocks
-        private List<int> _checkedColumns = new();
-        private float _heightOffset;
+        private readonly List<int> _checkedColumns = new();                 // a list of columns that have been checked
+        private float _heightOffset;                                        // the vertical distance between grid rows
         
         public float BlockPlaceDistance => blockPlaceDistance;              // the available block types
         public float BlockSpringBackDistance => blockSpringBackDistance;    // the available block types
         public float BlockTravelTime => blockTravelTime;                    // the available block types
-        public float BlockFallTime => blockFallTime;                    // the available block types
+        public float BlockFallTime => blockFallTime;                        // the available block types
         public GridElement[,] Grid => _grid;
 
         
@@ -48,6 +48,10 @@ namespace Grid
             CreateGrid();
         }
         
+        /// <summary>
+        /// Generates new blocks in a specified column to replace missing ones
+        /// </summary>
+        /// <param name="y"> the column index where new blocks should be generated </param>
         public void GenerateNewBlocks(int y)
         {
             if (_checkedColumns.Contains(y)) return;
@@ -134,6 +138,11 @@ namespace Grid
                     cords,horizontalB > 2, verticalB > 2));
         }
 
+        /// <summary>
+        /// Attempts to match a block after it has fallen into position
+        /// </summary>
+        /// <param name="cords"> the coordinates of the block </param>
+        /// <param name="blockType"> the type of the block </param>
         private void TryMatchFromFall(Vector2Int cords , BlockType blockType)
         {
             
@@ -142,11 +151,15 @@ namespace Grid
             int horizontal = 1 + CheckDirection(cords, new Vector2Int(0, 1), blockType)
                                + CheckDirection(cords, new Vector2Int(0, -1), blockType);
 
-            // Only perform actions if we have a match
             if (vertical <= 2 && horizontal <= 2) return;
             DestroyMatchingBlocks(cords, blockType ,vertical > 2, horizontal > 2);
         }
-
+        
+        /// <summary>
+        /// Causes blocks to fall into empty spaces within a column
+        /// </summary>
+        /// <param name="y"> the column index </param>
+        /// <param name="extraBlocks"> the new blocks to be placed at the top </param>
         private void FallBlocks(int y , Block[] extraBlocks)
         {
             for (int i = 0; i < gridHeight; i++)
