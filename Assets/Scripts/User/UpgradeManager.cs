@@ -4,7 +4,6 @@ using Blocks;
 using UnityEngine;
 using Util;
 
-
 namespace User
 {
     public class UpgradeManager : Singleton<UpgradeManager>

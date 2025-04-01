@@ -1,14 +1,9 @@
 using System;
-using System.Collections.Generic;
-using Blocks;
-using Unity.Android.Gradle.Manifest;
-using Unity.VisualScripting;
-using UnityEditor.Timeline.Actions;
-using UnityEngine;
+using Util;
 
 namespace User
 {
-    public class UserData : Util.Singleton<UserData>
+    public class UserData : Singleton<UserData>
     {
         private int _score;                                             //The total score of the current run
         private float _distanceTraveled;                                //The distance traveled in the current run
