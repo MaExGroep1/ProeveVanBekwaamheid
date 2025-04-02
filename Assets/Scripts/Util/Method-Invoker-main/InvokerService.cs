@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace Util.Method_Invoker_main
 {
+#if UNITY_EDITOR    
     public struct InvokerService
     {
         // Holds a reference to the Unity Component
@@ -116,4 +117,5 @@ namespace Util.Method_Invoker_main
             return null;
         }
     }
+#endif
 }
