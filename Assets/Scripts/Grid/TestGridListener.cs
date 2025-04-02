@@ -16,7 +16,7 @@ namespace Grid
             throw new NotImplementedException();
         }
 
-        private void OnMatch(int amount, BlockType type)
+        private void OnMatch(BlockType type, int amount)
         {
             Debug.Log($"{amount} of {type}");
         }

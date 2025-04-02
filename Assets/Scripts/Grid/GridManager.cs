@@ -43,7 +43,7 @@ namespace Grid
         public float BlockFallTime => blockFallTime;                        // the available block types
         public GridElement[,] Grid => _grid;
         
-        private Action<int, BlockType> _onMatch;                            // the event to invoke when a match is made
+        private Action<BlockType, int> _onMatch;                            // the event to invoke when a match is made
         
         private void Start()
         {
@@ -54,13 +54,13 @@ namespace Grid
         /// Adds function to the onMatch event
         /// </summary>
         /// <param name="onMatch"> the function to add </param>
-        public void ListenToOnMatch(Action<int, BlockType> onMatch) => _onMatch += onMatch;
+        public void ListenToOnMatch(Action<BlockType, int> onMatch) => _onMatch += onMatch;
         
         /// <summary>
         /// Removes function to the onMatch event
         /// </summary>
         /// <param name="onMatch"> the function to remove </param>
-        public void StopListeningToOnMatch(Action<int, BlockType> onMatch) => _onMatch -= onMatch;
+        public void StopListeningToOnMatch(Action<BlockType, int> onMatch) => _onMatch -= onMatch;
         
         /// <summary>
         /// Shuffles all blocks on the grid while ensuring no immediate matches exist.
@@ -451,7 +451,7 @@ namespace Grid
 
             if (!vertical && !horizontal) return;
             StartCoroutine(_grid[cords.x, cords.y].GetBlock().DestroyBlock(0.2f));
-            _onMatch.Invoke(hor+ver+1,blockType);
+            _onMatch.Invoke(blockType, hor+ver+1);
         }
         
         /// <summary>
