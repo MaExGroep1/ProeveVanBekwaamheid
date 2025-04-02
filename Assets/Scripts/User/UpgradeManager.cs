@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Blocks;
+using Grid;
 using UnityEngine;
 using Util;
 
@@ -25,13 +26,17 @@ namespace User
         public Dictionary<BlockType, Action> OnUpgradeRequirementReached { get => _onUpgradeRequirementReached; set => _onUpgradeRequirementReached = value; }      //getter/setter for _onUpgradeRequirementReached
         public Dictionary<BlockType, Action> OnUpgrade { get => _onUpgrade; set => _onUpgrade = value; }                                                            //getter/setter for _onUpgrade
         
+        /// <summary>
+        /// assigns events and dictionaries
+        /// </summary>
         protected override void Awake()
         {
             base.Awake();
-            
+
+            AssignEvents();
             AssignUpgradePoints();
         }
-
+        
         /// <summary>
         /// Increase the points for a specific upgradeType by upgradePoints amount, in the associated dictionary.
         /// If the required amount of upgrade points is reached for an upgrade, it calls the associated event to signal that.
@@ -99,6 +104,14 @@ namespace User
 
             _upgradePoints = upgradePoints;
             RequiredUpgradePoints = requiredUpgradePoints;
+        }
+        
+        /// <summary>
+        /// Assigns events
+        /// </summary>
+        private void AssignEvents()
+        {
+            GridManager.Instance.ListenToOnMatch(IncreaseUpgradePoints);
         }
     }
 }
