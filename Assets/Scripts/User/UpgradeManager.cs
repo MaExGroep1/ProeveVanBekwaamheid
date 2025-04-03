@@ -69,15 +69,17 @@ namespace User
         /// <param name="upgradeType"></param>
         public void Upgrade(BlockType upgradeType)
         {
-            var pointsLeft = _upgradePoints[upgradeType] - _requiredUpgradePoints[upgradeType];
+            //var pointsLeft = _upgradePoints[upgradeType] - _requiredUpgradePoints[upgradeType];
+            //_upgradePoints[upgradeType] -= _requiredUpgradePoints[upgradeType];
             
-            _upgradePoints[upgradeType] -= _requiredUpgradePoints[upgradeType];
+            _upgradePoints[upgradeType] = 0;
+            
             _requiredUpgradePoints[upgradeType] += upgradePointsRequirementIncrease;
             OnUpgrade[upgradeType]?.Invoke();
             
-            if (_upgradePoints[upgradeType] == 0) return;
+            /*if (_upgradePoints[upgradeType] == 0) return;
             _upgradePoints[upgradeType] = 0;
-            IncreaseUpgradePoints(upgradeType, pointsLeft);
+            IncreaseUpgradePoints(upgradeType, pointsLeft);*/
             
             //todo upgrade car
         }
