@@ -44,7 +44,10 @@ namespace Tiles
             _currentTileIndex++;
             CreateNewTile(CurrentLevel.RandomTile);
         }
-
+        
+        /// <summary>
+        /// Generates the end tile of the level
+        /// </summary>
         private void GenerateEndTile()
         {
             _currentTileIndex = 0;
@@ -56,7 +59,11 @@ namespace Tiles
             }
             _currentLevelIndex = 0;
         }
-
+        
+        /// <summary>
+        /// Creates a new tile and attaches it to the previous one
+        /// </summary>
+        /// <param name="tile"> The new tile data </param>
         private void CreateNewTile(Tile tile)
         {
             var attach = tileParent;

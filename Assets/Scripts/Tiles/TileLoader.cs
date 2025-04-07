@@ -5,7 +5,7 @@ namespace Tiles
 {
     public class TileLoader : MonoBehaviour
     {
-        public Action OnLoad;
+        public Action OnLoad; // triggers when near the end of the tile
 
         private void OnTriggerEnter(Collider other)
         {
