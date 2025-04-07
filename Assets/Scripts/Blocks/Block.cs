@@ -78,7 +78,12 @@ namespace Blocks
             LeanTween.moveY(gameObject, _gridPosition.y, GridManager.Instance.BlockFallTime).
                 setEase(LeanTweenType.easeInCubic).
                 setOnComplete(()=>StopMoving(onComplete));
-        }      
+        }
+        
+        /// <summary>
+        /// Sets the block to movable and sets the block to the front
+        /// </summary>
+        /// <param name="eventData"> Mouse data </param>
         public void OnBeginDrag(PointerEventData eventData)
         {
             if(_isMoving) return;
@@ -87,7 +92,11 @@ namespace Blocks
             transform.SetParent(parent.parent);
             transform.SetParent(parent);
         }
-
+        
+        /// <summary>
+        /// Checks if it can move then moves it to the mouse
+        /// </summary>
+        /// <param name="eventData"> Mouse data </param>
         public void OnDrag(PointerEventData eventData)
         {
             if(_isMoving || !_canMoveWithMouse) return;
@@ -95,7 +104,11 @@ namespace Blocks
             if (Vector3.Distance(transform.position, _gridPosition) > GridManager.Instance.BlockPlaceDistance * Screen.height / 1920)
                 TryToMatch();
         }
-
+        
+        /// <summary>
+        /// Checks if it can match
+        /// </summary>
+        /// <param name="eventData"> Mouse data </param>
         public void OnEndDrag(PointerEventData eventData)
         {
             if(_isMoving) return;
