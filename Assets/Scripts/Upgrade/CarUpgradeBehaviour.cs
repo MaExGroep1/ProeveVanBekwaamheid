@@ -23,7 +23,6 @@ public class CarUpgradeBehaviour : MonoBehaviour
 
         _blockMaterials = blockMaterials;
 
-        UpgradeManager.Instance.TempOnUpgrade += Upgrade;
     }
 
     private void Upgrade(BlockType upgradeType)
