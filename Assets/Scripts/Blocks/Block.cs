@@ -14,7 +14,8 @@ namespace Blocks
         [SerializeField] private RectTransform rect;    // the rect of the grid element
         
         private BlockType _blockType;                   // the block type of the block
-        
+
+        private Vector3 _destroyDestination;            // the position of the destroy location of the block
         private Vector3 _gridPosition;                  // the default position of the block
         private Vector2Int _cords;                      // the cords in the grid
 
@@ -22,15 +23,17 @@ namespace Blocks
         private bool _canMoveWithMouse;                 // whether the block can stick to the mouse
         
         public RectTransform Rect => rect;              // getter of the rect of the grid element
-        
+
         /// <summary>
         /// Sets the block type and sprite
         /// </summary>
         /// <param name="data"> the block type data </param>
-        public void Initialize(BlockTypeData data)
+        /// <param name="destroyDestination"></param>
+        public void Initialize(BlockTypeData data, Vector3 destroyDestination)
         {
             _blockType = data.blockTypes;
             image.sprite = data.blockSprite;
+            _destroyDestination = destroyDestination;
         }
         
         /// <summary>
@@ -148,18 +151,26 @@ namespace Blocks
             _isMoving = false;
             onComplete?.Invoke();
         }
-        
+
         /// <summary>
         /// Destroys the block after a certain time
         /// </summary>
-        /// <param name="time"></param>
+        /// <param name="waitTime"> Time to wait before making new blocks</param>
+        /// <param name="moveTime"> Time it takes to go to destruction destination</param>
+        /// <param name="scale"> The max scale of the blocks while being destroyed</param>
         /// <returns></returns>
-        public IEnumerator DestroyBlock(float time)
+        public IEnumerator DestroyBlock(float waitTime, float moveTime, float scale)
         {
-            yield return new WaitForSeconds(time);
-            Destroy(gameObject);
-            yield return 0;
+            transform.SetParent(transform.parent.parent.parent);
+            Destroy(this);
+            if (LeanTween.isTweening(gameObject))LeanTween.cancel(gameObject);
+            var distance = Vector3.Distance(transform.position, _destroyDestination);
+            LeanTween.scale(gameObject, Vector3.one * scale , moveTime / 2 * distance).setLoopPingPong();
+            LeanTween.moveX(gameObject, _destroyDestination.x, moveTime * distance).setEase(LeanTweenType.easeInSine);
+            LeanTween.moveY(gameObject, _destroyDestination.y, moveTime * distance).setEase(LeanTweenType.easeOutSine).setDestroyOnComplete(gameObject);
+            yield return new WaitForSeconds(waitTime);
             GridManager.Instance.GenerateNewBlocks(_cords.y);
+            yield return new WaitForSeconds(moveTime * distance - waitTime);
         }
     }
 }
