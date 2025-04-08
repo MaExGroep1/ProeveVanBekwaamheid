@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Blocks;
 using UnityEngine;
 using Util;
+using Random = UnityEngine.Random;
 
 namespace Grid
 {
@@ -19,11 +21,18 @@ namespace Grid
         [Header("Block data")]
         [SerializeField] private GridElement gridElementTemplate;           // the template of the grid element
         [SerializeField] private Block blockTemplate;                       // the template of the block
-        [SerializeField] private BlockTypeTableData blockTypeTableData;     // the available block types
+        [SerializeField] private BlockData[] blockData;                     // the available block types
         [SerializeField] private float blockPlaceDistance;                  // the distance the block can travel before swapping 
         [SerializeField] private float blockSpringBackDistance;             // the distance the block can travel before not snapping back to its origin
+        
+        [Header("Block times")]
         [SerializeField] private float blockTravelTime;                     // the time it takes for the block to travel somewhere
         [SerializeField] private float blockFallTime;                       // the time it takes for the block to fall somewhere
+        
+        [Header("Block destroy")]
+        [SerializeField] private float blockWaitTime;                       // the time it takes for a new block to be made after a match is made
+        [SerializeField] private float blockTravelSpeed;                    // The speed the block moves to the destroy point
+        [SerializeField] private float blockDestroyScale;                   // the scale of the block when traveling to the destroy point
         
         [Header("Spawn animation")]
         [SerializeField] private RectTransform gridRect;                    // the rect of the grid object
@@ -85,7 +94,7 @@ namespace Grid
 
                 for (var i = allBlocks.Count - 1; i > 0; i--)
                 {
-                    var randomIndex = UnityEngine.Random.Range(0, i + 1);
+                    var randomIndex = Random.Range(0, i + 1);
                     (allBlocks[i], allBlocks[randomIndex]) = (allBlocks[randomIndex], allBlocks[i]);
                 }
 
@@ -158,11 +167,11 @@ namespace Grid
             for (int i = 0; i < emptyElements; i++)
             {
                 var newBlock = Instantiate(blockTemplate, _blocksParent);
-                var block = blockTypeTableData.GetRandomBlock();
+                var block = GetRandomBlock();
                 var position = new Vector2(_grid[gridHeight-1,y].transform.position.x, _grid[gridHeight-1,y].transform.position.y);
                 var offset = new Vector2(0, _heightOffset * (i + 1));
                 
-                newBlock.Initialize(block);
+                newBlock.Initialize(block.blockType,block.destroyDestination.position);
                 newBlock.Rect.position = position + offset;
                 blocks.Add(newBlock);
             }
@@ -243,7 +252,7 @@ namespace Grid
                                + CheckDirection(cords, new Vector2Int(0, -1), blockType);
 
             if (vertical <= 2 && horizontal <= 2) return;
-            DestroyMatchingBlocks(cords, blockType ,vertical > 2, horizontal > 2);
+            StartCoroutine(DestroyMatchingBlocks(cords, blockType ,vertical > 2, horizontal > 2));
         }
         
         /// <summary>
@@ -358,11 +367,11 @@ namespace Grid
                     if (j > 1 && _grid[i ,j - 1].GetBlockType() == _grid[i ,j - 2].GetBlockType())
                         exclusions.Add(_grid[i, j - 1].GetBlockType());
 
-                    var block = blockTypeTableData.GetRandomBlocksExcluding(exclusions.ToArray());
+                    var block = GetRandomBlocksExcluding(exclusions.ToArray());
 
                     newBlock.Rect.position = position + offset;
                     
-                    newBlock.Initialize(block);
+                    newBlock.Initialize(block.blockType,block.destroyDestination.position);
                 
                     _grid[i,j].SetBlock(newBlock);
                     
@@ -423,8 +432,8 @@ namespace Grid
         /// <param name="verticalB"> whether to delete on A vertical </param>
         private void DestroyAllMatchingBlocks(Vector2Int cordsA, bool horizontalA, bool verticalA,Vector2Int cordsB , bool horizontalB, bool verticalB )
         {
-            DestroyMatchingBlocks(cordsA, _grid[cordsA.x, cordsA.y].GetBlock().GetBlockType(), horizontalA, verticalA);
-            DestroyMatchingBlocks(cordsB, _grid[cordsB.x, cordsB.y].GetBlock().GetBlockType(), horizontalB, verticalB);
+            StartCoroutine(DestroyMatchingBlocks(cordsA, _grid[cordsA.x, cordsA.y].GetBlock().GetBlockType(), horizontalA, verticalA));
+            StartCoroutine(DestroyMatchingBlocks(cordsB, _grid[cordsB.x, cordsB.y].GetBlock().GetBlockType(), horizontalB, verticalB));
         }
         
         /// <summary>
@@ -434,7 +443,7 @@ namespace Grid
         /// <param name="blockType"> the type of block </param>
         /// <param name="horizontal"> whether to delete on horizontal </param>
         /// <param name="vertical"> whether to delete on vertical </param>
-        private void DestroyMatchingBlocks(Vector2Int cords, BlockType blockType, bool horizontal, bool vertical)
+        private IEnumerator DestroyMatchingBlocks(Vector2Int cords, BlockType blockType, bool horizontal, bool vertical)
         {
             var hor = 0;
             var ver = 0;
@@ -449,9 +458,9 @@ namespace Grid
                 ver += DestroyBlocksFromDirection(cords, new Vector2Int( 0,-1), blockType);
             }
 
-            if (!vertical && !horizontal) return;
-            StartCoroutine(_grid[cords.x, cords.y].GetBlock().DestroyBlock(0.2f));
-            _onMatch.Invoke(blockType, hor+ver+1);
+            if (!vertical && !horizontal) yield break;
+            yield return StartCoroutine(_grid[cords.x, cords.y].GetBlock().DestroyBlock(blockWaitTime,blockTravelSpeed,blockDestroyScale));
+            _onMatch?.Invoke(blockType, hor+ver+1);
         }
         
         /// <summary>
@@ -465,12 +474,34 @@ namespace Grid
             int i = 1;
             while (IsWithinBounds(cords + i * direction) && _grid[cords.x + i * direction.x, cords.y + i * direction.y].GetBlockType() == blockType)
             {
-                StartCoroutine(_grid[cords.x + i * direction.x, cords.y + i * direction.y].GetBlock().DestroyBlock(0.2f));
+                StartCoroutine(_grid[cords.x + i * direction.x, cords.y + i * direction.y].GetBlock().DestroyBlock(blockWaitTime,blockTravelSpeed,blockDestroyScale));
                 i++;
             }
 
             return i - 1;
         }
+        
+        /// <summary>
+        /// Gets a random block from the block table
+        /// </summary>
+        /// <returns> A random block type </returns>
+        private BlockData GetRandomBlock() => blockData[Random.Range(0, blockData.Length)];
+
+        /// <summary>
+        /// Gets a random block from the block table
+        /// </summary>
+        /// <returns> A random block type </returns>
+        private BlockData GetRandomBlocksExcluding(BlockType[] excluding)
+        {
+            var blockTypes = blockData.ToList();
+            foreach (var blockType in blockTypes.ToList().Where(blockType => excluding.Contains(blockType.blockType.blockTypes)))
+            {
+                blockTypes.Remove(blockType);
+            }
+
+            return blockTypes[Random.Range(0, blockTypes.Count - 1)];
+        }
+
         
         /// <summary>
         /// Waits for a set amount of time then moves the block to the position
