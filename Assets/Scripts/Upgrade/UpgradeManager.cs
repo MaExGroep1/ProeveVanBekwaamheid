@@ -5,7 +5,7 @@ using Grid;
 using UnityEngine;
 using Util;
 
-namespace User
+namespace Upgrade
 {
     public class UpgradeManager : Singleton<UpgradeManager>
     {
@@ -20,7 +20,7 @@ namespace User
         private Dictionary<BlockType, Action<int>> _onPointIncreaseByType = new();      //Events that get invoked whenever you gain upgrade points per upgrade type <upgradeType, event<upgradePoints>>
         private Dictionary<BlockType, Action> _onUpgradeRequirementReached = new();     //Events that get invoked whenever you have enough points for an upgrade per upgrade type <upgradeType, event>
         private Dictionary<BlockType, Action> _onUpgrade = new();                       //Events that get called whenever you upgrade your car per upgrade type <upgradeType, event>
-        
+
         public Dictionary<BlockType, int> RequiredUpgradePoints  { get => _requiredUpgradePoints; private set => _requiredUpgradePoints = value; }                  //getter/setter for _requiredUpgradePoints
         public Dictionary<BlockType, Action<int>> OnPointIncreaseByType { get => _onPointIncreaseByType; set => _onPointIncreaseByType = value; }                   //getter/setter for _onPointIncreaseByType
         public Dictionary<BlockType, Action> OnUpgradeRequirementReached { get => _onUpgradeRequirementReached; set => _onUpgradeRequirementReached = value; }      //getter/setter for _onUpgradeRequirementReached
@@ -75,6 +75,10 @@ namespace User
             _upgradePoints[upgradeType] = 0;
             
             _requiredUpgradePoints[upgradeType] += upgradePointsRequirementIncrease;
+            foreach (var item in OnUpgrade)
+            {
+                if (item.Key == upgradeType)item.Value?.Invoke();
+            }
             OnUpgrade[upgradeType]?.Invoke();
             
             /*if (_upgradePoints[upgradeType] == 0) return;

@@ -2,15 +2,19 @@ using Blocks;
 using UnityEngine;
 using User;
 
-namespace Interfaces
+namespace Upgrade
 {
     public abstract class BaseUpgradePart : MonoBehaviour
     {
-        [SerializeField] private BlockType upgradeType;
+        [SerializeField] protected BlockType upgradeType; 
+        [SerializeField] protected UpgradeValues[] upgradeValues;
         
-        private void Start()
+        protected int _upgradeLevel;
+
+        protected virtual void Start()
         {
             AssignEvents(); 
+            IncreaseUpgradeStats();
         }
         
         protected abstract void IncreaseUpgradeStats();
@@ -18,11 +22,12 @@ namespace Interfaces
         
         private void AssignEvents()
         {
-            UpgradeManager.Instance.OnUpgrade.TryAdd(upgradeType, Upgrade);
+            if (!UpgradeManager.Instance.OnUpgrade.TryAdd(upgradeType, Upgrade)) UpgradeManager.Instance.OnUpgrade[upgradeType] += Upgrade;
         }
 
         private void Upgrade()
         {
+            _upgradeLevel++;
             IncreaseUpgradeStats();
             ChangeCarVisuals();
         }

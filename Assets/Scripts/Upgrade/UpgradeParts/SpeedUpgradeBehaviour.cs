@@ -1,4 +1,4 @@
-using Interfaces;
+using Car;
 
 namespace Upgrade.UpgradeParts
 {
@@ -6,12 +6,11 @@ namespace Upgrade.UpgradeParts
     {
         protected override void IncreaseUpgradeStats()
         {
-            throw new System.NotImplementedException();
+            CarData.Instance.Speed = upgradeValues[_upgradeLevel].newUpgradeValue;
         }
 
         protected override void ChangeCarVisuals()
         {
-            throw new System.NotImplementedException();
         }
     }
 }

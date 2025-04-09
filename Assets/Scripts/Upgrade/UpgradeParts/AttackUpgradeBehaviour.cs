@@ -1,4 +1,5 @@
-using Interfaces;
+using Car;
+using User;
 
 namespace Upgrade.UpgradeParts
 {
@@ -6,12 +7,11 @@ namespace Upgrade.UpgradeParts
     {
         protected override void IncreaseUpgradeStats()
         {
-            
+            CarData.Instance.AttackSpeedReduction = upgradeValues[_upgradeLevel].newUpgradeValue;
         }
 
         protected override void ChangeCarVisuals()
         {
-            throw new System.NotImplementedException();
         }
     }
 }

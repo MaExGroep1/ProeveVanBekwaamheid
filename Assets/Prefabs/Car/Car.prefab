@@ -106,6 +106,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8008199929602477756}
+  - component: {fileID: 5962174970177910791}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -129,6 +130,18 @@ Transform:
   - {fileID: 5553081722963463856}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5962174970177910791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660503264983705721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc21afe4c7f0b804a84c7c757925bbfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1001690506336373335
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,6 +395,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeType: 3
+  upgradeValues:
+  - newUpgradeValue: 20
+    visuals: {fileID: 0}
+  - newUpgradeValue: 25
+    visuals: {fileID: 0}
+  - newUpgradeValue: 30
+    visuals: {fileID: 0}
+  - newUpgradeValue: 35
+    visuals: {fileID: 0}
 --- !u!1 &2395460564154918647
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,6 +452,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeType: 2
+  upgradeValues:
+  - newUpgradeValue: 4
+    visuals: {fileID: 0}
+  - newUpgradeValue: 3
+    visuals: {fileID: 0}
+  - newUpgradeValue: 2
+    visuals: {fileID: 0}
+  - newUpgradeValue: 1
+    visuals: {fileID: 0}
 --- !u!1 &2397308270988636103
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,6 +541,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeType: 4
+  upgradeValues:
+  - newUpgradeValue: 20
+    visuals: {fileID: 0}
+  - newUpgradeValue: 30
+    visuals: {fileID: 0}
+  - newUpgradeValue: 40
+    visuals: {fileID: 0}
+  - newUpgradeValue: 50
+    visuals: {fileID: 0}
 --- !u!1 &2915906713209732368
 GameObject:
   m_ObjectHideFlags: 0
@@ -813,6 +853,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeType: 0
+  upgradeValues:
+  - newUpgradeValue: 20
+    visuals: {fileID: 0}
+  - newUpgradeValue: 15
+    visuals: {fileID: 0}
+  - newUpgradeValue: 10
+    visuals: {fileID: 0}
+  - newUpgradeValue: 5
+    visuals: {fileID: 0}
 --- !u!1 &6234671355759395579
 GameObject:
   m_ObjectHideFlags: 0
@@ -1096,6 +1145,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   upgradeType: 1
+  upgradeValues:
+  - newUpgradeValue: 20
+    visuals: {fileID: 0}
+  - newUpgradeValue: 15
+    visuals: {fileID: 0}
+  - newUpgradeValue: 10
+    visuals: {fileID: 0}
+  - newUpgradeValue: 5
+    visuals: {fileID: 0}
 --- !u!1001 &161615928588705653
 PrefabInstance:
   m_ObjectHideFlags: 0
