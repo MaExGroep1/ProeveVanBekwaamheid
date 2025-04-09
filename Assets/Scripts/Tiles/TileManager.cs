@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Tiles
@@ -13,12 +14,27 @@ namespace Tiles
         private int _currentLevelIndex;                                     // the current level of the game
         private int _currentTileIndex;                                      // the current tile index in the level
         private LevelData CurrentLevel => levels[_currentLevelIndex];       // the level data of the current level
+        
+        private Action _onEnterNextLevel;
 
         private void Start()
         {
             CreateNewTile(CurrentLevel.startTile);
             CreateNewTile(CurrentLevel.RandomTile);
         }
+        
+        /// <summary>
+        /// Adds function to the onMatch event
+        /// </summary>
+        /// <param name="onEnterNextLevel"> the function to add </param>
+        public void ListenToOnMatch(Action onEnterNextLevel) => _onEnterNextLevel += onEnterNextLevel;
+        
+        /// <summary>
+        /// Removes function to the onMatch event
+        /// </summary>
+        /// <param name="onEnterNextLevel"> the function to remove </param>
+        public void StopListeningToOnMatch(Action onEnterNextLevel) => _onEnterNextLevel -= onEnterNextLevel;
+
 
         /// <summary>
         /// Places a new tile at the end of the previous
