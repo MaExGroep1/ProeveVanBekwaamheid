@@ -73,12 +73,8 @@ namespace Upgrade
             //_upgradePoints[upgradeType] -= _requiredUpgradePoints[upgradeType];
             
             _upgradePoints[upgradeType] = 0;
-            
+
             _requiredUpgradePoints[upgradeType] += upgradePointsRequirementIncrease;
-            foreach (var item in OnUpgrade)
-            {
-                if (item.Key == upgradeType)item.Value?.Invoke();
-            }
             OnUpgrade[upgradeType]?.Invoke();
             
             /*if (_upgradePoints[upgradeType] == 0) return;

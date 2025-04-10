@@ -8,7 +8,7 @@ namespace Upgrade
     {
         [SerializeField] protected BlockType upgradeType; 
         [SerializeField] protected UpgradeValues[] upgradeValues;
-        [SerializeField] protected Transform startPosition;
+        [SerializeField] protected Transform startTransform;
         [SerializeField] protected float moveSpeed;
         
         protected int _upgradeLevel;
