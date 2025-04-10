@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b954dc53dbb28f545b970af065fa04f9, type: 3}
   m_Name: HouseLevel
   m_EditorClassIdentifier: 
+  groundEnemies:
+  - {fileID: 0}
+  flyingEnemies: []
   startTile: {fileID: 7034098652600042479, guid: a96cf1a7090877c41972da5795a271f1, type: 3}
+  endTile: {fileID: 7034098652600042479, guid: a96cf1a7090877c41972da5795a271f1, type: 3}
   tiles:
   - {fileID: 7034098652600042479, guid: a96cf1a7090877c41972da5795a271f1, type: 3}
   - {fileID: 7034098652600042479, guid: 87294789f52987945a4213a0d2f5955f, type: 3}
   - {fileID: 7034098652600042479, guid: 73aaa2285e91ba24495df32a8c636f00, type: 3}
-  endTile: {fileID: 7034098652600042479, guid: a96cf1a7090877c41972da5795a271f1, type: 3}

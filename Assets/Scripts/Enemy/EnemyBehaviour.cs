@@ -9,12 +9,17 @@ namespace Enemy
         private int _speed;
         private int _defense;
 
-        public void Initialize(int health, int damage, int speed, int defense)
+        public void Initialize(EnemyData enemyData)
         {
-            _health = health;
-            _damage = damage;
-            _speed = speed;
-            _defense = defense;
+            var enemyGameObject = Instantiate(enemyData.prefab, transform.position, Quaternion.identity);
+            
+            _health = enemyData.health;
+            _damage = enemyData.damage;
+            _speed = enemyData.speed;
+            _defense = enemyData.defense;
+            transform.localScale = Vector3.one * enemyData.scale;
+            
+            enemyGameObject.transform.parent = transform;
         }
     }
 }

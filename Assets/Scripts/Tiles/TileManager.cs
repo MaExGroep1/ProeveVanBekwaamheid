@@ -1,19 +1,18 @@
 using System;
+using CarGame;
 using UnityEngine;
 
 namespace Tiles
 {
     public class TileManager : Util.Singleton<TileManager>
     {
-        [SerializeField] private LevelData[] levels;                        // all the playable levels
-        [SerializeField] private Transform tileParent;                      // the parent of the tiles
-        [SerializeField] private int levelLength;                           // the amount of tiles in a level before going to the next
+        [SerializeField] private Transform tileParent;                                      // the parent of the tiles
+        [SerializeField] private int levelLength;                                           // the amount of tiles in a level before going to the next
         
-        private Tile _currentTile;                                          // the tile under the player
-        private Tile _previousTile;                                         // the tile before the current tile
-        private int _currentLevelIndex;                                     // the current level of the game
-        private int _currentTileIndex;                                      // the current tile index in the level
-        private LevelData CurrentLevel => levels[_currentLevelIndex];       // the level data of the current level
+        private Tile _currentTile;                                                          // the tile under the player
+        private Tile _previousTile;                                                         // the tile before the current tile
+        private int _currentTileIndex;                                                      // the current tile index in the level
+        private static LevelData CurrentLevel => CarGameManager.Instance.CurrentLevel;      // the level data of the current level
         
         private Action _onEnterNextLevel;
 
@@ -27,13 +26,13 @@ namespace Tiles
         /// Adds function to the onMatch event
         /// </summary>
         /// <param name="onEnterNextLevel"> the function to add </param>
-        public void ListenToOnMatch(Action onEnterNextLevel) => _onEnterNextLevel += onEnterNextLevel;
+        public void ListenToOnEnterNextLevel(Action onEnterNextLevel) => _onEnterNextLevel += onEnterNextLevel;
         
         /// <summary>
         /// Removes function to the onMatch event
         /// </summary>
         /// <param name="onEnterNextLevel"> the function to remove </param>
-        public void StopListeningToOnMatch(Action onEnterNextLevel) => _onEnterNextLevel -= onEnterNextLevel;
+        public void StopListeningToOnEnterNextLevel(Action onEnterNextLevel) => _onEnterNextLevel -= onEnterNextLevel;
 
 
         /// <summary>
@@ -68,12 +67,7 @@ namespace Tiles
         {
             _currentTileIndex = 0;
             CreateNewTile(CurrentLevel.endTile);
-            if (_currentLevelIndex < levels.Length - 1)
-            {
-                _currentLevelIndex++;
-                return;
-            }
-            _currentLevelIndex = 0;
+            _onEnterNextLevel?.Invoke();
         }
         
         /// <summary>
