@@ -7,14 +7,13 @@ namespace Enemy
     {
         [SerializeField] private bool inAir;
         private EnemyBehaviour _enemy;
-        
-        private void Awake() => EnemyManager.Instance.CreateEnemy(this);
+
+        private void Start() => EnemyManager.Instance.CreateEnemy(this);
 
         public bool InAir => inAir;
-        public EnemyBehaviour CreateEnemy(EnemyData enemyData,EnemyBehaviour enemy)
+        public EnemyBehaviour CreateEnemy(EnemyBehaviour enemy)
         {
             _enemy = Instantiate(enemy,transform.position,Quaternion.identity);
-            _enemy.Initialize(enemyData);
             return _enemy;
         }
     }

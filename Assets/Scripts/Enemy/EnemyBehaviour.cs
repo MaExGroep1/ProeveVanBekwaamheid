@@ -1,25 +1,31 @@
+using System;
 using UnityEngine;
 
 namespace Enemy
 {
     public class EnemyBehaviour : MonoBehaviour
     {
-        private int _health;
-        private int _damage;
-        private int _speed;
-        private int _defense;
+        [SerializeField] private int health;
+        [SerializeField] private int strength;
+        [SerializeField] private int speed;
+        [SerializeField] private int defense;
 
-        public void Initialize(EnemyData enemyData)
+        private void OnCollisionEnter(Collision other)
         {
-            var enemyGameObject = Instantiate(enemyData.prefab, transform.position, Quaternion.identity);
+            if (!other.gameObject.CompareTag("Player")) return;
             
-            _health = enemyData.health;
-            _damage = enemyData.damage;
-            _speed = enemyData.speed;
-            _defense = enemyData.defense;
-            transform.localScale = Vector3.one * enemyData.scale;
-            
-            enemyGameObject.transform.parent = transform;
+        }
+
+        public void TakeDamage(int damage)
+        {
+            health -= damage;
+            if (health>0) return;
+            DestroySelf();
+        }
+
+        private void DestroySelf()
+        {
+            Destroy(gameObject);
         }
     }
 }
