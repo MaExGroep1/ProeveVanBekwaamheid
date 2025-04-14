@@ -25,7 +25,6 @@ namespace Enemy
             OnEnterNextLevel();
             CarGameManager.Instance.ListenToOnEnterNextLevel(OnEnterNextLevel);
         } 
-        
 
         private void OnEnterNextLevel()
         {
@@ -48,6 +47,11 @@ namespace Enemy
                 spawner.CreateEnemy(RandomFlyingEnemies):
                 spawner.CreateEnemy(RandomGroundEnemies);
             _enemies.Add(newEnemy);
+        }
+
+        public void DestroyEnemy(EnemyBehaviour enemy)
+        {
+            _enemies.Remove(enemy);
         }
     }
 }

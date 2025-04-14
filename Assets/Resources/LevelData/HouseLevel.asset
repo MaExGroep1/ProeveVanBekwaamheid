@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b954dc53dbb28f545b970af065fa04f9, type: 3}
   m_Name: HouseLevel
   m_EditorClassIdentifier: 
-  groundEnemies: []
+  groundEnemies:
+  - {fileID: 619456768536214066, guid: 69a29f8fb88ba3d45a58b01c413e3fe4, type: 3}
   flyingEnemies:
-  - {fileID: 9049515706047966172, guid: 07315d57f0d95e445837ac3ca9e927be, type: 3}
-  startTile: {fileID: 7034098652600042479, guid: a96cf1a7090877c41972da5795a271f1, type: 3}
-  endTile: {fileID: 7034098652600042479, guid: a96cf1a7090877c41972da5795a271f1, type: 3}
+  - {fileID: 7268999921430130920, guid: 3f709b0b10c1e564cadf85c54953a2e5, type: 3}
+  startTile: {fileID: 5274738865471501743, guid: ac78d53c9f444a543acbf505f8073b3a, type: 3}
+  endTile: {fileID: 5274738865471501743, guid: ac78d53c9f444a543acbf505f8073b3a, type: 3}
   tiles:
-  - {fileID: 7034098652600042479, guid: a96cf1a7090877c41972da5795a271f1, type: 3}
-  - {fileID: 7034098652600042479, guid: 87294789f52987945a4213a0d2f5955f, type: 3}
-  - {fileID: 7034098652600042479, guid: 73aaa2285e91ba24495df32a8c636f00, type: 3}
+  - {fileID: 5274738865471501743, guid: ac78d53c9f444a543acbf505f8073b3a, type: 3}
+  - {fileID: 2661897436389122401, guid: a53d607b74e359946811107999652706, type: 3}
+  - {fileID: 6511045690372614016, guid: e48d05ae94494b2478f458f04f619950, type: 3}
