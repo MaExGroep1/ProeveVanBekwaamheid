@@ -940,6 +940,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1745204058652340127, guid: 7340e1b8df78d4449a7d7101517f289a, type: 3}
+      propertyPath: onDeathParticles
+      value: 
+      objectReference: {fileID: 7102022255105238938, guid: 470a392da58f22f408f25046ccd895d1, type: 3}
+    - target: {fileID: 1745204058652340127, guid: 7340e1b8df78d4449a7d7101517f289a, type: 3}
       propertyPath: flyingEnemyPrefab
       value: 
       objectReference: {fileID: 9049515706047966172, guid: 9c0dcd8b56b9fc14f9195b650b5d997f, type: 3}

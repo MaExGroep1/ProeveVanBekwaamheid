@@ -11,16 +11,13 @@ namespace Enemy
         public bool InAir => inAir;
 
         private void Start() => EnemyManager.Instance.CreateEnemy(this);
+        private void OnDestroy() => EnemyManager.Instance.DestroyEnemy(_enemy);
+
 
         private void OnDrawGizmos()
         {
             Gizmos.color = inAir ? Color.cyan: Color.red;
             Gizmos.DrawSphere(transform.position, 1);
-        }
-        
-        private void OnDestroy()
-        {
-            EnemyManager.Instance.DestroyEnemy(_enemy);
         }
 
         public EnemyBehaviour CreateEnemy(EnemyBehaviour enemy)

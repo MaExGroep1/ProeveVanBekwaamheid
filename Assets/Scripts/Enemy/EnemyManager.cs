@@ -9,6 +9,7 @@ namespace Enemy
 {
     public class EnemyManager : Singleton<EnemyManager>
     {
+        [SerializeField] private ParticleSystem onDeathParticles;
         
         private readonly List<EnemyBehaviour> _groundEnemies = new();
         private readonly List<EnemyBehaviour> _flyingEnemies = new();
@@ -52,6 +53,8 @@ namespace Enemy
         public void DestroyEnemy(EnemyBehaviour enemy)
         {
             _enemies.Remove(enemy);
+            Instantiate(onDeathParticles,enemy.transform.position,Quaternion.identity);
+            Destroy(enemy.gameObject,0.5f);
         }
     }
 }
