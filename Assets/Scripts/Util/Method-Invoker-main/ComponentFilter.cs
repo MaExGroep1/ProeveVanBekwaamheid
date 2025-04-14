@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Util.Method_Invoker_main
 {
+#if UNITY_EDITOR
     [CustomEditor(typeof(Invoker))]
     public class ComponentFilter : Editor
     {
@@ -13,14 +14,14 @@ namespace Util.Method_Invoker_main
         private SerializedProperty _bindingFlagsProperty;
 
         private Component _targetComponent;
-        private BindingFlags _bindingFlags ;
+        private BindingFlags _bindingFlags;
 
         private InvokerService? _invokerService;
         private MethodInfo[] _allMethods = Array.Empty<MethodInfo>();
 
         private bool[] _methodFoldouts;
         private bool _showMethodInvoker;
-    
+
         public override void OnInspectorGUI()
         {
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
@@ -28,18 +29,18 @@ namespace Util.Method_Invoker_main
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
         }
-    
+
         private void RenderMethodInvoker()
         {
-            _targetComponent = (Component) EditorGUILayout.ObjectField("Script: ", _targetComponent, typeof(Component));
-        
+            _targetComponent = (Component)EditorGUILayout.ObjectField("Script: ", _targetComponent, typeof(Component));
+
             if (GUI.changed)
             {
                 OnValidate();
             }
 
             EditorGUILayout.Separator();
-        
+
             DisplayMethods();
         }
 
@@ -58,7 +59,8 @@ namespace Util.Method_Invoker_main
 
                 GUILayout.FlexibleSpace();
 
-                _methodFoldouts[i] = EditorGUILayout.Foldout(_methodFoldouts[i], currentMethodInfo.Name +":", EditorStyles.foldoutHeader);
+                _methodFoldouts[i] = EditorGUILayout.Foldout(_methodFoldouts[i], currentMethodInfo.Name + ":",
+                    EditorStyles.foldoutHeader);
                 if (_methodFoldouts[i])
                 {
                     EditorGUILayout.BeginVertical();
@@ -81,7 +83,7 @@ namespace Util.Method_Invoker_main
                     if (GUILayout.Button("Invoke", GUILayout.MinWidth(500), GUILayout.Width(100)))
                         _invokerService?.Invoke(currentMethodInfo.Name, argList.ToArray());
                     EditorGUILayout.EndVertical();
-                
+
                     EditorGUILayout.Space();
                     EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
                     EditorGUILayout.Separator();
@@ -93,10 +95,11 @@ namespace Util.Method_Invoker_main
         {
             if (_targetComponent == null)
                 return;
-        
+
             _invokerService = new InvokerService(_targetComponent);
             _allMethods = _invokerService.Value.GetMethods();
         }
-    
+
     }
+#endif
 }
