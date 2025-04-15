@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 98db6582768af5f4ca2164d1f18a984a
+guid: 6c01bbd619029c740ae0f5aac353c3e7
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: RC_Car_M
-    second: {fileID: 2100000, guid: 80220b4cdb4854246b7af72ce21a7420, type: 2}
+      name: DIYobjects_Material
+    second: {fileID: 2100000, guid: 4a3f0a82840e41149bf8549b08691f9a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
