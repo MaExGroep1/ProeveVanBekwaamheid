@@ -9,6 +9,7 @@ namespace Upgrade
         [SerializeField] protected BlockType upgradeType; 
         [SerializeField] protected UpgradeValues[] upgradeValues;
         [SerializeField] protected float appearSpeed;
+        [SerializeField] protected Transform spawnTransform;
         
         protected int _upgradeLevel;
 
@@ -19,15 +20,23 @@ namespace Upgrade
         }
 
         protected abstract void IncreaseUpgradeStats();
-        private void ChangeCarVisuals()
+        protected virtual void ChangeCarVisuals()
         {
+            /*var upgradeValue = upgradeValues[_upgradeLevel].visuals;
+            if (!upgradeValue) return;
+           
+            var carPart = Instantiate(upgradeValue, transform.position, transform.rotation, transform);
+            carPart.transform.localScale = Vector3.zero;
+
+            LeanTween.scale(carPart.gameObject, new Vector3(-1, 1, 1), appearSpeed).setEaseOutQuint();*/
+            
             var carPart = upgradeValues[_upgradeLevel].visuals;
             if (!carPart) return;
            
-            var bumperPart = Instantiate(carPart, transform.position, transform.rotation, transform);
-            bumperPart.transform.localScale = Vector3.zero;
-
-            LeanTween.scale(bumperPart.gameObject, new Vector3(-1, 1, 1), appearSpeed).setEaseOutBack();
+            var upgradePart = Instantiate(carPart, spawnTransform.position, transform.rotation, transform);
+            upgradePart.transform.localScale = new Vector3(-1, 1, 1);
+            
+            LeanTween.move(upgradePart, transform.position, appearSpeed).setEaseOutQuint();
         }
         
         private void AssignEvents()
