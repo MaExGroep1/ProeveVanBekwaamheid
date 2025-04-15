@@ -47,14 +47,16 @@ namespace Enemy
             var newEnemy = spawner.InAir ? 
                 spawner.CreateEnemy(RandomFlyingEnemies):
                 spawner.CreateEnemy(RandomGroundEnemies);
+            newEnemy.transform.parent = transform;
             _enemies.Add(newEnemy);
         }
 
         public void DestroyEnemy(EnemyBehaviour enemy)
         {
             _enemies.Remove(enemy);
+            if (onDeathParticles == null) return;
             Instantiate(onDeathParticles,enemy.transform.position,Quaternion.identity);
-            Destroy(enemy.gameObject,0.5f);
+            enemy.DestroySelf(0.1f);
         }
     }
 }

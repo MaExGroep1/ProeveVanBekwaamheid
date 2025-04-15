@@ -1,16 +1,23 @@
+using System;
 using UnityEngine;
 
 namespace Testing
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class Player : MonoBehaviour
     {
         public float speed;
+        
+        private Rigidbody _rigidBody;
+
+        private void Awake() => _rigidBody = GetComponent<Rigidbody>();
+
         void Update()
         { 
             var hor = Input.GetAxis("Horizontal");
             var ver = Input.GetAxis("Vertical");
             
-            transform.position += new Vector3(hor, ver, 0) * Time.deltaTime * speed;
+            _rigidBody.AddForce(new Vector3(hor, ver).normalized * speed * _rigidBody.mass);
         }
     }
 }

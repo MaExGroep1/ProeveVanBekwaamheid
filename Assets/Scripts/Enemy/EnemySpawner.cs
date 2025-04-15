@@ -11,7 +11,12 @@ namespace Enemy
         public bool InAir => inAir;
 
         private void Start() => EnemyManager.Instance.CreateEnemy(this);
-        private void OnDestroy() => EnemyManager.Instance.DestroyEnemy(_enemy);
+
+        private void OnDestroy()
+        {
+            if (_enemy == null) return;
+            EnemyManager.Instance.DestroyEnemy(_enemy);
+        }
 
 
         private void OnDrawGizmos()
@@ -23,6 +28,7 @@ namespace Enemy
         public EnemyBehaviour CreateEnemy(EnemyBehaviour enemy)
         {
             _enemy = Instantiate(enemy,transform.position,Quaternion.identity);
+            _enemy.StartRoam(transform);
             return _enemy;
         }
     }
