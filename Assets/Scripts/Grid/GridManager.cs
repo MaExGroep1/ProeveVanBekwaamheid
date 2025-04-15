@@ -499,7 +499,7 @@ namespace Grid
                 blockTypes.Remove(blockType);
             }
 
-            return blockTypes[Random.Range(0, blockTypes.Count - 1)];
+            return blockTypes[Random.Range(0, blockTypes.Count)];
         }
 
         
