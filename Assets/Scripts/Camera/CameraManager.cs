@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class CameraMovement : MonoBehaviour
+public class CameraManager : MonoBehaviour
 { 
     [Header("Car Variables")]
     [SerializeField] private Transform carTransform; // Reference of the player car transport
