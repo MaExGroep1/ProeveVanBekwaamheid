@@ -4,29 +4,43 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 { 
     [Header("Car Variables")]
-    [SerializeField] private Transform carTransform;
-    [SerializeField] private Rigidbody carRigidbody;
+    [SerializeField] private Transform carTransform; // Reference of the player car transport
+    [SerializeField] private Rigidbody carRigidbody; // Reference of the car rigidbody
 
     [Header("Camera Variables")] 
-    [SerializeField] private Transform cameraTransform;
-    [SerializeField] private Vector3 offset = new (1.5f, 0.5f, -1f);
-    [SerializeField] private float cameraSmoothing;
-    [SerializeField] private float bounceIntensity;
+    [SerializeField] private Transform cameraTransform; // Reference to the camera transform
+    [SerializeField] private Vector3 offset = new (1.5f, 0.5f, -1f); // The offset of the camera
+    [SerializeField] private float cameraSmoothing; // The time it takes for the camera to move to the target
+    [SerializeField] private float bounceIntensity; // The intensity the camera bounces
     
-    private Vector3 _velocity = Vector3.zero;
+    private Vector3 _velocity = Vector3.zero; // Vector3 zero for use in SmoothDamp
 
     private void Update()
     {
         var cameraPosition = carTransform.position + offset;
-
         var bounce = carRigidbody.position.y * bounceIntensity;
 
         cameraPosition.y += bounce;
-
-        var smoothPos = Vector3.SmoothDamp(cameraTransform.position, cameraPosition, ref _velocity, cameraSmoothing);
-
-        cameraTransform.position = smoothPos;
-
+        
+        SmoothCameraPosition(cameraPosition);
+        LookAtCar();
+    }
+    
+    /// <summary>
+    /// Makes the camera point at the target
+    /// </summary>
+    private void LookAtCar()
+    {
         cameraTransform.LookAt(carTransform);
+    }
+
+    /// <summary>
+    /// Makes the camera follow the target with a smooth delay
+    /// </summary>
+    /// <param name="cameraPos">A Vector 3 of the camera position</param>
+    private void SmoothCameraPosition(Vector3 cameraPos)
+    {
+        var smoothPos = Vector3.SmoothDamp(cameraTransform.position, cameraPos, ref _velocity, cameraSmoothing);
+        cameraTransform.position = smoothPos;
     }
 }
