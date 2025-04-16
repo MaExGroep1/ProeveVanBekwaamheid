@@ -17,13 +17,22 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
+        SmoothCameraPosition(CalculateBounce());
+        LookAtCar();
+    }
+    
+    /// <summary>
+    /// Calculates how much the camera bounces
+    /// </summary>
+    /// <returns>Returns the CameraPosition</returns>
+    private Vector3 CalculateBounce()
+    {
         var cameraPosition = carTransform.position + offset;
         var bounce = carRigidbody.position.y * bounceIntensity;
 
         cameraPosition.y += bounce;
-        
-        SmoothCameraPosition(cameraPosition);
-        LookAtCar();
+
+        return cameraPosition;
     }
     
     /// <summary>
