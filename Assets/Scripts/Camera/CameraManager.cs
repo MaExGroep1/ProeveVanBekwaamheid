@@ -17,6 +17,9 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
+        if (carTransform == null || carRigidbody == null) 
+            return;
+        
         SmoothCameraPosition(CalculateBounce());
         LookAtCar();
     }
