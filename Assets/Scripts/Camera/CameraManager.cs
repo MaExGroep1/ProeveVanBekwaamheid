@@ -17,6 +17,7 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
+        // Null check for carTransform and carRigidBody
         if (carTransform == null || carRigidbody == null) 
             return;
         
