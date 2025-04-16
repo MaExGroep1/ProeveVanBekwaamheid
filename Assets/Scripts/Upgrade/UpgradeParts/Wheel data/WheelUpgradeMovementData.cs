@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Upgrade.UpgradeParts.Wheel_logica
+namespace Upgrade.UpgradeParts.Wheel_data
 {
     [Serializable]
     public struct WheelUpgradeMovementData

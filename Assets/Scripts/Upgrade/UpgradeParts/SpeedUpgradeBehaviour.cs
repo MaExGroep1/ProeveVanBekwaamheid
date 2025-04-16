@@ -1,6 +1,6 @@
 using Car;
 using UnityEngine;
-using Upgrade.UpgradeParts.Wheel_logica;
+using Upgrade.UpgradeParts.Wheel_data;
 
 namespace Upgrade.UpgradeParts
 {
