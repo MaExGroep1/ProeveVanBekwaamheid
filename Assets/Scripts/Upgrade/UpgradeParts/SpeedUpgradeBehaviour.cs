@@ -28,12 +28,13 @@ namespace Upgrade.UpgradeParts
             for (int i = 0; i < wheelMovementData.Length; i++)
             {
                 var wheelData = wheelMovementData[i];
+                var newWheelData = wheelData;
+                
                 var newWheel = Instantiate(upgradeValue, wheelData.wheelSpawnLocation.transform.position, wheelData.wheelLocation.transform.rotation, wheelData.wheelLocation.transform);
                 
                 LeanTween.scale(wheelData.wheel, Vector3.zero, disappearSpeed).setEaseInBack()
                     .setOnComplete(() => ChangeWheels(newWheel, wheelData.wheelLocation.transform.position));
                 
-                var newWheelData = wheelData;
                 newWheelData.wheel = newWheel;
                 wheelMovementData[i] = newWheelData;
             }
