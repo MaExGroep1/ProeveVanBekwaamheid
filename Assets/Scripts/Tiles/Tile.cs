@@ -13,7 +13,13 @@ namespace Tiles
             get => loadNext.OnLoad;
             set => loadNext.OnLoad = value;
         }
-
+    
         public Transform TileEnd => tileEnd;
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(transform.position, 0.1f);
+        }
     }
 }
