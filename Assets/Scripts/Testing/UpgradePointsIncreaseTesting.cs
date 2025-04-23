@@ -1,33 +1,36 @@
 using Blocks;
 using UnityEngine;
-using User;
+using Upgrade;
 
-public class UpgradePointsIncreaseTesting : MonoBehaviour
+namespace Testing
 {
-   //Each function increases the points for a specific upgradeType
-   //Designed to be used by UI buttons and only used for testing purposes
-   public void IncreaseUpgradePointsAttack(int upgradeAmount)
+   public class UpgradePointsIncreaseTesting : MonoBehaviour
    {
-      UpgradeManager.Instance.IncreaseUpgradePoints(BlockType.Attack, upgradeAmount);
-   }
+      //Each function increases the points for a specific upgradeType
+      //Designed to be used by UI buttons and only used for testing purposes
+      public void IncreaseUpgradePointsAttack(int upgradeAmount)
+      {
+         UpgradeManager.Instance.IncreaseUpgradePoints(BlockType.Attack, upgradeAmount);
+      }
    
-   public void IncreaseUpgradePointsDefense(int upgradeAmount)
-   {
-      UpgradeManager.Instance.IncreaseUpgradePoints(BlockType.Defense, upgradeAmount);
-   }
+      public void IncreaseUpgradePointsDefense(int upgradeAmount)
+      {
+         UpgradeManager.Instance.IncreaseUpgradePoints(BlockType.Defense, upgradeAmount);
+      }
    
-   public void IncreaseUpgradePointsFuel(int upgradeAmount)
-   {
-      UpgradeManager.Instance.IncreaseUpgradePoints(BlockType.Fuel, upgradeAmount);
-   }
+      public void IncreaseUpgradePointsFuel(int upgradeAmount)
+      {
+         UpgradeManager.Instance.IncreaseUpgradePoints(BlockType.Fuel, upgradeAmount);
+      }
    
-   public void IncreaseUpgradePointsSpeed(int upgradeAmount)
-   {
-      UpgradeManager.Instance.IncreaseUpgradePoints(BlockType.Speed, upgradeAmount);
-   }
+      public void IncreaseUpgradePointsSpeed(int upgradeAmount)
+      {
+         UpgradeManager.Instance.IncreaseUpgradePoints(BlockType.Speed, upgradeAmount);
+      }
    
-   public void IncreaseUpgradePointsWeapon(int upgradeAmount)
-   {
-      UpgradeManager.Instance.IncreaseUpgradePoints(BlockType.Weapon, upgradeAmount);
+      public void IncreaseUpgradePointsWeapon(int upgradeAmount)
+      {
+         UpgradeManager.Instance.IncreaseUpgradePoints(BlockType.Weapon, upgradeAmount);
+      }
    }
 }
