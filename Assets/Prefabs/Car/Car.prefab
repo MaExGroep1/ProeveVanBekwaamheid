@@ -102,8 +102,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backLeft: {fileID: 4788086164230447868}
   backRight: {fileID: 99258077390203236}
-  motorForce: 1500
-  brakeForce: 3000
+  motorForce: 500
+  targetThrottle: 1
+  fuelConsumptionRate: 1
+  _maxFuel: 100
 --- !u!1 &3870295332874665954
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,7 +409,7 @@ PrefabInstance:
     - target: {fileID: 112968357918894522, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}
       propertyPath: wheelMovementData.Array.data[0].wheel
       value: 
-      objectReference: {fileID: 2172958078158109996}
+      objectReference: {fileID: 0}
     - target: {fileID: 112968357918894522, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}
       propertyPath: wheelMovementData.Array.data[1].wheel
       value: 
@@ -464,6 +466,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Upgradeparts
       objectReference: {fileID: 0}
+    - target: {fileID: 5724286981978138032, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}
+      propertyPath: upgradeValues.Array.data[0].newUpgradeValue
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724286981978138032, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}
+      propertyPath: upgradeValues.Array.data[1].newUpgradeValue
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724286981978138032, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}
+      propertyPath: upgradeValues.Array.data[2].newUpgradeValue
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6560469694234683900, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}
@@ -471,9 +485,6 @@ PrefabInstance:
     - {fileID: 5559451303369204037, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}
     - {fileID: 6981837815519567693, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 1267342555502332325, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1543667559157311382}
     - targetCorrespondingSourceObject: {fileID: 48717442885353520, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7766985728538601159}
@@ -498,11 +509,6 @@ Transform:
 --- !u!4 &2749126767727480572 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 552601423108414548, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}
-  m_PrefabInstance: {fileID: 2417835053849154216}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &3466471528686246669 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1267342555502332325, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}
   m_PrefabInstance: {fileID: 2417835053849154216}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &6333725947082562769 stripped
