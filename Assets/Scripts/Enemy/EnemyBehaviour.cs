@@ -26,22 +26,28 @@ namespace Enemy
         private Action _nearPlayer;                         // invokes ones the enemy gets near the player
 
         private void Awake() => _rigidBody = GetComponent<Rigidbody>();
-        
+
+        private void Update()
+        {
+            if (_rigidBody == null) return;
+            MoveToTarget();
+        }
+
         /// <summary>
         ///  Moves the enemy closer to the target
         /// </summary>
-        private void Update()
+        private void MoveToTarget()
         {
             var x = followsOnX ? _target.position.x : transform.position.x;
             var y = followsOnY ? _target.position.y : transform.position.y;
+            
             var targetPosition = new Vector3(x, y, 0);
-            if (_rigidBody == null) return;
+            
             _rigidBody.AddForce((targetPosition - transform.position).normalized * speed * _rigidBody.mass);
-            if (
-                _hasBeenNearPlayer || 
-                Vector3.Distance(transform.position, targetPosition) > nearPlayerDistance || 
-                !_target.gameObject.CompareTag("Player")
-                ) return;
+            
+            if (_hasBeenNearPlayer || Vector3.Distance(transform.position, targetPosition) > nearPlayerDistance || !_target.gameObject.CompareTag("Player")) 
+                return;
+            
             _nearPlayer?.Invoke();
             _hasBeenNearPlayer = true;
         }
@@ -57,22 +63,46 @@ namespace Enemy
         }
         
         /// <summary>
-        /// Checks if it hit the player then calculates the impact
+        /// Checks if it hit the player or a other enemy
         /// </summary>
         /// <param name="other"></param>
         private void OnCollisionEnter(Collision other)
         {
-            if (!other.gameObject.CompareTag("Player")) return;
-            other.gameObject.GetComponent<Player>().OnHitEnemy
-                (
-                    this,
-                    _rigidBody,
-                    Mathf.Abs(other.relativeVelocity.x), 
-                    Mathf.Abs(_rigidBody.velocity.x), 
-                    defense, 
-                    strength
-                );
+            if (other.gameObject.CompareTag("Player"))
+                PlayerHit(other);
+            else if (other.gameObject.CompareTag("Enemy"))
+                OtherEnemyHit(other);
         }
+        
+        /// <summary>
+        /// Gets the player's script then applies the force
+        /// </summary>
+        /// <param name="player"> the collision with the player </param>
+        private void PlayerHit(Collision player) =>
+            player.gameObject.GetComponent<TestPlayer>().OnHitEnemy
+            (
+                this,
+                _rigidBody,
+                Mathf.Abs(player.relativeVelocity.x), 
+                Mathf.Abs(_rigidBody.velocity.x), 
+                defense, 
+                strength
+            );
+        
+        /// <summary>
+        /// Gets the enemy's script then applies force to it
+        /// </summary>
+        /// <param name="otherEnemy"> the collision with the other enemy </param>
+        private void OtherEnemyHit(Collision otherEnemy) =>
+            otherEnemy.gameObject.GetComponent<EnemyBehaviour>().OnHitByEnemy
+                (Mathf.Abs(_rigidBody.velocity.x));
+        
+        /// <summary>
+        /// Applies force forward
+        /// </summary>
+        /// <param name="force"> the hit enemies force on the x-axis </param>
+        private void OnHitByEnemy(float force) =>
+            _rigidBody.AddForce(new Vector3(0,force));
         
         /// <summary>
         /// Sets the target to the spawner

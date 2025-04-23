@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Testing
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class Player : MonoBehaviour
+    public class TestPlayer : MonoBehaviour
     {
         public float speed;
         public float defence;
