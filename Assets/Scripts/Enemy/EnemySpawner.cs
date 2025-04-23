@@ -10,11 +10,11 @@ namespace Enemy
         private EnemyBehaviour _enemy;          // this spawners enemy
         
         public bool InAir => inAir;
-        
+
         /// <summary>
-        /// Spawns a enemy
+        /// Spawns an enemy
         /// </summary>
-        private void Awake() => EnemyManager.Instance.CreateEnemy(this);
+        private void Start() => EnemyManager.Instance.CreateEnemy(this);
         
         /// <summary>
         /// Destroys its own enemy
