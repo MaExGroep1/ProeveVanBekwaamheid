@@ -13,11 +13,13 @@ public class CarMovement : MonoBehaviour
     [SerializeField] private float motorForce = 1500f; // The Motor Force of the vehicle
     [SerializeField] private float brakeForce = 3000f; // The Brake Force of the vehicle
     
-    [SerializeField, Range(0, 1)] private float targetThrottle = 1f;
-    [SerializeField] private float fuelConsumptionRate = 5f;
+    [SerializeField, Range(0, 1)] private float targetThrottle = 10f;
+    [SerializeField] private float fuelConsumptionRate = 1f;
+    
+    [SerializeField] private float _maxFuel = 100f;
 
     private float _fuel;
-    private float _maxFuel;
+    
 
 
     private void Awake()
@@ -26,15 +28,16 @@ public class CarMovement : MonoBehaviour
     }
 
 
-    private void Update()
+    private void FixedUpdate() => MoveCar();
+    
+    private void MoveCar()
     {
         if (_fuel > 0f)
         {
-            
-        }
-        else
-        {
-            
+            ApplyTorque(targetThrottle);
+
+            _fuel -= fuelConsumptionRate * Time.deltaTime;
+            _fuel = Mathf.Max(_fuel, 0f);
         }
     }
 
@@ -43,13 +46,10 @@ public class CarMovement : MonoBehaviour
     /// </summary>
     /// <param name="brakeForce">The Amount the vehicle brakes</param>
     
-    private void ApplyBrake(float throttle)
+    private void ApplyBrake(float brakeForce)
     {
-        var fuelFactor = Mathf.Clamp01(_fuel / _maxFuel);
-        var adjustedForce = throttle * motorForce * fuelFactor;
-
-        backLeft.motorTorque = adjustedForce;
-        backRight.motorTorque = adjustedForce;
+        backLeft.brakeTorque = brakeForce;
+        backRight.brakeTorque = brakeForce;
     }
 
     /// <summary>
@@ -59,15 +59,17 @@ public class CarMovement : MonoBehaviour
 
     private void ApplyTorque(float throttle)
     {
-        backLeft.motorTorque = throttle * motorForce;
-        backRight.motorTorque = throttle * motorForce;
-    }
 
+        backLeft.motorTorque = -throttle * motorForce;
+        backRight.motorTorque = -throttle * motorForce;
+    }
     
     private void OnMatch(BlockType blockType, int matchAmount)
     {
-        _fuel = Mathf.Clamp(_fuel, 0f, _maxFuel);
         _fuel += matchAmount; 
+        _fuel = Mathf.Clamp(_fuel, 0f, _maxFuel);
+        
+        print(_fuel);
     }
     
 }
