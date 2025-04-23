@@ -6,6 +6,9 @@ namespace Util
     [RequireComponent(typeof(ParticleSystem))]
     public class ParticleOnFinishDestroy : MonoBehaviour
     {
+        /// <summary>
+        /// Destroys the particle after it is done
+        /// </summary>
         [Obsolete("Obsolete")]
         private void Awake()
         {

@@ -15,7 +15,10 @@ namespace Tiles
         }
     
         public Transform TileEnd => tileEnd;
-
+        
+        /// <summary>
+        /// Draws a dot on the start point of the tile
+        /// </summary>
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.yellow;

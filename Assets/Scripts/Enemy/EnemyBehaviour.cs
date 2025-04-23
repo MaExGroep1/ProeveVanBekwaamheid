@@ -37,7 +37,11 @@ namespace Enemy
             var targetPosition = new Vector3(x, y, 0);
             if (_rigidBody == null) return;
             _rigidBody.AddForce((targetPosition - transform.position).normalized * speed * _rigidBody.mass);
-            if (_hasBeenNearPlayer || Vector3.Distance(transform.position, targetPosition) > nearPlayerDistance || !_target.gameObject.CompareTag("Player")) return;
+            if (
+                _hasBeenNearPlayer || 
+                Vector3.Distance(transform.position, targetPosition) > nearPlayerDistance || 
+                !_target.gameObject.CompareTag("Player")
+                ) return;
             _nearPlayer?.Invoke();
             _hasBeenNearPlayer = true;
         }
@@ -59,8 +63,15 @@ namespace Enemy
         private void OnCollisionEnter(Collision other)
         {
             if (!other.gameObject.CompareTag("Player")) return;
-            var impact = Mathf.Abs(other.relativeVelocity.x) + Mathf.Abs(_rigidBody.velocity.x);
-            other.gameObject.GetComponent<Player>().OnHitEnemy(this, _rigidBody, impact, defense, strength);
+            other.gameObject.GetComponent<Player>().OnHitEnemy
+                (
+                    this,
+                    _rigidBody,
+                    Mathf.Abs(other.relativeVelocity.x), 
+                    Mathf.Abs(_rigidBody.velocity.x), 
+                    defense, 
+                    strength
+                );
         }
         
         /// <summary>
@@ -70,17 +81,10 @@ namespace Enemy
         public void StartRoam(Transform roamTarget) => _target = roamTarget;
         
         /// <summary>
-        /// Destroys the enemy
+        /// Destroys the rigidbody
         /// </summary>
-        /// <param name="time"> the time to wait before destroying itself </param>
-        public void DestroySelf(float time)
-        {
-            _target = transform;
-            Destroy(GetComponent<Collider>());
-            Destroy(_rigidBody);
-            Destroy(gameObject,time);
-        }
-        
+        public void DestroyRigidbody() => Destroy(_rigidBody);
+                
         /// <summary>
         /// Removes a certain amount of points off the enemy's health
         /// </summary>

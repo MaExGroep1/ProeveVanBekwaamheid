@@ -11,6 +11,7 @@ namespace Testing
         public float defence;
         public float attack;
         public float fuel;
+        public float knockBack;
         
         private Rigidbody _rigidBody;
 
@@ -24,8 +25,9 @@ namespace Testing
                 _rigidBody.AddForce(new Vector3(hor, ver).normalized * speed * _rigidBody.mass);
         }
 
-        public void OnHitEnemy(EnemyBehaviour enemy, Rigidbody enemyRigidbody, float impact , float enemyDefence , float enemyAttack)
+        public void OnHitEnemy(EnemyBehaviour enemy, Rigidbody enemyRigidbody, float playerForce , float enemyForce , float enemyDefence , float enemyAttack)
         {
+            var impact = playerForce + enemyForce;
             var enemyImpact = impact * attack / enemyDefence;
             var playerImpact = impact * enemyAttack / defence;
             
@@ -33,12 +35,12 @@ namespace Testing
             
             fuel -= playerImpact;
             
-            _rigidBody.AddForce(new Vector3(-playerImpact * 5,0));
+            _rigidBody.AddForce(new Vector3(-playerImpact * knockBack * enemyForce,0));
             
             enemy.TakeDamage(enemyImpact);
 
             if (GetComponent<Collider>() == null) return;
-            enemyRigidbody.AddForce(new Vector3(enemyImpact * 5,0));
+            enemyRigidbody.AddForce(new Vector3(enemyImpact * knockBack * playerForce,0));
         }
     }
 }
