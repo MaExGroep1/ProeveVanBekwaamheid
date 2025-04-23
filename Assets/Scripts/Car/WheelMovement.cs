@@ -9,18 +9,12 @@ public class WheelMovement : MonoBehaviour
     
     private Vector3 _lastPosition; // The last position of the wheel
 
-    private void Start()
-    {
-        if (wheelCollider == null)
-        {
-            enabled = false;
-            return;
-        }
-        _lastPosition = transform.position;
-    }
+    private void Start() => 
+        InitializeWheel();
 
 
-    private void Update() => RotateWheel();
+    private void Update() => 
+        RotateWheel();
 
     
     /// <summary>
@@ -34,6 +28,20 @@ public class WheelMovement : MonoBehaviour
         var rotationAngle = (distance / (2 * Mathf.PI * wheelCollider.radius)) * 360f;
         
         transform.Rotate(Vector3.right, rotationAngle, Space.Self);
+        _lastPosition = transform.position;
+    }
+
+    
+    /// <summary>
+    /// Initializes the wheel by checking if WheelCollider is null and setting _lastPosition to the current position of the wheel
+    /// </summary>
+    private void InitializeWheel()
+    {
+        if (wheelCollider == null)
+        {
+            enabled = false;
+            return;
+        }
         _lastPosition = transform.position;
     }
 }
