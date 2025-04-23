@@ -107,8 +107,10 @@ namespace Grid
                 validShuffle = !HasThreeInARow();
             }
 
+            blockTravelTime *= 5f;
             foreach (var element in _grid)
                 element.GetBlock()?.GoToOrigin(null);   
+            blockTravelTime *= 0.2f;
         }
 
         /// <summary>
@@ -359,7 +361,7 @@ namespace Grid
                 {
                     var exclusions = new List<BlockType>();
                     var newBlock = Instantiate(blockTemplate, _blocksParent);
-                    var waitTime = i * j * 0.01f;
+                    var waitTime = (i + 1) * 0.05f + (j + 1) * 0.05f;
                     var position = new Vector2(_grid[i,j].transform.position.x, _grid[i,j].transform.position.y);
                     var offset = new Vector2(0,gridRect.rect.height + gridRectOffset);
                     if (i > 1 && _grid[i - 1, j].GetBlockType() == _grid[i - 2, j].GetBlockType())
