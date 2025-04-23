@@ -5,15 +5,27 @@ using UnityEngine;
 
 public class WheelMovement : MonoBehaviour
 {
-    [SerializeField] private WheelCollider wheelCollider;
+    [SerializeField] private WheelCollider wheelCollider; // Reference to the WheelCollider
     
-    private Vector3 _lastPosition;
+    private Vector3 _lastPosition; // The last position of the wheel
 
-    private void Start() => 
+    private void Start()
+    {
+        if (wheelCollider == null)
+        {
+            enabled = false;
+            return;
+        }
         _lastPosition = transform.position;
+    }
+
 
     private void Update() => RotateWheel();
 
+    
+    /// <summary>
+    /// Rotates the wheel based on how fast it has moved
+    /// </summary>
     private void RotateWheel()
     {
         var movement = transform.position - _lastPosition;
@@ -23,14 +35,5 @@ public class WheelMovement : MonoBehaviour
         
         transform.Rotate(Vector3.right, rotationAngle, Space.Self);
         _lastPosition = transform.position;
-    }
-
-    private void NullCheck()
-    {
-        if (wheelCollider == null)
-        {
-            enabled = false;
-            return;
-        }
     }
 }
