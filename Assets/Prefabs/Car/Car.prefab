@@ -102,8 +102,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backLeft: {fileID: 4788086164230447868}
   backRight: {fileID: 99258077390203236}
-  motorForce: 1500
-  brakeForce: 3000
+  motorForce: 500
+  targetThrottle: 1
+  fuelConsumptionRate: 1
+  _maxFuel: 100
 --- !u!1 &3870295332874665954
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,6 +550,18 @@ PrefabInstance:
     - target: {fileID: 574134954041168998, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}
       propertyPath: m_Name
       value: Upgradeparts
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724286981978138032, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}
+      propertyPath: upgradeValues.Array.data[0].newUpgradeValue
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724286981978138032, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}
+      propertyPath: upgradeValues.Array.data[1].newUpgradeValue
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5724286981978138032, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}
+      propertyPath: upgradeValues.Array.data[2].newUpgradeValue
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
