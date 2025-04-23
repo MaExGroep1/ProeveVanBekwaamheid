@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using Testing;
 using UnityEngine;
 
@@ -7,11 +6,13 @@ namespace Enemy
 {
     public class EnemyBehaviour : MonoBehaviour
     {
+        public float Worth { get; private set; }            // the amount of points the user gets when killing the enemy
+
         [Header("Stats")]
         [SerializeField] private float health;              // the health of the enemy
-        [SerializeField] private int strength;              // the strength of the enemy
-        [SerializeField] private int speed;                 // the speed of the enemy
-        [SerializeField] private int defense;               // the defense of the enemy
+        [SerializeField] private float attack;              // the attack of the enemy
+        [SerializeField] private float speed;               // the speed of the enemy
+        [SerializeField] private float defense;             // the defense of the enemy
         
         [Header("Follow Rules")]
         [SerializeField] private bool followsOnX;           // whether the enemy should follow the target on the x-axis 
@@ -25,7 +26,8 @@ namespace Enemy
         private bool _hasBeenNearPlayer;                    // if the player has been near the player
         private Action _nearPlayer;                         // invokes ones the enemy gets near the player
 
-        private void Awake() => _rigidBody = GetComponent<Rigidbody>();
+        private void Awake() =>_rigidBody = GetComponent<Rigidbody>();
+        
 
         private void Update()
         {
@@ -43,7 +45,7 @@ namespace Enemy
             
             var targetPosition = new Vector3(x, y, 0);
             
-            _rigidBody.AddForce((targetPosition - transform.position).normalized * speed * _rigidBody.mass);
+            _rigidBody.AddForce((targetPosition - transform.position).normalized * (speed * _rigidBody.mass));
             
             if (_hasBeenNearPlayer || Vector3.Distance(transform.position, targetPosition) > nearPlayerDistance || !_target.gameObject.CompareTag("Player")) 
                 return;
@@ -63,15 +65,25 @@ namespace Enemy
         }
         
         /// <summary>
-        /// Checks if it hit the player or a other enemy
+        /// Checks if it hit the player or another enemy
         /// </summary>
-        /// <param name="other"></param>
+        /// <param name="other"> the collision </param>
         private void OnCollisionEnter(Collision other)
         {
             if (other.gameObject.CompareTag("Player"))
                 PlayerHit(other);
             else if (other.gameObject.CompareTag("Enemy"))
                 OtherEnemyHit(other);
+        }
+
+        /// <summary>
+        /// Checks if it is on the player
+        /// </summary>
+        /// <param name="other"> the collision </param>
+        private void OnCollisionStay(Collision other)
+        {
+            if (!other.gameObject.CompareTag("Player")) return;
+            PlayerHit(other);
         }
         
         /// <summary>
@@ -86,7 +98,7 @@ namespace Enemy
                 Mathf.Abs(player.relativeVelocity.x), 
                 Mathf.Abs(_rigidBody.velocity.x), 
                 defense, 
-                strength
+                attack
             );
         
         /// <summary>
@@ -103,6 +115,18 @@ namespace Enemy
         /// <param name="force"> the hit enemies force on the x-axis </param>
         private void OnHitByEnemy(float force) =>
             _rigidBody.AddForce(new Vector3(0,force));
+
+        /// <summary>
+        /// Applies the multiplier to the attack defence and health then sets the worth
+        /// </summary>
+        /// <param name="multiplier"> the point multiplier </param>
+        public void ApplyMultiplier(float multiplier)
+        {
+            health *= multiplier;
+            attack *= multiplier;
+            defense *= multiplier;
+            Worth = attack + defense;
+        }
         
         /// <summary>
         /// Sets the target to the spawner
