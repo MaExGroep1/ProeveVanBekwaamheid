@@ -6,6 +6,8 @@ namespace Tiles
 {
     public class TileManager : Util.Singleton<TileManager>
     {
+        public int TileAmount { get; private set; }
+
         [SerializeField] private Transform tileParent;                                      // the parent of the tiles
         [SerializeField] private int levelLength;                                           // the amount of tiles in a level before going to the next
         
@@ -40,6 +42,7 @@ namespace Tiles
         /// </summary>
         private void GenerateNewTile()
         {
+            TileAmount++;
             _currentTile.transform.parent = tileParent;
             Destroy(_previousTile.gameObject);
             
