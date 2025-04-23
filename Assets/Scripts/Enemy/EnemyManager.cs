@@ -9,9 +9,8 @@ namespace Enemy
 {
     public class EnemyManager : Singleton<EnemyManager>
     {
-        [SerializeField] private ParticleSystem onDeathParticles;
-        
-        [field: SerializeField] public float EnemyMultiplierAmount { get; private set; }
+        [SerializeField] private ParticleSystem onDeathParticles;                                               // the enemy death particle
+        [field: SerializeField] public float EnemyMultiplierAmount { get; private set; }                        // the amount of tiles to have instantiated before making the difficulty plus 1
         
         private readonly List<EnemyBehaviour> _groundEnemies = new();                                           // list of available ground enemies
         private readonly List<EnemyBehaviour> _flyingEnemies = new();                                           // list of available flying enemies

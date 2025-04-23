@@ -6,7 +6,7 @@ namespace Enemy
 {
     public class EnemyBehaviour : MonoBehaviour
     {
-        public float Worth { get; private set; }
+        public float Worth { get; private set; }            // the amount of points the user gets when killing the enemy
 
         [Header("Stats")]
         [SerializeField] private float health;              // the health of the enemy
@@ -116,6 +116,10 @@ namespace Enemy
         private void OnHitByEnemy(float force) =>
             _rigidBody.AddForce(new Vector3(0,force));
 
+        /// <summary>
+        /// Applies the multiplier to the attack defence and health then sets the worth
+        /// </summary>
+        /// <param name="multiplier"> the point multiplier </param>
         public void ApplyMultiplier(float multiplier)
         {
             health *= multiplier;
