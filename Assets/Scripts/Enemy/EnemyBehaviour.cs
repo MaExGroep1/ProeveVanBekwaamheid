@@ -7,12 +7,13 @@ namespace Enemy
     public class EnemyBehaviour : MonoBehaviour
     {
         public float Worth { get; private set; }            // the amount of points the user gets when killing the enemy
-
+        
         [Header("Stats")]
         [SerializeField] private float health;              // the health of the enemy
         [SerializeField] private float attack;              // the attack of the enemy
         [SerializeField] private float speed;               // the speed of the enemy
         [SerializeField] private float defense;             // the defense of the enemy
+        [SerializeField] private float scale = 1f;               // the defense of the enemy
         
         [Header("Follow Rules")]
         [SerializeField] private bool followsOnX;           // whether the enemy should follow the target on the x-axis 
@@ -26,6 +27,8 @@ namespace Enemy
         private bool _hasBeenNearPlayer;                    // if the player has been near the player
         private Action _nearPlayer;                         // invokes ones the enemy gets near the player
 
+        public float Scale => scale;
+        
         private void Awake() =>_rigidBody = GetComponent<Rigidbody>();
         
 
@@ -133,21 +136,27 @@ namespace Enemy
         /// </summary>
         /// <param name="roamTarget"> the enemy spawner</param>
         public void StartRoam(Transform roamTarget) => _target = roamTarget;
-        
+
         /// <summary>
         /// Destroys the rigidbody
         /// </summary>
-        public void DestroyRigidbody() => Destroy(_rigidBody);
+        public void DestroyCollision()
+        {
+            Destroy(_rigidBody);
+            Destroy(GetComponent<SphereCollider>());
+            Destroy(GetComponent<Collider>());
+        }
                 
         /// <summary>
         /// Removes a certain amount of points off the enemy's health
         /// </summary>
         /// <param name="damage"> the amount of damage to take</param>
-        public void TakeDamage(float damage)
+        public bool TakeDamage(float damage)
         {
             health -= damage;
-            if (health>0) return;
+            if (health>0) return false;
             EnemyManager.Instance.DestroyEnemy(this);
+            return true;
         }
     }
 }

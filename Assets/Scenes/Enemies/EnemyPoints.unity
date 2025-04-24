@@ -542,7 +542,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
-  m_LocalPosition: {x: 0, y: 2.5, z: -40}
+  m_LocalPosition: {x: 0, y: 2.5, z: -80}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -585,8 +585,8 @@ MonoBehaviour:
   defence: 5
   attack: 5
   fuel: 100
-  knockBack: 1
-  minimumKnockBack: 20
+  knockBack: 2
+  minimumKnockBack: 100
 --- !u!54 &1428018861
 Rigidbody:
   m_ObjectHideFlags: 0

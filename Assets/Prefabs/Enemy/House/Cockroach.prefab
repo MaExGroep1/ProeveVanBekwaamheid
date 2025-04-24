@@ -119,6 +119,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9049515706047966172, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
+      propertyPath: scale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9049515706047966172, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
       propertyPath: speed
       value: 6
       objectReference: {fileID: 0}
@@ -128,7 +132,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9049515706047966172, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
       propertyPath: health
-      value: 15
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9049515706047966172, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
       propertyPath: defense

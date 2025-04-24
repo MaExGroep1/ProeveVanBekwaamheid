@@ -88,10 +88,12 @@ namespace Enemy
             _enemies.Remove(enemy);
             if (onDeathParticles == null) return;
             
-            Instantiate(onDeathParticles,enemy.transform.position,Quaternion.identity);
+            var par =Instantiate(onDeathParticles,enemy.transform.position,Quaternion.identity);
+            
+            par.transform.localScale = Vector3.one * enemy.Scale;
             
             Destroy(enemy.gameObject,0.1f);
-            enemy.DestroyRigidbody();
+            enemy.DestroyCollision();
             Destroy(enemy);
         }
     }

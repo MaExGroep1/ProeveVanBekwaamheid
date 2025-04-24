@@ -31,17 +31,21 @@ namespace Testing
             var impact = playerForce + enemyForce;
             var enemyImpact = impact * attack / enemyDefence;
             var playerImpact = impact * enemyAttack / defence;
-            var totalKnockBack = playerImpact * knockBack * enemyForce < minimumKnockBack 
-                ? playerImpact * knockBack * enemyForce 
-                : minimumKnockBack;
-            
+
             fuel -= playerImpact * 0.01f;
             
-            _rigidBody.AddForce(new Vector3(-totalKnockBack,0));
+            if(enemy.TakeDamage(enemyImpact)) return;
             
-            enemy.TakeDamage(enemyImpact);
-
-            enemyRigidbody.AddForce(new Vector3(totalKnockBack,0));
+            var playerKnockBack = playerImpact * knockBack * enemyForce > minimumKnockBack 
+                ? playerImpact * knockBack * enemyForce 
+                : minimumKnockBack;
+            var enemyKnockBack = enemyImpact * knockBack * playerForce > minimumKnockBack 
+                ? enemyImpact * knockBack * playerForce 
+                : minimumKnockBack;
+            
+            _rigidBody.AddForce(new Vector3(-playerKnockBack,0));
+            
+            enemyRigidbody.AddForce(new Vector3(enemyKnockBack,0));
         }
     }
 }
