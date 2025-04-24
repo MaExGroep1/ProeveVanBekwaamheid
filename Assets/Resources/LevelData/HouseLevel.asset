@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HouseLevel
   m_EditorClassIdentifier: 
   groundEnemies:
-  - {fileID: 619456768536214066, guid: 69a29f8fb88ba3d45a58b01c413e3fe4, type: 3}
+  - {fileID: 1208224758491478050, guid: 5a34e4943d459c341900350ddca7696f, type: 3}
   flyingEnemies:
   - {fileID: 7268999921430130920, guid: 3f709b0b10c1e564cadf85c54953a2e5, type: 3}
   startTile: {fileID: 5274738865471501743, guid: ac78d53c9f444a543acbf505f8073b3a, type: 3}
