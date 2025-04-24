@@ -87,6 +87,10 @@ PrefabInstance:
       value: Ant
       objectReference: {fileID: 0}
     - target: {fileID: 3128818020154363584, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
+      propertyPath: m_Drag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3128818020154363584, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
       propertyPath: m_UseGravity
       value: 1
       objectReference: {fileID: 0}
@@ -144,7 +148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9049515706047966172, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
       propertyPath: speed
-      value: 2
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 9049515706047966172, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
       propertyPath: attack

@@ -78,6 +78,10 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3128818020154363584, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
+      propertyPath: m_Drag
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7538976819723803712, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -117,6 +121,34 @@ PrefabInstance:
     - target: {fileID: 7538976819723803712, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9049515706047966172, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
+      propertyPath: speed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9049515706047966172, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
+      propertyPath: attack
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 9049515706047966172, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
+      propertyPath: health
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 9049515706047966172, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
+      propertyPath: defense
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 9049515706047966172, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
+      propertyPath: followsOnX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9049515706047966172, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
+      propertyPath: followsOnY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9049515706047966172, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
+      propertyPath: nearPlayerDistance
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
