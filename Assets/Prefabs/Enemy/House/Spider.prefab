@@ -9,18 +9,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 979204756016867022}
     m_Modifications:
     - target: {fileID: 7245650646771518029, guid: 9ee9f300993f84a4fba6cc0ac08c7d36, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7245650646771518029, guid: 9ee9f300993f84a4fba6cc0ac08c7d36, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7245650646771518029, guid: 9ee9f300993f84a4fba6cc0ac08c7d36, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7245650646771518029, guid: 9ee9f300993f84a4fba6cc0ac08c7d36, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.2
       objectReference: {fileID: 0}
@@ -60,10 +48,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7245650646771518029, guid: 9ee9f300993f84a4fba6cc0ac08c7d36, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8054239828303483127, guid: 9ee9f300993f84a4fba6cc0ac08c7d36, type: 3}
       propertyPath: m_Name
       value: Spider
@@ -88,7 +72,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 326605417475434034, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
       propertyPath: m_Name
-      value: BaseGroundEnemy (1) Variant
+      value: Spider
       objectReference: {fileID: 0}
     - target: {fileID: 1456423988508469180, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
       propertyPath: m_Radius
@@ -104,7 +88,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7538976819723803712, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7538976819723803712, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
       propertyPath: m_LocalRotation.w
