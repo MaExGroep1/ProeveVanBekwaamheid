@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: 91383a4e20b3c2c45a6e218d1971eb77
+<<<<<<<< HEAD:Assets/Art/placeholder/Materials.meta
+guid: 0017e7b7a4ba40f4ebca87d3a571e429
+========
+guid: ea4e8e619979ca44fb325b012b8bd9e5
+>>>>>>>> main:Assets/Art/Materials/testing.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
