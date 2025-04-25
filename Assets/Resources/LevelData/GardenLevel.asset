@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b954dc53dbb28f545b970af065fa04f9, type: 3}
-  m_Name: Level2
+  m_Name: GardenLevel
   m_EditorClassIdentifier: 
   groundEnemies:
-  - {fileID: 619456768536214066, guid: 69a29f8fb88ba3d45a58b01c413e3fe4, type: 3}
+  - {fileID: 4201144465686389852, guid: 916df17781259e34ba1a818382488d8b, type: 3}
   flyingEnemies:
-  - {fileID: 7268999921430130920, guid: 3f709b0b10c1e564cadf85c54953a2e5, type: 3}
+  - {fileID: 2063395469296815147, guid: b13091bf7b567734aa90ca97636f2739, type: 3}
   startTile: {fileID: 5274738865471501743, guid: d700664c0a6914a4e9f8b8409b13a54d, type: 3}
   endTile: {fileID: 5274738865471501743, guid: d700664c0a6914a4e9f8b8409b13a54d, type: 3}
   tiles:
