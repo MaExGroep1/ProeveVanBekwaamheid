@@ -33,7 +33,6 @@ namespace Upgrade
             if (!carPart) return;
            
             var upgradePart = Instantiate(carPart, startTransform.position, transform.rotation, transform);
-            upgradePart.transform.localScale = new Vector3(-1, 1, 1); //todo remove this once the models have been updated to be on the proper side of the car
             
             LeanTween.move(upgradePart, transform.position, appearTime).setEaseOutQuint();
         }

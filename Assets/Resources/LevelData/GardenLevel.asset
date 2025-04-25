@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b954dc53dbb28f545b970af065fa04f9, type: 3}
+  m_Name: GardenLevel
+  m_EditorClassIdentifier: 
+  groundEnemies:
+  - {fileID: 4201144465686389852, guid: 916df17781259e34ba1a818382488d8b, type: 3}
+  flyingEnemies:
+  - {fileID: 2063395469296815147, guid: b13091bf7b567734aa90ca97636f2739, type: 3}
+  startTile: {fileID: 5274738865471501743, guid: d700664c0a6914a4e9f8b8409b13a54d, type: 3}
+  endTile: {fileID: 5274738865471501743, guid: d700664c0a6914a4e9f8b8409b13a54d, type: 3}
+  tiles:
+  - {fileID: 5274738865471501743, guid: d700664c0a6914a4e9f8b8409b13a54d, type: 3}
+  - {fileID: 2661897436389122401, guid: 19634a412e8c5e14c97d3a0fea6092f4, type: 3}
+  - {fileID: 6511045690372614016, guid: f3ac036e98685364bb457e7605f83728, type: 3}
