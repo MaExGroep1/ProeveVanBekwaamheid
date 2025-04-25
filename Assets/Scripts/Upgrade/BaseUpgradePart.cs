@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using Blocks;
 using UnityEngine;
 using User;
@@ -33,9 +35,39 @@ namespace Upgrade
             if (!carPart) return;
            
             var upgradePart = Instantiate(carPart, startTransform.position, transform.rotation, transform);
-            
-            LeanTween.move(upgradePart, transform.position, appearTime).setEaseOutQuint();
+            StartCoroutine(MoveToCar(upgradePart));
         }
+        private IEnumerator MoveToCar(GameObject upgradePart)
+        {
+            var elapsedTime = 0f;
+            var duration = appearTime;
+            Vector3 startPosition = upgradePart.transform.position;
+
+            while (elapsedTime < duration)
+            {
+                elapsedTime += Time.deltaTime;
+                var t = Mathf.SmoothStep(0f, 1f, elapsedTime / duration);
+                upgradePart.transform.position = Vector3.Lerp(startPosition, transform.position, t);
+                
+                yield return null;
+            }
+
+            upgradePart.transform.position = transform.position;
+            /*Vector3 position = transform.position;
+            Vector3 positionDiffrence;
+            float timeLeft = appearTime;
+            LeanTween.move(upgradePart, transform.position, appearTime).setEaseOutQuint();
+            while (LeanTween.isTweening(upgradePart))
+            {
+                timeLeft -= Time.deltaTime;
+                positionDiffrence = transform.position - position;
+                LeanTween.cancel(upgradePart);
+                upgradePart.transform.position += positionDiffrence;
+                LeanTween.move(upgradePart, transform.position, timeLeft).setEaseOutQuint();
+                yield return null;
+            }*/
+        }
+        
         
         /// <summary>
         /// Assigns the event to listen to when an upgrade type should be upgraded
