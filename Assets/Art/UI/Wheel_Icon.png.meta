@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4b80e74263d7ae74d98f83bafbfc99fa
+guid: 0c40d2aa34053b64ea0f504490c16fae
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Wheel_Icon_0
+      name: Wheel_Icon 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,8 +137,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cec2ee93c86e2884a8cea62a90e0fc5f
-      internalID: 1668844539
+      spriteID: b70284589bb468e4e8853f503194d899
+      internalID: 107760339
       vertices: []
       indices: 
       edges: []
@@ -146,7 +146,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: d16bdd200b37d0542ac2631cb00b1c96
+    spriteID: 72ebef94580882e459c5b532bcd51f75
     internalID: 0
     vertices: []
     indices: 
@@ -154,7 +154,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Wheel_Icon_0: 1668844539
+      Wheel_Icon 1_0: 107760339
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ca2b822e6064c92498320bd6bb8c577e
+guid: 3b14a6a7a97348b4d8ed39127aed7721
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -21,7 +21,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 0
+  isReadable: 1
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Bumper_Icon_0
+      name: Bumper_Icon 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,8 +137,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c79918323edacb44397b1a2705615647
-      internalID: 1344602720
+      spriteID: 90e11cfe95f83b14e805f712990a60d6
+      internalID: 1475123987
       vertices: []
       indices: 
       edges: []
@@ -146,7 +146,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 875fc3584c474f24ab821805ee291760
+    spriteID: a061e4b0b993a484ca8a8477fb2ad11e
     internalID: 0
     vertices: []
     indices: 
@@ -154,7 +154,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Bumper_Icon_0: 1344602720
+      Bumper_Icon 1_0: 1475123987
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
