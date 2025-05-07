@@ -7,8 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: DIY_Objects_Material
+    second: {fileID: 2100000, guid: 4a3f0a82840e41149bf8549b08691f9a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Wheels_M
-    second: {fileID: 2100000, guid: d7a6c36de2b6ec3468572fae3dfccc07, type: 2}
+    second: {fileID: 2100000, guid: ffb8d92775addbb4fa62c42050364111, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
