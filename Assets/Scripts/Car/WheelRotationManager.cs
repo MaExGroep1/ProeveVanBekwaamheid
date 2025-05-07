@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WheelMovement : MonoBehaviour
+public class WheelRotationManager : MonoBehaviour
 {
     [SerializeField] private WheelCollider wheelCollider; // Reference to the WheelCollider
+
+    [SerializeField] private Transform[] wheelTransforms;
     
     private Vector3 _lastPosition; // The last position of the wheel
 
@@ -14,20 +16,22 @@ public class WheelMovement : MonoBehaviour
 
 
     private void Update() => 
-        RotateWheel();
+        RotateWheels();
 
     
     /// <summary>
     /// Rotates the wheel based on how fast it has moved
     /// </summary>
-    private void RotateWheel()
+    private void RotateWheels()
     {
         var movement = transform.position - _lastPosition;
 
         var distance = Vector3.Dot(movement, transform.parent.forward);
         var rotationAngle = (distance / (2 * Mathf.PI * wheelCollider.radius)) * 360f;
+
+        for (int i = 0; i < wheelTransforms.Length; i++)
+            wheelTransforms[i].Rotate(Vector3.right, -rotationAngle, Space.Self);
         
-        transform.Rotate(Vector3.right, rotationAngle, Space.Self);
         _lastPosition = transform.position;
     }
 
@@ -37,7 +41,7 @@ public class WheelMovement : MonoBehaviour
     /// </summary>
     private void InitializeWheel()
     {
-        if (wheelCollider == null)
+        if (wheelCollider == null || wheelTransforms == null)
         {
             enabled = false;
             return;
