@@ -9,9 +9,8 @@ public class CameraManager : MonoBehaviour
 
     [Header("Camera Variables")] 
     [SerializeField] private Transform cameraTransform; // Reference to the camera transform
-    [SerializeField] private Vector3 offset = new (1.5f, 0.5f, -1f); // The offset of the camera
+    [SerializeField] private Vector3 cameraOffset = new (1.5f, 0.5f, -1f); // The offset of the camera
     [SerializeField] private float cameraSmoothing; // The time it takes for the camera to move to the target
-    [SerializeField] private float bounceIntensity; // The intensity the camera bounces
     
     private Vector3 _velocity = Vector3.zero; // Vector3 zero for use in SmoothDamp
 
@@ -21,39 +20,24 @@ public class CameraManager : MonoBehaviour
         if (carTransform == null || carRigidbody == null) 
             return;
         
-        SmoothCameraPosition(CalculateBounce());
+        SmoothCameraPosition();
         LookAtCar();
-    }
-    
-    /// <summary>
-    /// Calculates how much the camera bounces
-    /// </summary>
-    /// <returns>Returns the CameraPosition</returns>
-    private Vector3 CalculateBounce()
-    {
-        var cameraPosition = carTransform.position + offset;
-        var bounce = carRigidbody.position.y * bounceIntensity;
-
-        cameraPosition.y += bounce;
-
-        return cameraPosition;
     }
     
     /// <summary>
     /// Makes the camera point at the target
     /// </summary>
-    private void LookAtCar()
-    {
+    private void LookAtCar() =>
         cameraTransform.LookAt(carTransform);
-    }
 
     /// <summary>
     /// Makes the camera follow the target with a smooth delay
     /// </summary>
     /// <param name="cameraPos">A Vector 3 of the camera position</param>
-    private void SmoothCameraPosition(Vector3 cameraPos)
+    private void SmoothCameraPosition()
     {
-        var smoothPos = Vector3.SmoothDamp(cameraTransform.position, cameraPos, ref _velocity, cameraSmoothing);
+        var targetPos = carTransform.position + cameraOffset;
+        var smoothPos = Vector3.SmoothDamp(cameraTransform.position, targetPos , ref _velocity, cameraSmoothing);
         cameraTransform.position = smoothPos;
     }
 }
