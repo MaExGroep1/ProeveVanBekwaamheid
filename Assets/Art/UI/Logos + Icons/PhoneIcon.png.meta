@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0d90963c2b6045d46a52dc2bc22e50e6
+guid: 6b12588fa52f3de4a85fffdf83067a36
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MenuTop_0
+      name: PhoneIcon_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 987
-        height: 330
+        width: 512
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,8 +137,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1d82deb6b2659444bb734bc63cb702ac
-      internalID: 214895106
+      spriteID: a278eebb48edaeb4fb16517d5ae07d16
+      internalID: 592132280
       vertices: []
       indices: 
       edges: []
@@ -146,7 +146,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: abb548437e42b4346a5257215639fdef
+    spriteID: f8d4a5e5327bf174ca003728c995de3e
     internalID: 0
     vertices: []
     indices: 
@@ -154,7 +154,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      MenuTop_0: 214895106
+      PhoneIcon_0: 592132280
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
