@@ -7,7 +7,7 @@ public class WheelRotationManager : MonoBehaviour
 {
     [SerializeField] private WheelCollider wheelCollider; // Reference to the WheelCollider
 
-    [SerializeField] private Transform[] wheelTransforms;
+    [SerializeField] private Transform[] wheelTransforms; // Array of the wheel Transforms that should rotate
     
     private Vector3 _lastPosition; // The last position of the wheel
 
