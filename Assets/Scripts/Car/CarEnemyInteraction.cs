@@ -31,10 +31,10 @@ namespace Car
         /// </summary>
         /// <param name="enemy"> The enemy behaviour </param>
         /// <param name="enemyRigidbody"> The enemy rigidbody </param>
-        /// <param name="playerForce"> the force of the player </param>
-        /// <param name="enemyForce"> the force of the enemy </param>
-        /// <param name="enemyDefence"> the enemy defence </param>
-        /// <param name="enemyAttack"> the enemy attack </param>
+        /// <param name="playerForce"> The force of the player </param>
+        /// <param name="enemyForce"> The force of the enemy </param>
+        /// <param name="enemyDefence"> The enemy defence </param>
+        /// <param name="enemyAttack"> The enemy attack </param>
         public void OnHitEnemy(EnemyBehaviour enemy, Rigidbody enemyRigidbody, float playerForce , float enemyForce , float enemyDefence , float enemyAttack)
         {
             var impact = playerForce + enemyForce;
