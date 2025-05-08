@@ -13,7 +13,7 @@ namespace UI
     {
         [SerializeField] private BlockType upgradeType;     //The type of upgrade the UI element represents
         [SerializeField] private Image completedImage;      //The reference to the coloured image that represents the amount of upgrade points you have gained
-        [SerializeField] private float imageFillDelay;
+        [SerializeField] private float imageFillDelay;      //the time between each time 
         
         private float _progressAmountPerPointPercentage;    //The percentage that the completedImage should fill per point
     
@@ -71,6 +71,11 @@ namespace UI
             if (!UpgradeManager.Instance.OnUpgrade.TryAdd(upgradeType, Upgrade)) UpgradeManager.Instance.OnUpgrade[upgradeType] += Upgrade;
         }
 
+        /// <summary>
+        /// Fills the upgradebar little by little by the amount of points gaines
+        /// </summary>
+        /// <param name="points"></param>
+        /// <returns></returns>
         private IEnumerator IncreaseFillAmount(int points)
         {
             var usedPoints = 0;
