@@ -7,32 +7,40 @@ using Upgrade;
 
 public class WheelRotationManager : MonoBehaviour
 {
-    private bool _isRotating = true;
+    private bool _isRotating = true;                      // Bool to enable and disable the wheel rotation
     
     [SerializeField] private WheelCollider wheelCollider; // Reference to the WheelCollider
-
-    [SerializeField] private Transform[] wheelTransforms;
+    [SerializeField] private Transform[] wheelTransforms; // References to the wheel transforms
     
-    private Vector3 _lastPosition; // The last position of the wheel
+    private Vector3 _lastPosition;                          // The last position of the wheel
 
+    /// <summary>
+    /// assigns events and Initializes
+    /// </summary>
     private void Start()
     {
         AssignEvents();
         InitializeWheel();
     }
     
+    /// <summary>
+    /// Will rotate wheels if _isRotating is ture
+    /// </summary>
     private void Update()
     {
         if (_isRotating) RotateWheels();
     }
     private void AssignEvents()
     {
-        if (!UpgradeManager.Instance.OnUpgradeCompleted.TryAdd(BlockType.Speed, EnableWheelRotating)) UpgradeManager.Instance.OnUpgradeCompleted[BlockType.Speed] += EnableWheelRotating;
-        if (!UpgradeManager.Instance.OnUpgrade.TryAdd(BlockType.Speed, DisableWheelRotating)) UpgradeManager.Instance.OnUpgrade[BlockType.Speed] += DisableWheelRotating;
+        if (!UpgradeManager.Instance.OnUpgradeCompleted.TryAdd(BlockType.Speed, EnableWheelRotating)) 
+            UpgradeManager.Instance.OnUpgradeCompleted[BlockType.Speed] += EnableWheelRotating;         //tries to subscribe EnableWheelRotating to OnUpgradeCompleted for speed upgrade
+        
+        if (!UpgradeManager.Instance.OnUpgrade.TryAdd(BlockType.Speed, DisableWheelRotating)) 
+            UpgradeManager.Instance.OnUpgrade[BlockType.Speed] += DisableWheelRotating;                 //tries to subscribe DisableWheelRotating to OnUpgrade for speed upgrade
     }
 
-    private void EnableWheelRotating() => _isRotating = true;
-    private void DisableWheelRotating() => _isRotating = false;
+    private void EnableWheelRotating() => _isRotating = true;   //sets isRotating to true (used for events)
+    private void DisableWheelRotating() => _isRotating = false; //sets isRotating to true (used for events)
     
     
     /// <summary>
