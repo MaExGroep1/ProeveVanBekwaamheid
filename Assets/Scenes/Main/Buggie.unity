@@ -1041,6 +1041,10 @@ PrefabInstance:
       propertyPath: openMenuButton
       value: 
       objectReference: {fileID: 10368872}
+    - target: {fileID: 5700226666942760637, guid: e9a9c1fbe27a2dd4e80e343d81f268c4, type: 3}
+      propertyPath: mainMenuSceneName
+      value: MainMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 6095291816598192458, guid: e9a9c1fbe27a2dd4e80e343d81f268c4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

@@ -1,13 +1,14 @@
 using System;
 using Grid;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using SceneManager = Util.SceneManager;
 
 namespace UI
 {
     public class GameMenuManager : MonoBehaviour
     {
+        [Header("Animations")]
         [SerializeField] private Transform menuItem;            // the in game menu transform
         [SerializeField] private Transform menuRestPosition;    // the resting position of the game menu transform
         [SerializeField] private CanvasGroup background;        // the background of the in game menu
@@ -20,6 +21,9 @@ namespace UI
         [SerializeField] private Button mainMenuButton;         // the button to close the game and go to the main menu
         [SerializeField] private Button restartButton;          // the button to go back to the start of the game
         [SerializeField] private Button shuffleButton;          // the button to shuffle the grid
+        
+        [Header("Main Menu Scene")]
+        [SerializeField] private string mainMenuSceneName;
 
         private void Awake() => StartListening();
         
@@ -82,7 +86,7 @@ namespace UI
         /// </summary>
         private void OpenMainMenu()
         { 
-            SceneManager.LoadScene(0);
+            SceneManager.Instance.LoadScene(mainMenuSceneName);
             Time.timeScale = 1;
         } 
         
