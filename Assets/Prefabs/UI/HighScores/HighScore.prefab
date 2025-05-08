@@ -275,7 +275,7 @@ MonoBehaviour:
   boxStartTransform: {fileID: 5380250657067270933}
   backgroundCanvasGroup: {fileID: 7858220703662624114}
   targetAlpha: 0.6
-  boxTravelTime: 1
+  boxTravelTime: 0.5
   escapeButton: {fileID: 2388076816870611252}
 --- !u!1 &5448756973591694398
 GameObject:

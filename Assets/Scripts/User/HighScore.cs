@@ -20,16 +20,13 @@ namespace User
         {
             var scores = new int[4];
             for (var i = 0; i < 4; i++)
-            {
                 scores[i] = PlayerPrefs.HasKey(Keys[i]) ? PlayerPrefs.GetInt(Keys[i]) : 0;
-            }
-
+            
             var allScores = new[] { scores[0], scores[1], scores[2], scores[3], newScore };
-            Debug.Log($"{allScores[0]}, {allScores[1]}, {allScores[2]}, {allScores[3]}, {newScore}");
             System.Array.Sort(allScores);
             System.Array.Reverse(allScores);
 
-            for (int i = 0; i < 4; i++)
+            for (var i = 0; i < 4; i++)
                 PlayerPrefs.SetInt(Keys[i], allScores[i]);
             
             PlayerPrefs.Save();

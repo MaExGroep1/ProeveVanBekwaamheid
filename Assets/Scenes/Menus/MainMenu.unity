@@ -1278,6 +1278,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1105445973698087236, guid: db2eab11c8576804c9ea22ab3ecc10e8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1105445973698087236, guid: db2eab11c8576804c9ea22ab3ecc10e8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1105445973698087236, guid: db2eab11c8576804c9ea22ab3ecc10e8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1105445973698087236, guid: db2eab11c8576804c9ea22ab3ecc10e8, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1561857483776048808, guid: db2eab11c8576804c9ea22ab3ecc10e8, type: 3}
+      propertyPath: highScoreCanvas
+      value: 
+      objectReference: {fileID: 2385125737637484802, guid: 05657440f12074d40a59c6a37832d8c6, type: 3}
+    - target: {fileID: 2860876310875582474, guid: db2eab11c8576804c9ea22ab3ecc10e8, type: 3}
+      propertyPath: m_UseGraphicAlpha
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3467421278616646285, guid: db2eab11c8576804c9ea22ab3ecc10e8, type: 3}
       propertyPath: m_Name
       value: MainMenu
@@ -1361,6 +1385,22 @@ PrefabInstance:
     - target: {fileID: 6568405626148420819, guid: db2eab11c8576804c9ea22ab3ecc10e8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7523089493879549736, guid: db2eab11c8576804c9ea22ab3ecc10e8, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7523089493879549736, guid: db2eab11c8576804c9ea22ab3ecc10e8, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7523089493879549736, guid: db2eab11c8576804c9ea22ab3ecc10e8, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7523089493879549736, guid: db2eab11c8576804c9ea22ab3ecc10e8, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
