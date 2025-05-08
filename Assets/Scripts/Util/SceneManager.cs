@@ -24,6 +24,7 @@ namespace Util
         private void StartSceneLoad(string sceneName, float loadTime)
         {
             LeanTween.alphaCanvas(transitionFade ,1f , loadTime/2)
+                .setIgnoreTimeScale(true)
                 .setEase(LeanTweenType.easeOutSine)
                 .setOnComplete(() => EndSceneLoad(sceneName,loadTime));
         }
@@ -32,6 +33,7 @@ namespace Util
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
             LeanTween.alphaCanvas(transitionFade, 0f, loadTime / 2)
+                .setIgnoreTimeScale(true)
                 .setEase(LeanTweenType.easeInSine);
         }
     }

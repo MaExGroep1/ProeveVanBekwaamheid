@@ -48,7 +48,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5380250657067270933}
   m_Layer: 5
-  m_Name: BoxStart
+  m_Name: RestPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -160,6 +160,7 @@ GameObject:
   - component: {fileID: 1653401343706238249}
   - component: {fileID: 1696272639314599985}
   - component: {fileID: 7675601015594370248}
+  - component: {fileID: 5484079621499458673}
   - component: {fileID: 2385125737637484802}
   m_Layer: 5
   m_Name: HighScore
@@ -253,6 +254,23 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &5484079621499458673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3230048167141162369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fca06cd433791c14791b5b8a9b0585e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  box: {fileID: 6700294719779629500}
+  restPosition: {fileID: 5380250657067270933}
+  background: {fileID: 7858220703662624114}
+  appearTime: 0.5
+  closePopUpButton: {fileID: 2388076816870611252}
 --- !u!114 &2385125737637484802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,12 +289,6 @@ MonoBehaviour:
   - {fileID: 3586026388467107609}
   - {fileID: 7794330128912356853}
   noScoreText: NaN
-  boxTransform: {fileID: 2000817645594603113}
-  boxStartTransform: {fileID: 5380250657067270933}
-  backgroundCanvasGroup: {fileID: 7858220703662624114}
-  targetAlpha: 0.6
-  boxTravelTime: 0.5
-  escapeButton: {fileID: 2388076816870611252}
 --- !u!1 &5448756973591694398
 GameObject:
   m_ObjectHideFlags: 0
