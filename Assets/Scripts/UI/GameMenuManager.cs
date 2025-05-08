@@ -2,32 +2,46 @@ using System;
 using Grid;
 using UnityEngine;
 using UnityEngine.UI;
+using SceneManager = Util.SceneManager;
 
 namespace UI
 {
     public class GameMenuManager : MonoBehaviour
     {
+        [Header("Animations")]
         [SerializeField] private Transform menuItem;            // the in game menu transform
         [SerializeField] private Transform menuRestPosition;    // the resting position of the game menu transform
         [SerializeField] private CanvasGroup background;        // the background of the in game menu
         [SerializeField] private float backgroundAlpha;         // the target alpha of the background
         [SerializeField] private float menuAppearTime;          // the time it takes for the menu to appear and disappear
+        
         [Header("Buttons")]
         [SerializeField] private Button openMenuButton;         // the button to open the menu and pause the game
         [SerializeField] private Button closeMenuButton;        // the button to close the menu and unpause the game
         [SerializeField] private Button mainMenuButton;         // the button to close the game and go to the main menu
         [SerializeField] private Button restartButton;          // the button to go back to the start of the game
-        [SerializeField] private Button highScoreButton;        // the button to bring up your high score board
         [SerializeField] private Button shuffleButton;          // the button to shuffle the grid
+        
+        [Header("Main Menu Scene")]
+        [SerializeField] private string mainMenuSceneName;
 
-        private void Awake()
+        private void Awake() => StartListening();
+        
+        /// <summary>
+        /// Starts to listen to all the buttons then turns off the menu
+        /// </summary>
+        private void StartListening()
         {
             openMenuButton.onClick.AddListener(OpenMenu);
+            
             closeMenuButton.onClick.AddListener(CloseMenu);
+            
             mainMenuButton.onClick.AddListener(OpenMainMenu);
+            
             restartButton.onClick.AddListener(RestartGame);
-            highScoreButton.onClick.AddListener(ShowHighScore);
+            
             shuffleButton.onClick.AddListener(ShuffleGrid);
+            
             gameObject.SetActive(false);
         }
         
@@ -67,17 +81,16 @@ namespace UI
                 .setOnComplete(UnPauseGame);
         }
         
+        /// <summary>
+        /// Loads the main menu and unpauses the game
+        /// </summary>
         private void OpenMainMenu()
-        {
-            throw new NotImplementedException();
-        }
+        { 
+            SceneManager.Instance.LoadScene(mainMenuSceneName);
+            Time.timeScale = 1;
+        } 
         
         private void RestartGame()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void ShowHighScore()
         {
             throw new NotImplementedException();
         }
