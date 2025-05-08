@@ -1,23 +1,47 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Blocks;
 using UnityEngine;
+using Upgrade;
 
 public class WheelRotationManager : MonoBehaviour
 {
-    [SerializeField] private WheelCollider wheelCollider; // Reference to the WheelCollider
-
-    [SerializeField] private Transform[] wheelTransforms;
+    private bool _isRotating = true;                      // Bool to enable and disable the wheel rotation
     
-    private Vector3 _lastPosition; // The last position of the wheel
+    [SerializeField] private WheelCollider wheelCollider; // Reference to the WheelCollider
+    [SerializeField] private Transform[] wheelTransforms; // References to the wheel transforms
+    
+    private Vector3 _lastPosition;                          // The last position of the wheel
 
-    private void Start() => 
+    /// <summary>
+    /// assigns events and Initializes
+    /// </summary>
+    private void Start()
+    {
+        AssignEvents();
         InitializeWheel();
+    }
+    
+    /// <summary>
+    /// Will rotate wheels if _isRotating is ture
+    /// </summary>
+    private void Update()
+    {
+        if (_isRotating) RotateWheels();
+    }
+    private void AssignEvents()
+    {
+        if (!UpgradeManager.Instance.OnUpgradeCompleted.TryAdd(BlockType.Speed, EnableWheelRotating)) 
+            UpgradeManager.Instance.OnUpgradeCompleted[BlockType.Speed] += EnableWheelRotating;         //tries to subscribe EnableWheelRotating to OnUpgradeCompleted for speed upgrade
+        
+        if (!UpgradeManager.Instance.OnUpgrade.TryAdd(BlockType.Speed, DisableWheelRotating)) 
+            UpgradeManager.Instance.OnUpgrade[BlockType.Speed] += DisableWheelRotating;                 //tries to subscribe DisableWheelRotating to OnUpgrade for speed upgrade
+    }
 
-
-    private void Update() => 
-        RotateWheels();
-
+    private void EnableWheelRotating() => _isRotating = true;   //sets isRotating to true (used for events)
+    private void DisableWheelRotating() => _isRotating = false; //sets isRotating to true (used for events)
+    
     
     /// <summary>
     /// Rotates the wheel based on how fast it has moved

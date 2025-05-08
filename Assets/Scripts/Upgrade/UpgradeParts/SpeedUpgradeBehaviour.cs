@@ -30,10 +30,10 @@ namespace Upgrade.UpgradeParts
                 var wheelData = wheelMovementData[i];
                 var newWheelData = wheelData;
                 
-                var newWheel = Instantiate(upgradeValue, wheelData.wheelSpawnLocation.transform.position, wheelData.wheelLocation.transform.rotation, wheelData.wheelLocation.transform);
-                
+                var newWheel = Instantiate(upgradeValue, wheelData.wheelSpawnLocation.transform.position, wheelData.wheel.transform.rotation, wheelData.wheel.transform.parent);
+
                 LeanTween.scale(wheelData.wheel, Vector3.zero, disappearSpeed).setEaseInBack()
-                    .setOnComplete(() => ChangeWheels(newWheel, wheelData.wheelLocation.transform.position));
+                    .setOnComplete(() => ChangeWheels(newWheel));
                 
                 newWheelData.wheel = newWheel;
                 wheelMovementData[i] = newWheelData;
@@ -45,10 +45,10 @@ namespace Upgrade.UpgradeParts
         /// </summary>
         /// <param name="newWheel">the new wheels that are going to be added to the car</param>
         /// <param name="wheelLocation">the location where the wheels should end up</param>
-        private void ChangeWheels(GameObject newWheel, Vector3 wheelLocation)
+        private void ChangeWheels(GameObject newWheel)
         {
             newWheel.transform.localScale = Vector3.zero;
-            LeanTween.move(newWheel, wheelLocation, appearTime).setEaseOutQuint();
+            LeanTween.moveLocal(newWheel, Vector3.zero, appearTime).setEaseOutQuint().setOnComplete(() => UpgradeManager.Instance.OnUpgradeCompleted[upgradeType]?.Invoke());
             LeanTween.scale(newWheel, Vector3.one, disappearSpeed).setEaseOutBack();
         }
     }

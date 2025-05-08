@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using Blocks;
 using UnityEngine;
 using Upgrade;
@@ -11,8 +13,8 @@ namespace UI
     {
         [SerializeField] private BlockType upgradeType;     //The type of upgrade the UI element represents
         [SerializeField] private Image completedImage;      //The reference to the coloured image that represents the amount of upgrade points you have gained
-        [SerializeField] private Button upgradeButton;      //The reference to the button that you click to upgrade your vehicle
-
+        [SerializeField] private float imageFillDelay;      //the time between each time 
+        
         private float _progressAmountPerPointPercentage;    //The percentage that the completedImage should fill per point
     
         /// <summary>
@@ -32,18 +34,9 @@ namespace UI
         /// <param name="points"></param>
         private void UpdateProgressBar(int points)
         {
-            completedImage.fillAmount += _progressAmountPerPointPercentage * points;
+            StartCoroutine(IncreaseFillAmount(points));
         }
-    
-        /// <summary>
-        /// Gets called when the associated upgrade type is ready to upgrade
-        /// turns the upgrade button on and sets the completed image to 100% fill
-        /// </summary>
-        private void ReadyForUpgrade()
-        {
-            upgradeButton.interactable = true;
-            completedImage.fillAmount = 1;
-        }
+        
     
         /// <summary>
         /// Gets called when the associated upgrade type is getting upgraded
@@ -51,7 +44,6 @@ namespace UI
         /// </summary>
         private void Upgrade()
         {
-            upgradeButton.interactable = false;
             _progressAmountPerPointPercentage = CalculateProgressAmountPerPoint(UpgradeManager.Instance.RequiredUpgradePoints[upgradeType]);
             completedImage.fillAmount = 0;
         }
@@ -76,8 +68,24 @@ namespace UI
         private void AssignEvents()
         {
             if (!UpgradeManager.Instance.OnPointIncreaseByType.TryAdd(upgradeType, UpdateProgressBar)) UpgradeManager.Instance.OnPointIncreaseByType[upgradeType] += UpdateProgressBar;
-            if (!UpgradeManager.Instance.OnUpgradeRequirementReached.TryAdd(upgradeType, ReadyForUpgrade)) UpgradeManager.Instance.OnUpgradeRequirementReached[upgradeType] += ReadyForUpgrade;
             if (!UpgradeManager.Instance.OnUpgrade.TryAdd(upgradeType, Upgrade)) UpgradeManager.Instance.OnUpgrade[upgradeType] += Upgrade;
+        }
+
+        /// <summary>
+        /// Fills the upgradebar little by little by the amount of points gaines
+        /// </summary>
+        /// <param name="points"></param>
+        /// <returns></returns>
+        private IEnumerator IncreaseFillAmount(int points)
+        {
+            var usedPoints = 0;
+            var image = completedImage;
+            while (usedPoints < points || image.fillAmount >= 1)
+            {
+                usedPoints += 1;
+                image.fillAmount += _progressAmountPerPointPercentage;
+                yield return new WaitForSeconds(imageFillDelay);
+            }
         }
     }
 }
