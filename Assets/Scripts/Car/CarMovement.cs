@@ -77,4 +77,10 @@ public class CarMovement : MonoBehaviour
         _hasMatchedBefore = true;
         return true;
     }
+    
+    /// <summary>
+    /// Drains the fuel by a amount
+    /// </summary>
+    /// <param name="drain"> The amount to drain </param>
+    public void DrainFuel(float drain) => _fuel -= drain;
 }

@@ -1,5 +1,5 @@
 using System;
-using Testing;
+using Car;
 using UnityEngine;
 
 namespace Enemy
@@ -91,7 +91,7 @@ namespace Enemy
         /// </summary>
         /// <param name="player"> the collision with the player </param>
         private void PlayerHit(Collision player) =>
-            player.gameObject.GetComponent<TestPlayer>().OnHitEnemy
+            player.gameObject.GetComponent<CarEnemyInteraction>().OnHitEnemy
             (
                 this,
                 _rigidBody,
