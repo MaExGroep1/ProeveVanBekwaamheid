@@ -48,7 +48,7 @@ namespace Upgrade.UpgradeParts
         private void ChangeWheels(GameObject newWheel)
         {
             newWheel.transform.localScale = Vector3.zero;
-            LeanTween.moveLocal(newWheel, Vector3.zero, appearTime).setEaseOutQuint();
+            LeanTween.moveLocal(newWheel, Vector3.zero, appearTime).setEaseOutQuint().setOnComplete(() => UpgradeManager.Instance.OnUpgradeCompleted[upgradeType]?.Invoke());
             LeanTween.scale(newWheel, Vector3.one, disappearSpeed).setEaseOutBack();
         }
     }

@@ -1,23 +1,39 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Blocks;
 using UnityEngine;
+using Upgrade;
 
 public class WheelRotationManager : MonoBehaviour
 {
+    private bool _isRotating = true;
+    
     [SerializeField] private WheelCollider wheelCollider; // Reference to the WheelCollider
 
     [SerializeField] private Transform[] wheelTransforms;
     
     private Vector3 _lastPosition; // The last position of the wheel
 
-    private void Start() => 
+    private void Start()
+    {
+        AssignEvents();
         InitializeWheel();
+    }
+    
+    private void Update()
+    {
+        if (_isRotating) RotateWheels();
+    }
+    private void AssignEvents()
+    {
+        if (!UpgradeManager.Instance.OnUpgradeCompleted.TryAdd(BlockType.Speed, EnableWheelRotating)) UpgradeManager.Instance.OnUpgradeCompleted[BlockType.Speed] += EnableWheelRotating;
+        if (!UpgradeManager.Instance.OnUpgrade.TryAdd(BlockType.Speed, DisableWheelRotating)) UpgradeManager.Instance.OnUpgrade[BlockType.Speed] += DisableWheelRotating;
+    }
 
-
-    private void Update() => 
-        RotateWheels();
-
+    private void EnableWheelRotating() => _isRotating = true;
+    private void DisableWheelRotating() => _isRotating = false;
+    
     
     /// <summary>
     /// Rotates the wheel based on how fast it has moved
