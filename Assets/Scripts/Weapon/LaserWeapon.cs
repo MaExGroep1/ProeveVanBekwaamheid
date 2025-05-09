@@ -1,6 +1,7 @@
 using System;
 using Interfaces;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Weapon
 {
@@ -12,18 +13,21 @@ namespace Weapon
         [SerializeField] private float fireDelay;
         [SerializeField] private GameObject laserFiringPoint;
 
+        private void Start()
+        {
+            Debug.DrawRay(laserFiringPoint.transform.position, Vector3.forward * range, Color.red, Mathf.Infinity);
+        }
+
         private void Update()
         {
             if (CanFire()) Shoot();
-            
         }
 
         private void Shoot()
         {
-            if (!Physics.Raycast(laserFiringPoint.transform.position, Vector3.right,  out var hitInfo)) return;
+            if (!Physics.Raycast(laserFiringPoint.transform.position, Vector3.forward, out var hitInfo, range)) return;
             if (!hitInfo.collider.gameObject.TryGetComponent(out IDamageable target)) return;
             target.TakeDamage(damage * Time.deltaTime);
-            Debug.Log("TakesDamage");
         }
 
         private bool CanFire()
