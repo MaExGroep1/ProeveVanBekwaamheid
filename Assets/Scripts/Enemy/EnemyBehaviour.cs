@@ -1,10 +1,11 @@
 using System;
 using Car;
+using Interfaces;
 using UnityEngine;
 
 namespace Enemy
 {
-    public class EnemyBehaviour : MonoBehaviour
+    public class EnemyBehaviour : MonoBehaviour, IDamageable
     {
         public float Worth { get; private set; }            // the amount of points the user gets when killing the enemy
 
