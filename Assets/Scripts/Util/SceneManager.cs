@@ -7,12 +7,11 @@ namespace Util
 
         [SerializeField] private float defaultLoadTime;
         [SerializeField] private CanvasGroup transitionFade;
-        [SerializeField] private string startSceneName;
+        
         protected override void Awake()
         {
             base.Awake();
             DontDestroyOnLoad(gameObject);
-            LoadScene(startSceneName);
         }
 
         public void LoadScene(string sceneName, float loadTime = Mathf.Infinity)
@@ -23,10 +22,10 @@ namespace Util
 
         private void StartSceneLoad(string sceneName, float loadTime)
         {
-            LeanTween.alphaCanvas(transitionFade ,1f , loadTime/2)
+            LeanTween.alphaCanvas(transitionFade, 1f, loadTime / 2)
                 .setIgnoreTimeScale(true)
                 .setEase(LeanTweenType.easeOutSine)
-                .setOnComplete(() => EndSceneLoad(sceneName,loadTime));
+                .setOnComplete(() => EndSceneLoad(sceneName, loadTime));
         }
 
         private void EndSceneLoad(string sceneName, float loadTime)

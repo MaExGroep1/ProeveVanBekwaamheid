@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4135997593507128095, guid: 3843ddd591afec7479b8ab07645ec5fb, type: 3}
+      propertyPath: sceneToLoad
+      value: RestartGame
+      objectReference: {fileID: 0}
     - target: {fileID: 6319247003337524831, guid: 3843ddd591afec7479b8ab07645ec5fb, type: 3}
       propertyPath: m_text
       value: Are you sure you want to restart?
@@ -94,7 +98,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8607445949457201349, guid: 3843ddd591afec7479b8ab07645ec5fb, type: 3}
       propertyPath: m_Name
-      value: AreYouSure Variant 1
+      value: AreYouSureRestart
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

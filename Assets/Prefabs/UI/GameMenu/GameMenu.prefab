@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 977712492765370217}
   - component: {fileID: 587024524354817439}
   - component: {fileID: 6471230593359806271}
+  - component: {fileID: 6608366006881241129}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -77,6 +78,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 0.75
+--- !u!114 &6608366006881241129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986103665024246344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0244a0345262f90429861d139d360ad0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeDuration: 10
+  shakeTarget: 1
 --- !u!1 &1451000620319404878
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,7 +492,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8905294252956012741}
   m_Enabled: 1
-  m_Alpha: 0.7
+  m_Alpha: 0.6
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
