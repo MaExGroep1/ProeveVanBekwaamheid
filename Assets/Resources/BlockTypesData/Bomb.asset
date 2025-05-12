@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74863fb1c83fcca40ac0323693058b28, type: 3}
   m_Name: Bomb
   m_EditorClassIdentifier: 
-  blockTypes: 0
-  blockSprite: {fileID: 0}
+  blockTypes: 5
+  blockSprite: {fileID: 1504398998, guid: f44e78f8af6d7ef4fab31b5468221df9, type: 3}
   levelSprites: []

@@ -628,6 +628,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1034319551 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6282925049173725145, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+  m_PrefabInstance: {fileID: 8257311985010801516}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1034319557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1034319551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b970f77d805174ea5d0651226539c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1239223212
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1237,7 +1254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: blockData.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: blockDestroyTravelTime
@@ -1264,6 +1281,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: ab954756c0baf27469611570089f5af6, type: 2}
     - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+      propertyPath: blockData.Array.data[5].blockType
+      value: 
+      objectReference: {fileID: 11400000, guid: ee83055c3584245499e2604a3f66004e, type: 2}
+    - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: blockData.Array.data[0].destroyDestination
       value: 
       objectReference: {fileID: 2109224710}
@@ -1283,6 +1304,10 @@ PrefabInstance:
       propertyPath: blockData.Array.data[4].destroyDestination
       value: 
       objectReference: {fileID: 2109224706}
+    - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+      propertyPath: blockData.Array.data[5].destroyDestination
+      value: 
+      objectReference: {fileID: 963194228}
     - target: {fileID: 5752442020842666147, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1294,7 +1319,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6282925049173725145, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1034319557}
   m_SourcePrefab: {fileID: 100100000, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

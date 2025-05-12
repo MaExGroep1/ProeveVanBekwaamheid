@@ -242,7 +242,7 @@ namespace Grid
 
             SwapBlocks(cords, index, () =>
             {
-                if (bombMatched) MatchBomb(cords);
+                if (bombMatched) HandleBombExplosion(cords);
                 
                 DestroyAllMatchingBlocks(
                     index, horizontalA > 2, verticalA > 2,
@@ -265,7 +265,7 @@ namespace Grid
                                + CheckDirection(cords, new Vector2Int(0, -1), blockType);
 
             if (vertical <= 2 && horizontal <= 2) return;
-            StartCoroutine(DestroyMatchingBlocks(cords, blockType ,vertical > 2, horizontal > 2));
+            StartCoroutine(DestroyMatchingBlocks(cords, blockType ,vertical > 2, horizontal > 2, false));
         }
         
         /// <summary>
@@ -450,8 +450,8 @@ namespace Grid
         /// <param name="verticalB"> whether to delete on A vertical </param>
         private void DestroyAllMatchingBlocks(Vector2Int cordsA, bool horizontalA, bool verticalA,Vector2Int cordsB , bool horizontalB, bool verticalB )
         {
-            StartCoroutine(DestroyMatchingBlocks(cordsA, _grid[cordsA.x, cordsA.y].GetBlock().GetBlockType(), horizontalA, verticalA));
-            StartCoroutine(DestroyMatchingBlocks(cordsB, _grid[cordsB.x, cordsB.y].GetBlock().GetBlockType(), horizontalB, verticalB));
+            StartCoroutine(DestroyMatchingBlocks(cordsA, _grid[cordsA.x, cordsA.y].GetBlock().GetBlockType(), horizontalA, verticalA, true));
+            StartCoroutine(DestroyMatchingBlocks(cordsB, _grid[cordsB.x, cordsB.y].GetBlock().GetBlockType(), horizontalB, verticalB, true));
         }
         
         /// <summary>
@@ -461,16 +461,13 @@ namespace Grid
         /// <param name="blockType"> the type of block </param>
         /// <param name="horizontal"> whether to delete on horizontal </param>
         /// <param name="vertical"> whether to delete on vertical </param>
-        private IEnumerator DestroyMatchingBlocks(Vector2Int cords, BlockType blockType, bool horizontal, bool vertical)
+        private IEnumerator DestroyMatchingBlocks(Vector2Int cords, BlockType blockType, bool horizontal, bool vertical, bool canDestroyBomb)
         {
             var hor = 0;
             var ver = 0;
 
-            if (blockType == BlockType.Bomb)
-            {
-                MatchBomb(cords);
-                yield break;
-            }
+            if (blockType == BlockType.Bomb || canDestroyBomb)
+                HandleBombExplosion(cords);
             
             if (horizontal)
             {
@@ -486,11 +483,6 @@ namespace Grid
             if (!vertical && !horizontal) yield break;
             yield return StartCoroutine(_grid[cords.x, cords.y].GetBlock().DestroyBlock(blockWaitTime,blockTravelSpeed,blockDestroyScale));
             _onMatch?.Invoke(blockType, hor+ver+1);
-        }
-
-        private void MatchBomb(Vector2Int bombCords)
-        {
-            //var block = _grid
         }
 
         /// <summary>
@@ -559,7 +551,7 @@ namespace Grid
                         var block = _grid[targetCords.x, targetCords.y].GetBlock();
                         if (block != null && block.GetBlockType() != BlockType.Bomb)
                         {
-                            StartCoroutine(DestroyMatchingBlocks(targetCords, block.GetBlockType(), true, true));
+                            StartCoroutine(DestroyMatchingBlocks(targetCords, block.GetBlockType(), true, true,  true));
                         }
                     }
                 }   
