@@ -6,6 +6,7 @@ namespace Blocks
         Defense,    // the defense block type
         Fuel,       // the fuel block type
         Speed,      // the speed block type
-        Weapon      // the weapon block type
+        Weapon,      // the weapon block type
+        Bomb,       // the bomb block type
     }
 }

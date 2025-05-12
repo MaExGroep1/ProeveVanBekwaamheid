@@ -33,6 +33,8 @@ namespace Grid
         [SerializeField] private float blockWaitTime;                       // the time it takes for a new block to be made after a match is made
         [SerializeField] private float blockTravelSpeed;                    // The speed the block moves to the destroy point
         [SerializeField] private float blockDestroyScale;                   // the scale of the block when traveling to the destroy point
+
+        [SerializeField] private int bombBlockRange;                      // the range of the bomb block when it explodes
         
         [Header("Spawn animation")]
         [SerializeField] private RectTransform gridRect;                    // the rect of the grid object
@@ -217,27 +219,36 @@ namespace Grid
             
             var otherType = _grid[index.x, index.y].GetBlockType();
             int horizontalA = 1 + (direction == Direction.Down  ? 0 : CheckDirection(index, new Vector2Int(1, 0), blockType)) 
-                               + (direction == Direction.Up    ? 0 : CheckDirection(index, new Vector2Int(-1, 0), blockType));
+                                + (direction == Direction.Up    ? 0 : CheckDirection(index, new Vector2Int(-1, 0), blockType));
 
             int verticalA = 1 + (direction == Direction.Right ? 0 : CheckDirection(index, new Vector2Int(0, -1), blockType)) 
-                             + (direction == Direction.Left  ? 0 : CheckDirection(index, new Vector2Int(0, 1), blockType));
+                              + (direction == Direction.Left  ? 0 : CheckDirection(index, new Vector2Int(0, 1), blockType));
             
             int horizontalB = 1 + (otherDir == Direction.Down  ? 0 : CheckDirection(cords, new Vector2Int(1, 0), otherType)) 
-                               + (otherDir == Direction.Up    ? 0 : CheckDirection(cords, new Vector2Int(-1, 0), otherType));
+                                + (otherDir == Direction.Up    ? 0 : CheckDirection(cords, new Vector2Int(-1, 0), otherType));
 
             int verticalB = 1 + (otherDir == Direction.Right ? 0 : CheckDirection(cords, new Vector2Int(0, -1), otherType)) 
-                             + (otherDir == Direction.Left  ? 0 : CheckDirection(cords, new Vector2Int(0, 1), otherType));
+                              + (otherDir == Direction.Left  ? 0 : CheckDirection(cords, new Vector2Int(0, 1), otherType));
 
+            // checks for bomb block
+            bool bombMatched = _grid[cords.x, cords.y].GetBlockType() == BlockType.Bomb || _grid[index.x, index.y].GetBlockType() == BlockType.Bomb;
+    
 
             if (horizontalA <= 2 && verticalA <= 2 && horizontalB <= 2 && verticalB <= 2)
             {
                 _grid[cords.x, cords.y].GetBlock().GoToOrigin(null);
                 return;
             }
-            SwapBlocks(cords, index, () => 
+
+            SwapBlocks(cords, index, () =>
+            {
+                if (bombMatched) MatchBomb(cords);
+                
                 DestroyAllMatchingBlocks(
                     index, horizontalA > 2, verticalA > 2,
-                    cords,horizontalB > 2, verticalB > 2));
+                    cords, horizontalB > 2, verticalB > 2);
+            });
+
         }
 
         /// <summary>
@@ -356,6 +367,7 @@ namespace Grid
         /// </summary>
         private void PopulateGrid()
         {
+            var bombPlaced = false;
             for (int i = 0; i < gridHeight; i++)
                 for (int j = 0; j < gridWidth; j++)
                 {
@@ -369,8 +381,12 @@ namespace Grid
                     if (j > 1 && _grid[i ,j - 1].GetBlockType() == _grid[i ,j - 2].GetBlockType())
                         exclusions.Add(_grid[i, j - 1].GetBlockType());
 
-                    var block = GetRandomBlocksExcluding(exclusions.ToArray());
+                    var block = GetRandomBlocksExcluding(exclusions.ToArray(), !bombPlaced);
 
+                    if (block.blockType.blockTypes == BlockType.Bomb && !bombPlaced) bombPlaced = true;
+
+                    print(block.blockType.blockTypes);
+                    
                     newBlock.Rect.position = position + offset;
                     
                     newBlock.Initialize(block.blockType,block.destroyDestination.position);
@@ -449,6 +465,13 @@ namespace Grid
         {
             var hor = 0;
             var ver = 0;
+
+            if (blockType == BlockType.Bomb)
+            {
+                MatchBomb(cords);
+                yield break;
+            }
+            
             if (horizontal)
             {
                 hor += DestroyBlocksFromDirection(cords, new Vector2Int( 1, 0), blockType);
@@ -464,7 +487,12 @@ namespace Grid
             yield return StartCoroutine(_grid[cords.x, cords.y].GetBlock().DestroyBlock(blockWaitTime,blockTravelSpeed,blockDestroyScale));
             _onMatch?.Invoke(blockType, hor+ver+1);
         }
-        
+
+        private void MatchBomb(Vector2Int bombCords)
+        {
+            //var block = _grid
+        }
+
         /// <summary>
         /// Destroys all blocks of 1 type in a direction from a point
         /// </summary>
@@ -493,18 +521,20 @@ namespace Grid
         /// Gets a random block from the block table
         /// </summary>
         /// <returns> A random block type </returns>
-        private BlockData GetRandomBlocksExcluding(BlockType[] excluding)
+        private BlockData GetRandomBlocksExcluding(BlockType[] excluding, bool includeBomb)
         {
             var blockTypes = blockData.ToList();
-            foreach (var blockType in blockTypes.ToList().Where(blockType => excluding.Contains(blockType.blockType.blockTypes)))
+            foreach (var blockType in blockTypes.ToList())
             {
-                blockTypes.Remove(blockType);
+                if (excluding.Contains(blockType.blockType.blockTypes)) blockTypes.Remove(blockType);
+                
+                if (blockType.blockType.blockTypes == BlockType.Bomb && !includeBomb) blockTypes.Remove(blockType);
             }
 
             return blockTypes[Random.Range(0, blockTypes.Count)];
         }
 
-        
+
         /// <summary>
         /// Waits for a set amount of time then moves the block to the position
         /// </summary>
@@ -515,6 +545,25 @@ namespace Grid
         {
             yield return new WaitForSeconds(waitTime);
             newBlock.FallToOrigin(null);
+        }
+        
+        private void HandleBombExplosion(Vector2Int bombCords)
+        {
+            for (int x = -bombBlockRange; x < bombBlockRange; x++)
+            {
+                for (int y = -bombBlockRange; y < bombBlockRange; y++)
+                {
+                    var targetCords = new Vector2Int(bombCords.x + x, bombCords.y + y);
+                    if (IsWithinBounds(targetCords))
+                    {
+                        var block = _grid[targetCords.x, targetCords.y].GetBlock();
+                        if (block != null && block.GetBlockType() != BlockType.Bomb)
+                        {
+                            StartCoroutine(DestroyMatchingBlocks(targetCords, block.GetBlockType(), true, true));
+                        }
+                    }
+                }   
+            }
         }
     }
 }

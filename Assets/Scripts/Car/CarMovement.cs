@@ -29,7 +29,6 @@ public class CarMovement : MonoBehaviour
     /// </summary>
     private void MoveCar()
     { 
-        print(_fuel);
         if (_fuel > 0f)
         {
             ApplyTorque(targetThrottle);
