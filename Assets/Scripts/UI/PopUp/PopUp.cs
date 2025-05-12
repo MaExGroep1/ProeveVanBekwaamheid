@@ -24,7 +24,8 @@ namespace UI.PopUp
         /// </summary>
         private void OpenMenu()
         {
-            closePopUpButton.onClick.AddListener(CloseMenu);
+            if (closePopUpButton)
+                closePopUpButton.onClick.AddListener(CloseMenu);
 
             _backgroundAlpha = background.alpha;
             background.alpha = 0f;
