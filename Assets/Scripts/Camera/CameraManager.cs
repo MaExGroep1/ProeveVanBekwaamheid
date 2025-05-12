@@ -9,35 +9,23 @@ public class CameraManager : MonoBehaviour
 
     [Header("Camera Variables")] 
     [SerializeField] private Transform cameraTransform; // Reference to the camera transform
-    [SerializeField] private Vector3 cameraOffset = new (1.5f, 0.5f, -1f); // The offset of the camera
-    [SerializeField] private float cameraSmoothing; // The time it takes for the camera to move to the target
-    
-    private Vector3 _velocity = Vector3.zero; // Vector3 zero for use in SmoothDamp
+    [SerializeField] private Vector3 cameraOffset = new (1.5f, 0.5f, 0); // The offset of the camera
 
-    private void Update()
+    private void LateUpdate()
     {
         // Null check for carTransform and carRigidBody
         if (carTransform == null || carRigidbody == null) 
             return;
         
-        SmoothCameraPosition();
-        LookAtCar();
+        CameraPosition();
     }
-    
-    /// <summary>
-    /// Makes the camera point at the target
-    /// </summary>
-    private void LookAtCar() =>
-        cameraTransform.LookAt(carTransform);
+
 
     /// <summary>
-    /// Makes the camera follow the target with a smooth delay
+    /// Camera follows the carTransform
     /// </summary>
-    /// <param name="cameraPos">A Vector 3 of the camera position</param>
-    private void SmoothCameraPosition()
+    private void CameraPosition()
     {
-        var targetPos = carTransform.position + cameraOffset;
-        var smoothPos = Vector3.SmoothDamp(cameraTransform.position, targetPos , ref _velocity, cameraSmoothing);
-        cameraTransform.position = smoothPos;
+        cameraTransform.position = carTransform.position + cameraOffset;
     }
 }
