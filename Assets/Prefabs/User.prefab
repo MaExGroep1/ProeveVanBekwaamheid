@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 474358477556561967}
   - component: {fileID: 359898675332612382}
   - component: {fileID: 1671308669422170112}
+  - component: {fileID: 5156162677853702317}
+  - component: {fileID: 5917347162555491926}
   m_Layer: 0
   m_Name: User
   m_TagString: Untagged
@@ -57,5 +59,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7671860403819d046bf33f93eb7537ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradePointsBaseRequirement: 25
-  upgradePointsRequirementIncrease: 5
+  upgradePointsBaseRequirement: 4
+  upgradePointsRequirementIncrease: 1
+--- !u!114 &5156162677853702317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391225761776170169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 041c08c36b8198d4096c169d5bed5cbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popUp: {fileID: 8439309655913956288, guid: 774a8e8928edbfb4fa7ebfbe2dd7c92d, type: 3}
+--- !u!114 &5917347162555491926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391225761776170169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b970f77d805174ea5d0651226539c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

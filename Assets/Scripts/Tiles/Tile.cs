@@ -21,8 +21,11 @@ namespace Tiles
         /// </summary>
         private void OnDrawGizmos()
         {
-            Gizmos.color = Color.yellow;
+            Gizmos.color = new Color(1,1,0,0.5f);
+            Gizmos.DrawSphere(transform.position, 1f);
+            Gizmos.color = new Color(0,0,0);
             Gizmos.DrawSphere(transform.position, 0.1f);
+
         }
     }
 }

@@ -47,6 +47,7 @@ MonoBehaviour:
   carTransform: {fileID: 0}
   carRigidbody: {fileID: 0}
   cameraTransform: {fileID: 0}
-  offset: {x: 1.5, y: 0.5, z: -0.5}
-  cameraSmoothing: 1.2
+  offset: {x: 15.3, y: 2, z: -40}
+  targetOffset: {x: 4, y: -1, z: 0}
+  cameraSmoothing: 0
   bounceIntensity: 1
