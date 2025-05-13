@@ -1,30 +1,49 @@
+using System;
+using CarGame;
 using UnityEngine;
 
 namespace Tiles
 {
     public class TileManager : Util.Singleton<TileManager>
     {
-        [SerializeField] private LevelData[] levels;                        // all the playable levels
-        [SerializeField] private Transform tileParent;                      // the parent of the tiles
-        [SerializeField] private int levelLength;                           // the amount of tiles in a level before going to the next
+        public int TileAmount { get; private set; }                                         // the amount of tiles that have passed
+
+        [SerializeField] private Transform tileParent;                                      // the parent of the tiles
+        [SerializeField] private int levelLength;                                           // the amount of tiles in a level before going to the next
         
-        private Tile _currentTile;                                          // the tile under the player
-        private Tile _previousTile;                                         // the tile before the current tile
-        private int _currentLevelIndex;                                     // the current level of the game
-        private int _currentTileIndex;                                      // the current tile index in the level
-        private LevelData CurrentLevel => levels[_currentLevelIndex];       // the level data of the current level
+        private Tile _currentTile;                                                          // the tile under the player
+        private Tile _previousTile;                                                         // the tile before the current tile
+        private int _currentTileIndex;                                                      // the current tile index in the level
+        private static LevelData CurrentLevel => CarGameManager.Instance.CurrentLevel;      // the level data of the current level
+        
+        private Action _onEnterNextLevel;
 
         private void Start()
         {
             CreateNewTile(CurrentLevel.startTile);
             CreateNewTile(CurrentLevel.RandomTile);
         }
+        
+        /// <summary>
+        /// Adds function to the onMatch event
+        /// </summary>
+        /// <param name="onEnterNextLevel"> the function to add </param>
+        public void ListenToOnEnterNextLevel(Action onEnterNextLevel) => _onEnterNextLevel += onEnterNextLevel;
+        
+        /// <summary>
+        /// Removes function to the onMatch event
+        /// </summary>
+        /// <param name="onEnterNextLevel"> the function to remove </param>
+        public void StopListeningToOnEnterNextLevel(Action onEnterNextLevel) => _onEnterNextLevel -= onEnterNextLevel;
+
 
         /// <summary>
         /// Places a new tile at the end of the previous
         /// </summary>
         private void GenerateNewTile()
         {
+            TileAmount++;
+            
             _currentTile.transform.parent = tileParent;
             Destroy(_previousTile.gameObject);
             
@@ -52,12 +71,7 @@ namespace Tiles
         {
             _currentTileIndex = 0;
             CreateNewTile(CurrentLevel.endTile);
-            if (_currentLevelIndex < levels.Length - 1)
-            {
-                _currentLevelIndex++;
-                return;
-            }
-            _currentLevelIndex = 0;
+            _onEnterNextLevel?.Invoke();
         }
         
         /// <summary>

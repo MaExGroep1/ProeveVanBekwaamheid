@@ -13,7 +13,16 @@ namespace Tiles
             get => loadNext.OnLoad;
             set => loadNext.OnLoad = value;
         }
-
+    
         public Transform TileEnd => tileEnd;
+        
+        /// <summary>
+        /// Draws a dot on the start point of the tile
+        /// </summary>
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(transform.position, 0.1f);
+        }
     }
 }
