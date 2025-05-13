@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Menus/MainMenu.unity
     guid: a6890cd579f10a249a6ee7b258f68f0b
   - enabled: 1
-    path: Assets/Scenes/Buggie.unity
+    path: Assets/Scenes/Main/Buggie.unity
     guid: 8f6f273fb93e2394f90782439d12abd5
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
