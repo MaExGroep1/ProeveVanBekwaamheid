@@ -94,7 +94,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3230048167141162369, guid: 05657440f12074d40a59c6a37832d8c6, type: 3}
       propertyPath: m_Name
-      value: HighScore Variant
+      value: HighScoreInGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 7858220703662624114, guid: 05657440f12074d40a59c6a37832d8c6, type: 3}
+      propertyPath: m_Alpha
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
