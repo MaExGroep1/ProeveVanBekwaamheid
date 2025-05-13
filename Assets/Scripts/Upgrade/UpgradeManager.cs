@@ -18,13 +18,14 @@ namespace Upgrade
         private Dictionary<BlockType, int> _upgradePoints;                              //The amount of points gained for an upgrade per upgrade type <upgradeType, upgradePoints>
         private Dictionary<BlockType, int> _requiredUpgradePoints;                      //The amount of points required for the nest upgrade per upgrade type <upgradeType, requiredUpgradePoints>
         private Dictionary<BlockType, Action<int>> _onPointIncreaseByType = new();      //Events that get invoked whenever you gain upgrade points per upgrade type <upgradeType, event<upgradePoints>>
-        private Dictionary<BlockType, Action> _onUpgradeRequirementReached = new();     //Events that get invoked whenever you have enough points for an upgrade per upgrade type <upgradeType, event>
         private Dictionary<BlockType, Action> _onUpgrade = new();                       //Events that get called whenever you upgrade your car per upgrade type <upgradeType, event>
-
+        private Dictionary<BlockType, Action> _onUpgradeCompleted = new();              //Events that get called whenever an upgrade is completed <upgrade type, event>
+        
         public Dictionary<BlockType, int> RequiredUpgradePoints  { get => _requiredUpgradePoints; private set => _requiredUpgradePoints = value; }                  //getter/setter for _requiredUpgradePoints
         public Dictionary<BlockType, Action<int>> OnPointIncreaseByType { get => _onPointIncreaseByType; set => _onPointIncreaseByType = value; }                   //getter/setter for _onPointIncreaseByType
-        public Dictionary<BlockType, Action> OnUpgradeRequirementReached { get => _onUpgradeRequirementReached; set => _onUpgradeRequirementReached = value; }      //getter/setter for _onUpgradeRequirementReached
         public Dictionary<BlockType, Action> OnUpgrade { get => _onUpgrade; set => _onUpgrade = value; }                                                            //getter/setter for _onUpgrade
+        public Dictionary<BlockType, Action> OnUpgradeCompleted { get => _onUpgradeCompleted; set => _onUpgradeCompleted = value; }                                 //getter/setter for onUpgradeCompleted
+        
         
         /// <summary>
         /// assigns events and dictionaries
@@ -48,15 +49,10 @@ namespace Upgrade
         {
             _upgradePoints[upgradeType] += upgradePoints;
             
-            if (_upgradePoints[upgradeType] >= _requiredUpgradePoints[upgradeType])
-            {
-                if (!OnUpgradeRequirementReached.TryGetValue(upgradeType, out Action upgradeReachedAction)) return;
-                upgradeReachedAction?.Invoke();
-                return;
-            }
-            
             if (!OnPointIncreaseByType.TryGetValue(upgradeType, out Action<int> increasePointAction)) return;
             increasePointAction?.Invoke(upgradePoints);
+            
+            if (_upgradePoints[upgradeType] >= _requiredUpgradePoints[upgradeType]) { Upgrade(upgradeType); }
         }
         
         /// <summary>
@@ -69,17 +65,13 @@ namespace Upgrade
         /// <param name="upgradeType"></param>
         public void Upgrade(BlockType upgradeType)
         {
-            //var pointsLeft = _upgradePoints[upgradeType] - _requiredUpgradePoints[upgradeType];
-            //_upgradePoints[upgradeType] -= _requiredUpgradePoints[upgradeType];
-            
-            _upgradePoints[upgradeType] = 0;
+            var pointsLeft = _upgradePoints[upgradeType] - _requiredUpgradePoints[upgradeType];
 
             _requiredUpgradePoints[upgradeType] += upgradePointsRequirementIncrease;
             OnUpgrade[upgradeType]?.Invoke();
             
-            /*if (_upgradePoints[upgradeType] == 0) return;
             _upgradePoints[upgradeType] = 0;
-            IncreaseUpgradePoints(upgradeType, pointsLeft);*/
+            IncreaseUpgradePoints(upgradeType, pointsLeft);
             
         }
         
