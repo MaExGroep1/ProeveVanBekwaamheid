@@ -55,6 +55,8 @@ namespace Grid
         public GridElement[,] Grid => _grid;
         
         private Action<BlockType, int> _onMatch;                            // the event to invoke when a match is made
+
+        private bool isBombOnGrid;                                          // the bool to check if there's a bomb block on the grid
         
         private void Start()
         {
@@ -233,6 +235,7 @@ namespace Grid
             // checks for bomb block
             bool bombMatched = _grid[cords.x, cords.y].GetBlockType() == BlockType.Bomb || _grid[index.x, index.y].GetBlockType() == BlockType.Bomb;
     
+            print(bombMatched);
 
             if (horizontalA <= 2 && verticalA <= 2 && horizontalB <= 2 && verticalB <= 2)
             {
@@ -551,6 +554,7 @@ namespace Grid
                         var block = _grid[targetCords.x, targetCords.y].GetBlock();
                         if (block != null && block.GetBlockType() != BlockType.Bomb)
                         {
+                            isBombOnGrid = false;
                             StartCoroutine(DestroyMatchingBlocks(targetCords, block.GetBlockType(), true, true,  true));
                         }
                     }
