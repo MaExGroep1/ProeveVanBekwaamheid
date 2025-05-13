@@ -127,7 +127,7 @@ namespace Blocks
         /// <summary>
         /// Starts the matching process
         /// </summary>
-        private void TryToMatch()
+        protected virtual void TryToMatch()
         {
             var direction =  transform.position - _gridPosition;
             var normalized = direction.normalized;
