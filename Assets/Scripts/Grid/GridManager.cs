@@ -56,7 +56,7 @@ namespace Grid
         
         private Action<BlockType, int> _onMatch;                            // the event to invoke when a match is made
 
-        private bool isBombOnGrid;                                          // the bool to check if there's a bomb block on the grid
+        private bool isBombOnGrid = false;                                  // the bool to check if there's a bomb block on the grid
         
         private void Start()
         {
@@ -174,6 +174,14 @@ namespace Grid
             {
                 var newBlock = Instantiate(blockTemplate, _blocksParent);
                 var block = GetRandomBlock();
+
+                if (block.blockType.blockTypes == BlockType.Bomb || !isBombOnGrid)
+                {
+                    var exclusion = new List<BlockType>();
+                    exclusion.Add(block.blockType.blockTypes);
+                    block = GetRandomBlocksExcluding(exclusion.ToArray(), false);
+                }
+                
                 var position = new Vector2(_grid[gridHeight-1,y].transform.position.x, _grid[gridHeight-1,y].transform.position.y);
                 var offset = new Vector2(0, _heightOffset * (i + 1));
                 
@@ -192,16 +200,9 @@ namespace Grid
         /// <param name="cords"> the cords of the block </param>
         /// <param name="direction"> the direction the block is going to </param>
         /// <param name="blockType"> the type of the block </param>
+        /// TODO marker
         public void TryMatch(Vector2Int cords, Direction direction, BlockType blockType)
         {
-            var offset = direction switch
-            {
-                Direction.Up    => new Vector2Int( 1,  0),
-                Direction.Down  => new Vector2Int(-1,  0),
-                Direction.Left  => new Vector2Int( 0, -1),
-                Direction.Right => new Vector2Int( 0,  1),
-                _               => Vector2Int.zero
-            };
             var otherDir = direction switch
             {
                 Direction.Up    => Direction.Down,
@@ -211,7 +212,7 @@ namespace Grid
                 _               => direction 
             };
 
-            var index = cords + offset;
+            var index = cords + DirectionToCords(direction);
 
             if (!IsWithinBounds(index))
             {
@@ -231,11 +232,10 @@ namespace Grid
 
             int verticalB = 1 + (otherDir == Direction.Right ? 0 : CheckDirection(cords, new Vector2Int(0, -1), otherType)) 
                               + (otherDir == Direction.Left  ? 0 : CheckDirection(cords, new Vector2Int(0, 1), otherType));
-
-            // checks for bomb block
+            
+            
             bool bombMatched = _grid[cords.x, cords.y].GetBlockType() == BlockType.Bomb || _grid[index.x, index.y].GetBlockType() == BlockType.Bomb;
-    
-            print(bombMatched);
+
 
             if (horizontalA <= 2 && verticalA <= 2 && horizontalB <= 2 && verticalB <= 2)
             {
@@ -245,14 +245,22 @@ namespace Grid
 
             SwapBlocks(cords, index, () =>
             {
-                if (bombMatched) HandleBombExplosion(cords);
-                
                 DestroyAllMatchingBlocks(
                     index, horizontalA > 2, verticalA > 2,
                     cords, horizontalB > 2, verticalB > 2);
             });
 
         }
+
+        private Vector2Int DirectionToCords(Direction direction) =>
+            direction switch
+        {
+            Direction.Up    => new Vector2Int( 1,  0),
+            Direction.Down  => new Vector2Int(-1,  0),
+            Direction.Left  => new Vector2Int( 0, -1),
+            Direction.Right => new Vector2Int( 0,  1),
+            _               => Vector2Int.zero
+        };
 
         /// <summary>
         /// Attempts to match a block after it has fallen into position
@@ -268,7 +276,7 @@ namespace Grid
                                + CheckDirection(cords, new Vector2Int(0, -1), blockType);
 
             if (vertical <= 2 && horizontal <= 2) return;
-            StartCoroutine(DestroyMatchingBlocks(cords, blockType ,vertical > 2, horizontal > 2, false));
+            StartCoroutine(DestroyMatchingBlocks(cords, blockType ,vertical > 2, horizontal > 2));
         }
         
         /// <summary>
@@ -370,7 +378,6 @@ namespace Grid
         /// </summary>
         private void PopulateGrid()
         {
-            var bombPlaced = false;
             for (int i = 0; i < gridHeight; i++)
                 for (int j = 0; j < gridWidth; j++)
                 {
@@ -384,11 +391,9 @@ namespace Grid
                     if (j > 1 && _grid[i ,j - 1].GetBlockType() == _grid[i ,j - 2].GetBlockType())
                         exclusions.Add(_grid[i, j - 1].GetBlockType());
 
-                    var block = GetRandomBlocksExcluding(exclusions.ToArray(), !bombPlaced);
+                    var block = GetRandomBlocksExcluding(exclusions.ToArray(), !isBombOnGrid);
 
-                    if (block.blockType.blockTypes == BlockType.Bomb && !bombPlaced) bombPlaced = true;
-
-                    print(block.blockType.blockTypes);
+                    if (block.blockType.blockTypes == BlockType.Bomb && !isBombOnGrid) isBombOnGrid = true;
                     
                     newBlock.Rect.position = position + offset;
                     
@@ -453,8 +458,8 @@ namespace Grid
         /// <param name="verticalB"> whether to delete on A vertical </param>
         private void DestroyAllMatchingBlocks(Vector2Int cordsA, bool horizontalA, bool verticalA,Vector2Int cordsB , bool horizontalB, bool verticalB )
         {
-            StartCoroutine(DestroyMatchingBlocks(cordsA, _grid[cordsA.x, cordsA.y].GetBlock().GetBlockType(), horizontalA, verticalA, true));
-            StartCoroutine(DestroyMatchingBlocks(cordsB, _grid[cordsB.x, cordsB.y].GetBlock().GetBlockType(), horizontalB, verticalB, true));
+            StartCoroutine(DestroyMatchingBlocks(cordsA, _grid[cordsA.x, cordsA.y].GetBlock().GetBlockType(), horizontalA, verticalA));
+            StartCoroutine(DestroyMatchingBlocks(cordsB, _grid[cordsB.x, cordsB.y].GetBlock().GetBlockType(), horizontalB, verticalB));
         }
         
         /// <summary>
@@ -464,13 +469,10 @@ namespace Grid
         /// <param name="blockType"> the type of block </param>
         /// <param name="horizontal"> whether to delete on horizontal </param>
         /// <param name="vertical"> whether to delete on vertical </param>
-        private IEnumerator DestroyMatchingBlocks(Vector2Int cords, BlockType blockType, bool horizontal, bool vertical, bool canDestroyBomb)
+        private IEnumerator DestroyMatchingBlocks(Vector2Int cords, BlockType blockType, bool horizontal, bool vertical)
         {
             var hor = 0;
             var ver = 0;
-
-            if (blockType == BlockType.Bomb || canDestroyBomb)
-                HandleBombExplosion(cords);
             
             if (horizontal)
             {
@@ -541,8 +543,33 @@ namespace Grid
             yield return new WaitForSeconds(waitTime);
             newBlock.FallToOrigin(null);
         }
-        
-        private void HandleBombExplosion(Vector2Int bombCords)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="originalBombCords"></param>
+        /// <param name="direction"></param>
+        /// <param name="thisBomb"></param>
+        public void HandleBombBlockMatch(Vector2Int originalBombCords, Direction direction, BombBlock thisBomb)
+        {
+            var bombCords = originalBombCords + DirectionToCords(direction);
+            var otherBlock = _grid[bombCords.x, bombCords.y].GetBlock();
+            
+            thisBomb.SetCords(bombCords);
+            otherBlock.SetCords(originalBombCords);
+            
+            thisBomb.GoToOrigin(null);
+            otherBlock.GoToOrigin(() =>
+                HandleBombBlockExplosion(bombCords));
+
+            thisBomb.DestroyBlock(blockWaitTime, blockTravelSpeed, blockDestroyScale);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bombCords"></param>
+        private void HandleBombBlockExplosion(Vector2Int bombCords)
         {
             for (int x = -bombBlockRange; x < bombBlockRange; x++)
             {
@@ -552,13 +579,11 @@ namespace Grid
                     if (IsWithinBounds(targetCords))
                     {
                         var block = _grid[targetCords.x, targetCords.y].GetBlock();
-                        if (block != null && block.GetBlockType() != BlockType.Bomb)
-                        {
-                            isBombOnGrid = false;
-                            StartCoroutine(DestroyMatchingBlocks(targetCords, block.GetBlockType(), true, true,  true));
-                        }
+                
+                        isBombOnGrid = false;
+                        StartCoroutine(block.DestroyBlock(blockWaitTime, blockTravelSpeed, blockDestroyScale));
                     }
-                }   
+                }
             }
         }
     }
