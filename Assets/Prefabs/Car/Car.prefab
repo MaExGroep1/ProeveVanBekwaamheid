@@ -87,8 +87,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.6439512, y: 2.6273947, z: 6.4286127}
-  m_Center: {x: 0.123566985, y: 1.3536973, z: 0.10450983}
+  m_Size: {x: 2.6439512, y: 2.2228203, z: 6.328084}
+  m_Center: {x: 0.123566985, y: 1.1514101, z: 0.054245472}
 --- !u!114 &8910477642296879986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -725,6 +725,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2782870762865318265, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}
+      propertyPath: upgradeValues.Array.data[1].visuals
+      value: 
+      objectReference: {fileID: 6596067815567844865, guid: 4656b68f4cc978742a6737a3073a7aa8, type: 3}
+    - target: {fileID: 2782870762865318265, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}
+      propertyPath: upgradeValues.Array.data[3].visuals
+      value: 
+      objectReference: {fileID: 6596067815567844865, guid: 3b04734970028de44bdb44d049e45cf7, type: 3}
     - target: {fileID: 2804692539095935294, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}
       propertyPath: m_Enabled
       value: 0
