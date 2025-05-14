@@ -8,14 +8,14 @@ namespace Weapon
 {
     public class LaserWeapon : MonoBehaviour
     {
-        [SerializeField] private float damage;
-        [SerializeField] private float fireTime;
-        [SerializeField] private float fireDelay;
-        [SerializeField] private GameObject laser;
+        [SerializeField] private float damage;      //the damage the laser does when hitting an enemy per frame * deltatime
+        [SerializeField] private float fireTime;    //the time the laser will fire before turning off
+        [SerializeField] private float fireDelay;   //the time the laser is turned off before firing
+        [SerializeField] private GameObject laser;  //the ref to the laser visual object
         
-        private bool _canFire;
+        private bool _canFire;                      //fires the laser on true and disables on false
 
-        private bool CanFire
+        private bool CanFire                        //getter/setter for _canFire, when changed will reset the FireTimer and when turned false will disable the laser visual
         {
             get => _canFire;
             set
@@ -26,16 +26,25 @@ namespace Weapon
             }
         }
 
+        /// <summary>
+        /// starts the FireTimer loop
+        /// </summary>
         private void Start()
         {
             StartCoroutine(FireTimer());
         }
-
+        
+        /// <summary>
+        /// Shoots the laser when CanFire is true
+        /// </summary>
         private void Update()
         {
             if (CanFire) Shoot();
         }
 
+        /// <summary>
+        /// casts a raycast forward and checks to see if it hit an enemy, will dela damage when an enemy is found, then scales the laser visual to the hitpoint
+        /// </summary>
         private void Shoot()
         {
             var laserBeam = laser;
@@ -51,6 +60,10 @@ namespace Weapon
             target.TakeDamage(damage * Time.deltaTime);
         }
 
+        /// <summary>
+        /// Scales the visual laser to "hitPoint" location, will disable it when hitPoints is 0,0,0
+        /// </summary>
+        /// <param name="hitPoint"></param>
         private void ScaleLaser(Vector3 hitPoint)
         {
             var laserBeam = laser;
@@ -61,6 +74,11 @@ namespace Weapon
             laserBeam.transform.localScale = scale;
         }
 
+        /// <summary>
+        /// will wait a determined time and swaps CanFire bool
+        /// will wait for FireTime amount when canFire is true and will wait fireDelay amount when canFire is false
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator FireTimer()
         {
             var canFire = CanFire;
