@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Interfaces;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -11,12 +12,28 @@ namespace Weapon
         [SerializeField] private float fireTime;
         [SerializeField] private float fireDelay;
         [SerializeField] private GameObject laser;
-        [SerializeField] private LayerMask laserLayerMask;
         
         private bool _canFire;
+
+        private bool CanFire
+        {
+            get => _canFire;
+            set
+            {
+                _canFire = value;
+                StartCoroutine(FireTimer());
+                if (value == false) ScaleLaser(Vector3.zero); 
+            }
+        }
+
+        private void Start()
+        {
+            StartCoroutine(FireTimer());
+        }
+
         private void Update()
         {
-            if (_canFire) Shoot();
+            if (CanFire) Shoot();
         }
 
         private void Shoot()
@@ -40,14 +57,16 @@ namespace Weapon
             Vector3 scale = laserBeam.transform.localScale;
             float distance = hitPoint != Vector3.zero ? Vector3.Distance(hitPoint, laserBeam.transform.position) : 0f;
 
-            scale.x = distance;
+            scale.x = distance; 
             laserBeam.transform.localScale = scale;
         }
 
-        private bool CanFire()
+        private IEnumerator FireTimer()
         {
-           return true;
-           return false;
+            var canFire = CanFire;
+            var timer = canFire ? fireTime : fireDelay;
+            yield return new WaitForSeconds(timer);
+            CanFire = !canFire;
         }
     }
 }
