@@ -5,13 +5,6 @@ namespace Upgrade.UpgradeParts
 {
     public class WeaponUpgradeBehaviour : BaseUpgradePart
     {
-        
-        /// <summary>
-        /// changes the stats used for gameplay upon upgrade
-        /// </summary>
-        protected override void IncreaseUpgradeStats()
-        {
-            CarData.Instance.WeaponFireRate = upgradeValues[_upgradeLevel].newUpgradeValue;
-        }
+        protected override void IncreaseUpgradeStats() { } //stats are handled in the prefab of the weapon itself
     }
 }
