@@ -22,6 +22,12 @@ namespace Enemy
         private static LevelData CurrentLevel => CarGameManager.Instance.CurrentLevel;                          // the level data of the current level
         private EnemyBehaviour RandomGroundEnemies => _groundEnemies[Random.Range(0, _groundEnemies.Count)];    // a random ground enemy
         private EnemyBehaviour RandomFlyingEnemies => _flyingEnemies[Random.Range(0, _flyingEnemies.Count)];    // a random flying enemy
+
+        public List<EnemyBehaviour> Enemies
+        {
+            get => _enemies;
+            private set => _enemies = value;
+        }
         
         /// <summary>
         /// Goes to the first level and starts listening to the OnEnterNextLevel
