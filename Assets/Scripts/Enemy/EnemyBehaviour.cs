@@ -7,6 +7,7 @@ namespace Enemy
     public class EnemyBehaviour : MonoBehaviour
     {
         public float Worth { get; private set; }            // the amount of points the user gets when killing the enemy
+        public bool MarkedForDeletion { get; private set; }
 
         [Header("Stats")]
         [SerializeField] private float health;              // the health of the enemy
@@ -24,8 +25,9 @@ namespace Enemy
         private Rigidbody _rigidBody;                       // the enemy's rigidbody
         private Transform _target;                          // the transform of the target
         private bool _hasBeenNearPlayer;                    // if the player has been near the player
-        private Action _nearPlayer;                         // invokes ones the enemy gets near the player
 
+        private Action _nearPlayer;                         // invokes ones the enemy gets near the player
+        
         private void Awake() =>_rigidBody = GetComponent<Rigidbody>();
         
 
@@ -71,7 +73,10 @@ namespace Enemy
         private void OnCollisionEnter(Collision other)
         {
             if (other.gameObject.CompareTag("Player"))
+            {
+                EnterRagdoll();
                 PlayerHit(other);
+            }
             else if (other.gameObject.CompareTag("Enemy"))
                 OtherEnemyHit(other);
         }
@@ -107,7 +112,7 @@ namespace Enemy
         /// <param name="otherEnemy"> the collision with the other enemy </param>
         private void OtherEnemyHit(Collision otherEnemy) =>
             otherEnemy.gameObject.GetComponent<EnemyBehaviour>().OnHitByEnemy
-                (Mathf.Abs(_rigidBody.velocity.x));
+                (Mathf.Abs(_rigidBody.velocity.x * 2));
         
         /// <summary>
         /// Applies force forward
@@ -115,6 +120,13 @@ namespace Enemy
         /// <param name="force"> the hit enemies force on the x-axis </param>
         private void OnHitByEnemy(float force) =>
             _rigidBody.AddForce(new Vector3(0,force));
+
+        /// <summary>
+        /// Unfreezes the rotations
+        /// </summary>
+        private void EnterRagdoll() => 
+            _rigidBody.constraints = RigidbodyConstraints.None;
+        
 
         /// <summary>
         /// Applies the multiplier to the attack defence and health then sets the worth
@@ -126,6 +138,8 @@ namespace Enemy
             attack *= multiplier;
             defense *= multiplier;
             Worth = attack + defense;
+            if (multiplier<1)
+                Destroy(gameObject);
         }
         
         /// <summary>
@@ -146,7 +160,10 @@ namespace Enemy
         public void TakeDamage(float damage)
         {
             health -= damage;
-            if (health>0) return;
+            if (health > 0) return;
+
+            MarkedForDeletion = true;
+            gameObject.layer = LayerMask.NameToLayer("IgnorePlayer");
             EnemyManager.Instance.DestroyEnemy(this);
         }
     }
