@@ -46,9 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a27318189492424dbd6a28d9211e3bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 100
-  fireTime: 0
-  fireDelay: 0
+  damage: 3
+  fireTime: 5
+  fireDelay: 4
+  laserScaleSpeed: 2
   laser: {fileID: 7723881346776181513}
 --- !u!1 &7723881346776181513
 GameObject:
