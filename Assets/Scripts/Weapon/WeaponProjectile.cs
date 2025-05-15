@@ -1,4 +1,6 @@
+using System;
 using Enemy;
+using Interfaces;
 using UnityEngine;
 
 namespace Weapon
@@ -11,6 +13,7 @@ namespace Weapon
         private float _damage;
         private float _speed;
         
+        public Action OnDestroyed;
         public EnemyBehaviour Target
         {
             get => _target;
@@ -29,10 +32,30 @@ namespace Weapon
             set => _speed = value;
         }
 
-        public void Shoot(EnemyBehaviour target, float damage, float speed)
+        private void OnCollisionEnter(Collision other)
         {
-            LeanTween.move(gameObject, target.transform.position, speed).setEase(leanTweenType).setOnComplete(()=> { Destroy(gameObject); });
+            if (!other.gameObject.TryGetComponent(out IDamageable target)) return;
+            target.TakeDamage(_damage);
+            Destroy(gameObject);
         }
+
+        private void OnDestroy()
+        {
+            LeanTween.cancel(gameObject);
+            OnDestroyed?.Invoke();
+        }
+
+        public void Initialize(float damage, float speed)
+        {
+            _damage = damage;
+            _speed = speed;
+        }
+        public void Shoot(EnemyBehaviour target)
+        {
+            LeanTween.move(gameObject, target.transform.position, _speed).setEase(leanTweenType).setOnComplete(()=> { Destroy(gameObject); });
+        }
+        
+        
         
     }
 }
