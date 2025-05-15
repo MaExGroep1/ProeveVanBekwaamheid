@@ -402,7 +402,7 @@ namespace Grid
 
                     StartCoroutine(WaitToDrop(newBlock, waitTime));
                 }
-            
+            ConvertRandomBlockToBomb();
         }
         
         /// <summary>
@@ -570,26 +570,21 @@ namespace Grid
         /// <param name="bombCords"></param>
         private void HandleBombBlockExplosion(Vector2Int bombCords)
         {
-            for (int x = -bombBlockRange; x < bombBlockRange; x++)
-            {
-                for (int y = -bombBlockRange; y < bombBlockRange; y++)
+            for (int x = bombCords.x - 1; x < bombBlockRange; x++)
+                for (int y = bombCords.y - 1; y < bombBlockRange; y++)
                 {
                     var targetCords = new Vector2Int(bombCords.x + x, bombCords.y + y);
-                    if (IsWithinBounds(targetCords))
-                    {
-                        var block = _grid[targetCords.x, targetCords.y].GetBlock();
-                
-                        isBombOnGrid = false;
-                        StartCoroutine(block.DestroyBlock(blockWaitTime, blockTravelSpeed, blockDestroyScale));
-                    }
+                    var block = _grid[targetCords.x, targetCords.y].GetBlock();
+
+                    isBombOnGrid = false;
+                    StartCoroutine(block.DestroyBlock(blockWaitTime, blockTravelSpeed, blockDestroyScale));
                 }
-            }
         }
 
         private void ConvertRandomBlockToBomb()
         {
-            var randPosition = _grid[Random.Range(0, gridHeight), Random.Range(0, gridWidth)];
-            var randomBlock = randPosition.GetBlock();
+            var randomPosition = _grid[Random.Range(0, gridHeight), Random.Range(0, gridWidth)];
+            var randomBlock = randomPosition.GetBlock();
             
             randomBlock.AddComponent<BombBlock>();
             Destroy(randomBlock.GetComponent<Block>());
@@ -597,6 +592,7 @@ namespace Grid
             for (int i = 0; i < blockData.Length; i++)
                 if (blockData[i].blockType.blockTypes == BlockType.Bomb) 
                     randomBlock.Initialize(blockData[i].blockType, blockData[i].destroyDestination.position);
+            randomBlock.FallToOrigin(null);
             isBombOnGrid = true;
         }
         
