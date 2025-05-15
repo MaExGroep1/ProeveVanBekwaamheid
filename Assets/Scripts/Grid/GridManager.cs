@@ -40,6 +40,7 @@ namespace Grid
         
         [Header("Shuffle data")]
         [SerializeField] private int maxAttempts = 100;                     // the max amount of attempts a shuffle can try a shuffle combination
+        [SerializeField] private float shuffleDuration;                     // the time it takes for the grid to shuffle
         
         private GridElement[,] _grid;                                       // the grid of grid elements
         private Transform _blocksParent;                                    // the parent of all the blocks
@@ -109,7 +110,7 @@ namespace Grid
 
             blockTravelTime *= 5f;
             foreach (var element in _grid)
-                element.GetBlock()?.GoToOrigin(null);   
+                element.GetBlock()?.GoToOrigin(null,shuffleDuration);   
             blockTravelTime *= 0.2f;
         }
 

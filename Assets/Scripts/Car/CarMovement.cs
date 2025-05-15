@@ -6,14 +6,22 @@ namespace Car
 {
     public class CarMovement : MonoBehaviour
     {
-        [SerializeField] private WheelCollider[] wheels; // Reference to the wheels
-        [SerializeField] private float motorForce = 500f; // The Motor Force of the vehicle
-        [SerializeField, Range(0, 1)] private float targetThrottle; // The amount of throttle that needs to be multiplied by the motorForce
-        [SerializeField] private float maxFuel = 200f; // The Maximum amount of fuel the car has
+        [Header("Force")]
+        [SerializeField] private WheelCollider[] wheels;                // reference to the wheels
+        [SerializeField] private float motorForce = 500f;               // the Motor Force of the vehicle
+        [SerializeField, Range(0, 1)] private float targetThrottle;     // the amount of throttle that needs to be multiplied by the motorForce
+        [Header("Fuel")]
+        [SerializeField] private float maxFuel = 200f;                  // the Maximum amount of fuel the car has
+        [SerializeField] private float fuelAddMultiplier;               // the Maximum amount of fuel the car has
     
-        private bool _hasMatchedBefore; // Check if the player has matched before so they start with max fuel
-        private float _fuel; // The value of the current amount of fuel
+        private bool _hasMatchedBefore;                                 // check if the player has matched before so they start with max fuel
+        private float _fuel;                                            // the value of the current amount of fuel
+
+        public float Fill => _fuel / maxFuel;                           // the percent the fuel tank is full
     
+        /// <summary>
+        /// Adds listener to on match
+        /// </summary>
         private void Awake() =>
             GridManager.Instance.ListenToOnMatch(OnMatch);
     
@@ -54,7 +62,7 @@ namespace Car
         {
             if (_hasMatchedBefore)
             {
-                _fuel += matchAmount;
+                _fuel += matchAmount * fuelAddMultiplier;
                 _fuel = Mathf.Clamp(_fuel, 0f, maxFuel);
                 return;
             }

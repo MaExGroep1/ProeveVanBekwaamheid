@@ -53,18 +53,20 @@ namespace Blocks
         /// </summary>
         /// <param name="position"> the origin of the block </param>
         public void SetPosition(Vector3 position) => _gridPosition = position;
-        
+
         /// <summary>
         /// Makes the block go to its origin point
         /// </summary>
         /// <param name="onComplete"> when the block gets to its origin</param>
-        public void GoToOrigin(Action onComplete)
+        /// <param name="duration"> the time it takes for the block to go to its origin </param>
+        public void GoToOrigin(Action onComplete, float duration = Mathf.Infinity)
         {
+            var time = float.IsPositiveInfinity(duration) ? GridManager.Instance.BlockTravelTime : duration;
             if (LeanTween.isTweening(gameObject)) LeanTween.cancel(gameObject);
 
             _canMoveWithMouse = false;
             _isMoving = true;
-            LeanTween.move(gameObject, _gridPosition, GridManager.Instance.BlockTravelTime).
+            LeanTween.move(gameObject, _gridPosition, time).
                 setEase(LeanTweenType.easeInCubic).
                 setOnComplete(()=>StopMoving(onComplete));
         }
