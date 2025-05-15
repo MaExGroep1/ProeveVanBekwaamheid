@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Blocks;
+using Unity.VisualScripting;
 using UnityEngine;
-using Util;
 using Random = UnityEngine.Random;
+using Util;
 
 namespace Grid
 {
-    public class GridManager : Singleton<GridManager>
+    public class GridManager : Util.Singleton<GridManager>
     {
         [Header("Grid Scale")]
         [SerializeField] private int gridHeight;                            // the amount of columns
@@ -391,16 +392,14 @@ namespace Grid
                     if (j > 1 && _grid[i ,j - 1].GetBlockType() == _grid[i ,j - 2].GetBlockType())
                         exclusions.Add(_grid[i, j - 1].GetBlockType());
 
-                    var block = GetRandomBlocksExcluding(exclusions.ToArray(), !isBombOnGrid);
-
-                    if (block.blockType.blockTypes == BlockType.Bomb && !isBombOnGrid) isBombOnGrid = true;
+                    var block = GetRandomBlocksExcluding(exclusions.ToArray(), isBombOnGrid);
                     
                     newBlock.Rect.position = position + offset;
                     
                     newBlock.Initialize(block.blockType,block.destroyDestination.position);
                 
                     _grid[i,j].SetBlock(newBlock);
-                    
+
                     StartCoroutine(WaitToDrop(newBlock, waitTime));
                 }
             
@@ -586,5 +585,20 @@ namespace Grid
                 }
             }
         }
+
+        private void ConvertRandomBlockToBomb()
+        {
+            var randPosition = _grid[Random.Range(0, gridHeight), Random.Range(0, gridWidth)];
+            var randomBlock = randPosition.GetBlock();
+            
+            randomBlock.AddComponent<BombBlock>();
+            Destroy(randomBlock.GetComponent<Block>());
+
+            for (int i = 0; i < blockData.Length; i++)
+                if (blockData[i].blockType.blockTypes == BlockType.Bomb) 
+                    randomBlock.Initialize(blockData[i].blockType, blockData[i].destroyDestination.position);
+            isBombOnGrid = true;
+        }
+        
     }
 }
