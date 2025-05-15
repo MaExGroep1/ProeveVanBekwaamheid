@@ -78,6 +78,22 @@ PrefabInstance:
       propertyPath: m_Drag
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3128818020154363584, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
+      propertyPath: m_Constraints
+      value: 56
+      objectReference: {fileID: 0}
+    - target: {fileID: 3128818020154363584, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
+      propertyPath: m_ImplicitCom
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3128818020154363584, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
+      propertyPath: m_CenterOfMass.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3128818020154363584, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
+      propertyPath: m_ImplicitTensor
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7538976819723803712, guid: 25ef06c9702312a499e24b2a9ac521e5, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
