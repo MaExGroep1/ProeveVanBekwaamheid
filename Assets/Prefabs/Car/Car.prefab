@@ -89,8 +89,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.6439512, y: 2.6273947, z: 6.4286127}
-  m_Center: {x: 0.123566985, y: 1.3536973, z: 0.10450983}
+  m_Size: {x: 2.6439512, y: 2.0894246, z: 6.4286127}
+  m_Center: {x: 0.123566985, y: 1.0847123, z: 0.10450983}
 --- !u!114 &70175858119365887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,6 +105,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   knockBack: 3
   minimumKnockBack: 100
+  airForceMultiplier: 0
+  minimumEnemyDamage: 0
 --- !u!114 &8910477642296879986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,11 +119,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dee8ce03a4968fe4c99639fc2a2f68a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backLeft: {fileID: 4788086164230447868}
-  backRight: {fileID: 99258077390203236}
+  wheels: []
   motorForce: 4000
   targetThrottle: 1
-  _maxFuel: 100
+  maxFuel: 200
 --- !u!1 &3564329412405619317
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,7 +342,7 @@ Transform:
   m_GameObject: {fileID: 6443464816435975901}
   serializedVersion: 2
   m_LocalRotation: {x: 0.06162845, y: -0.70441604, z: 0.06162845, w: 0.70441604}
-  m_LocalPosition: {x: 30, y: 4, z: 1}
+  m_LocalPosition: {x: 46.68, y: 4, z: 8.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 50
-  projectileSpeed: 1
+  projectileSpeed: 0.6
   fireDelay: 2
   ammoSpawnPoint: {fileID: 79530260843003273}
   ammunitionPrefab: {fileID: 7938803016314524456, guid: 4eded030c38c1da4faf1b14b58f855be, type: 3}
