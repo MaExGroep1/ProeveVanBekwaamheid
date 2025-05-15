@@ -11,6 +11,7 @@ namespace Weapon
         [SerializeField] private float damage;      //the damage the laser does when hitting an enemy per frame * deltatime
         [SerializeField] private float fireTime;    //the time the laser will fire before turning off
         [SerializeField] private float fireDelay;   //the time the laser is turned off before firing
+        [SerializeField] private float baseRange;   //the base range that the laser visual has
         [SerializeField] private GameObject laser;  //the ref to the laser visual object
         
         private bool _canFire;                      //fires the laser on true and disables on false
@@ -68,7 +69,7 @@ namespace Weapon
         {
             var laserBeam = laser;
             Vector3 scale = laserBeam.transform.localScale;
-            float distance = hitPoint != Vector3.zero ? Vector3.Distance(hitPoint, laserBeam.transform.position) : 0f;
+            float distance = hitPoint != Vector3.zero ? Vector3.Distance(hitPoint, laserBeam.transform.position) : baseRange;
 
             scale.x = distance; 
             laserBeam.transform.localScale = scale;
