@@ -83,8 +83,6 @@ namespace Enemy
         {
             if (addPoints) _enemyPoints += enemy.Worth;
             
-            Debug.Log(_enemyPoints);
-            
             _enemies.Remove(enemy);
             if (onDeathParticles == null) return;
             
