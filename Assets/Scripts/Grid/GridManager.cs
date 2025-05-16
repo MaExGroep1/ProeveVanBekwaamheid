@@ -233,9 +233,6 @@ namespace Grid
 
             int verticalB = 1 + (otherDir == Direction.Right ? 0 : CheckDirection(cords, new Vector2Int(0, -1), otherType)) 
                               + (otherDir == Direction.Left  ? 0 : CheckDirection(cords, new Vector2Int(0, 1), otherType));
-            
-            
-            bool bombMatched = _grid[cords.x, cords.y].GetBlockType() == BlockType.Bomb || _grid[index.x, index.y].GetBlockType() == BlockType.Bomb;
 
 
             if (horizontalA <= 2 && verticalA <= 2 && horizontalB <= 2 && verticalB <= 2)
@@ -250,7 +247,6 @@ namespace Grid
                     index, horizontalA > 2, verticalA > 2,
                     cords, horizontalB > 2, verticalB > 2);
             });
-
         }
 
         private Vector2Int DirectionToCords(Direction direction) =>
@@ -379,29 +375,33 @@ namespace Grid
         /// </summary>
         private void PopulateGrid()
         {
+            float waitTime = 0;
             for (int i = 0; i < gridHeight; i++)
+            {
                 for (int j = 0; j < gridWidth; j++)
                 {
                     var exclusions = new List<BlockType>();
                     var newBlock = Instantiate(blockTemplate, _blocksParent);
-                    var waitTime = (i + 1) * 0.05f + (j + 1) * 0.05f;
-                    var position = new Vector2(_grid[i,j].transform.position.x, _grid[i,j].transform.position.y);
-                    var offset = new Vector2(0,gridRect.rect.height + gridRectOffset);
+                    waitTime = (i + 1) * 0.05f + (j + 1) * 0.05f;
+                    var position = new Vector2(_grid[i, j].transform.position.x, _grid[i, j].transform.position.y);
+                    var offset = new Vector2(0, gridRect.rect.height + gridRectOffset);
                     if (i > 1 && _grid[i - 1, j].GetBlockType() == _grid[i - 2, j].GetBlockType())
                         exclusions.Add(_grid[i - 1, j].GetBlockType());
-                    if (j > 1 && _grid[i ,j - 1].GetBlockType() == _grid[i ,j - 2].GetBlockType())
+                    if (j > 1 && _grid[i, j - 1].GetBlockType() == _grid[i, j - 2].GetBlockType())
                         exclusions.Add(_grid[i, j - 1].GetBlockType());
 
                     var block = GetRandomBlocksExcluding(exclusions.ToArray(), isBombOnGrid);
-                    
+
                     newBlock.Rect.position = position + offset;
-                    
-                    newBlock.Initialize(block.blockType,block.destroyDestination.position);
-                
-                    _grid[i,j].SetBlock(newBlock);
+
+                    newBlock.Initialize(block.blockType, block.destroyDestination.position);
+
+                    _grid[i, j].SetBlock(newBlock);
 
                     StartCoroutine(WaitToDrop(newBlock, waitTime));
                 }
+            }
+
             ConvertRandomBlockToBomb();
         }
         
@@ -553,14 +553,13 @@ namespace Grid
         {
             var bombCords = originalBombCords + DirectionToCords(direction);
             var otherBlock = _grid[bombCords.x, bombCords.y].GetBlock();
-            
+
             thisBomb.SetCords(bombCords);
             otherBlock.SetCords(originalBombCords);
             
             thisBomb.GoToOrigin(null);
-            otherBlock.GoToOrigin(() =>
-                HandleBombBlockExplosion(bombCords));
-
+            otherBlock.GoToOrigin(() => HandleBombBlockExplosion(bombCords));
+            
             thisBomb.DestroyBlock(blockWaitTime, blockTravelSpeed, blockDestroyScale);
         }
 
@@ -570,12 +569,16 @@ namespace Grid
         /// <param name="bombCords"></param>
         private void HandleBombBlockExplosion(Vector2Int bombCords)
         {
-            for (int x = bombCords.x - 1; x < bombBlockRange; x++)
-                for (int y = bombCords.y - 1; y < bombBlockRange; y++)
+            for (int x = -bombBlockRange; x <= bombBlockRange; x++)
+                for (int y = -bombBlockRange; y <= bombBlockRange; y++)
                 {
                     var targetCords = new Vector2Int(bombCords.x + x, bombCords.y + y);
+                    if (!IsWithinBounds(targetCords)) continue;
+                    
                     var block = _grid[targetCords.x, targetCords.y].GetBlock();
-
+                    
+                    
+                    
                     isBombOnGrid = false;
                     StartCoroutine(block.DestroyBlock(blockWaitTime, blockTravelSpeed, blockDestroyScale));
                 }
@@ -585,16 +588,26 @@ namespace Grid
         {
             var randomPosition = _grid[Random.Range(0, gridHeight), Random.Range(0, gridWidth)];
             var randomBlock = randomPosition.GetBlock();
+            var cords = randomBlock.GetCords();
             
             randomBlock.AddComponent<BombBlock>();
             Destroy(randomBlock.GetComponent<Block>());
 
             for (int i = 0; i < blockData.Length; i++)
-                if (blockData[i].blockType.blockTypes == BlockType.Bomb) 
+                if (blockData[i].blockType.blockTypes == BlockType.Bomb)
+                {
                     randomBlock.Initialize(blockData[i].blockType, blockData[i].destroyDestination.position);
+                    randomBlock.GetComponent<BombBlock>().SetCords(cords);
+                }
+                    
             randomBlock.FallToOrigin(null);
             isBombOnGrid = true;
         }
-        
+
+        private void ConvertBlock(Block block, BlockType blockType)
+        {
+            
+        }
+
     }
 }

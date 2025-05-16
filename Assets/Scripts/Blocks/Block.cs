@@ -16,8 +16,8 @@ namespace Blocks
         private BlockType _blockType;                   // the block type of the block
 
         private Vector3 _destroyDestination;            // the position of the destroy location of the block
-        private Vector3 _gridPosition;                  // the default position of the block
-        private Vector2Int _cords;                      // the cords in the grid
+        protected Vector3 _gridPosition;                  // the default position of the block
+        protected Vector2Int _cords;                      // the cords in the grid
 
         private bool _isMoving;                         // whether the block is moving
         private bool _canMoveWithMouse;                 // whether the block can stick to the mouse
@@ -41,6 +41,12 @@ namespace Blocks
         /// </summary>
         /// <param name="cords"> the cords of the block</param>
         public void SetCords(Vector2Int cords) => _cords = cords;
+
+        /// <summary>
+        /// Gets the cords of this block
+        /// </summary>
+        /// <returns> The Cords of the block </returns>
+        public Vector2Int GetCords() => _cords;
         
         /// <summary>
         /// Gets the block type of the block
@@ -53,8 +59,6 @@ namespace Blocks
         /// </summary>
         /// <param name="position"> the origin of the block </param>
         public void SetPosition(Vector3 position) => _gridPosition = position;
-
-        public void SetBlockType(BlockType blockType) => _blockType = blockType;
         
         /// <summary>
         /// Makes the block go to its origin point
