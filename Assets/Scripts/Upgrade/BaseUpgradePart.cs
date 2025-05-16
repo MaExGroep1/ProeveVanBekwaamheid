@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using Blocks;
 using UnityEngine;
 using User;
@@ -34,7 +36,7 @@ namespace Upgrade
            
             var upgradePart = Instantiate(carPart, startTransform.position, transform.rotation, transform);
             
-            LeanTween.move(upgradePart, transform.position, appearTime).setEaseOutQuint();
+            LeanTween.moveLocal(upgradePart, Vector3.zero, appearTime).setEaseOutQuint();
         }
         
         /// <summary>
