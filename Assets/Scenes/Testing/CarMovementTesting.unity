@@ -238,6 +238,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!146 &100334575 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 8245124741744413352, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+  m_PrefabInstance: {fileID: 1239223212}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &166230466
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,6 +380,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2db3af497e8a55f4e8a13fc17ae8d4e0, type: 3}
+--- !u!146 &213797901 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 99258077390203236, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+  m_PrefabInstance: {fileID: 1239223212}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &355505150
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -701,6 +711,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8910477642296879986, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: wheels.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8910477642296879986, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: 'wheels.Array.data[0]'
+      value: 
+      objectReference: {fileID: 100334575}
+    - target: {fileID: 8910477642296879986, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: 'wheels.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1982298227}
+    - target: {fileID: 8910477642296879986, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: 'wheels.Array.data[2]'
+      value: 
+      objectReference: {fileID: 213797901}
+    - target: {fileID: 8910477642296879986, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: 'wheels.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1915697780}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -714,6 +744,16 @@ Rigidbody:
 --- !u!4 &1596079579 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8008199929602477756, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+  m_PrefabInstance: {fileID: 1239223212}
+  m_PrefabAsset: {fileID: 0}
+--- !u!146 &1915697780 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 4788086164230447868, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+  m_PrefabInstance: {fileID: 1239223212}
+  m_PrefabAsset: {fileID: 0}
+--- !u!146 &1982298227 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 5909302804626476056, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
   m_PrefabInstance: {fileID: 1239223212}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2109224705
