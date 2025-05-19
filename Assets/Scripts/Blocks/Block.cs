@@ -15,7 +15,7 @@ namespace Blocks
         
         private BlockType _blockType;                   // the block type of the block
 
-        private Vector3 _destroyDestination;            // the position of the destroy location of the block
+        private Transform _destroyDestination;            // the position of the destroy location of the block
         private Vector3 _gridPosition;                  // the default position of the block
         private Vector2Int _cords;                      // the cords in the grid
 
@@ -29,7 +29,7 @@ namespace Blocks
         /// </summary>
         /// <param name="data"> the block type data </param>
         /// <param name="destroyDestination"></param>
-        public void Initialize(BlockTypeData data, Vector3 destroyDestination)
+        public void Initialize(BlockTypeData data, Transform destroyDestination)
         {
             _blockType = data.blockTypes;
             image.sprite = data.blockSprite;
@@ -165,13 +165,19 @@ namespace Blocks
         {
             transform.SetParent(transform.parent.parent.parent);
             Destroy(this);
+            
             if (LeanTween.isTweening(gameObject))LeanTween.cancel(gameObject);
-            var distance = Vector3.Distance(transform.position, _destroyDestination);
+            
+            var distance = Vector3.Distance(transform.position, _destroyDestination.position);
+            
             LeanTween.scale(gameObject, Vector3.one * scale , moveTime / 2 * distance).setLoopPingPong();
-            LeanTween.moveX(gameObject, _destroyDestination.x, moveTime * distance).setEase(LeanTweenType.easeInSine);
-            LeanTween.moveY(gameObject, _destroyDestination.y, moveTime * distance).setEase(LeanTweenType.easeOutSine).setDestroyOnComplete(gameObject);
+            LeanTween.moveX(gameObject, _destroyDestination.position.x, moveTime * distance).setEase(LeanTweenType.easeInSine);
+            LeanTween.moveY(gameObject, _destroyDestination.position.y, moveTime * distance).setEase(LeanTweenType.easeOutSine).setDestroyOnComplete(gameObject);
+            
             yield return new WaitForSeconds(waitTime);
+            
             GridManager.Instance.GenerateNewBlocks(_cords.y);
+            
             yield return new WaitForSeconds(moveTime * distance - waitTime);
         }
     }

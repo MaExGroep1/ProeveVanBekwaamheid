@@ -174,7 +174,7 @@ namespace Grid
                 var position = new Vector2(_grid[gridHeight-1,y].transform.position.x, _grid[gridHeight-1,y].transform.position.y);
                 var offset = new Vector2(0, _heightOffset * (i + 1));
                 
-                newBlock.Initialize(block.blockType,block.destroyDestination.position);
+                newBlock.Initialize(block.blockType,block.destroyDestination);
                 newBlock.Rect.position = position + offset;
                 blocks.Add(newBlock);
             }
@@ -374,7 +374,7 @@ namespace Grid
 
                     newBlock.Rect.position = position + offset;
                     
-                    newBlock.Initialize(block.blockType,block.destroyDestination.position);
+                    newBlock.Initialize(block.blockType,block.destroyDestination);
                 
                     _grid[i,j].SetBlock(newBlock);
                     
