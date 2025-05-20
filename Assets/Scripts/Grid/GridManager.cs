@@ -191,8 +191,8 @@ namespace Grid
                 newBlock.Initialize(block.blockType,block.destroyDestination.position);
                 newBlock.Rect.position = position + offset;
 
-                //if (Random.Range(0, 4) == 1 && !isBombOnGrid)
-                        //newBlock = BlockToBomb(newBlock, _grid[i, y]);    
+                if (Random.Range(0, 4) == 1 && !isBombOnGrid)
+                        newBlock = BlockToBomb(newBlock, _grid[i, y]);    
                 
                 blocks.Add(newBlock);
             }
@@ -403,7 +403,7 @@ namespace Grid
                 }
             }
 
-            ConvertBlockToBomb();
+            ConvertRandomBlockToBomb();
         }
         
         /// <summary>
@@ -545,10 +545,10 @@ namespace Grid
         }
 
         /// <summary>
-        /// 
+        /// Handles the bombblock match
         /// </summary>
-        /// <param name="originalBombCords"></param>
-        /// <param name="direction"></param>
+        /// <param name="originalBombCords"> Refrence to the original bomb location </param>
+        /// <param name="direction"> The Direction the bomb </param>
         /// <param name="thisBomb"></param>
         public void HandleBombBlockMatch(Vector2Int originalBombCords, Direction direction, BombBlock thisBomb)
         {
@@ -565,9 +565,9 @@ namespace Grid
         }
 
         /// <summary>
-        /// 
+        /// Handles the logic of the bomb explosion
         /// </summary>
-        /// <param name="bombCords"></param>
+        /// <param name="bombCords"> The Coordinates of the place the explosion should originate </param>
         private void HandleBombBlockExplosion(Vector2Int bombCords)
         {
             for (int x = -bombBlockRange; x <= bombBlockRange; x++)
@@ -583,17 +583,28 @@ namespace Grid
                 }
         }
 
-        private void ConvertBlockToBomb()
+        /// <summary>
+        /// Converts a random block to a bombblock
+        /// </summary>
+        private void ConvertRandomBlockToBomb()
         {
             var cordX = Random.Range(0, gridHeight);
             var cordY = Random.Range(0, gridWidth);
             var randomPosition = _grid[cordX, cordY];
             var randomBlock = randomPosition.GetBlock();
+
+            var bombBlock = BlockToBomb(randomBlock, randomPosition);
+            randomPosition.SetBlock(bombBlock);
             
-            StartCoroutine(WaitToDrop(BlockToBomb(randomBlock, randomPosition), CalculateWaitTime(cordX, cordY)));
-            isBombOnGrid = true;
+            StartCoroutine(WaitToDrop(bombBlock, CalculateWaitTime(cordX, cordY)));
+            
         }
 
+        /// <summary>
+        /// Calculates the position of the Rect
+        /// </summary>
+        /// <param name="grid"> Refrence to the location on the grid </param>
+        /// <returns> Returns the Rect location </returns>
         private Vector2 CalculateRectPosition(GridElement grid)
         {
             var position = new Vector2(grid.transform.position.x, grid.transform.position.y);
@@ -602,9 +613,21 @@ namespace Grid
             return position + offset;
         }
 
+        /// <summary>
+        /// Calculates the wait time for WaitToFall
+        /// </summary>
+        /// <param name="cordX"> The X coordinates of the falling block </param>
+        /// <param name="cordY"> The Y coordinates of the falling block </param>
+        /// <returns> Returns a float of the time </returns>
         private float CalculateWaitTime(int cordX, int cordY) =>
             (cordX + 1) * 0.05f + (cordY + 1) * 0.05f;
 
+        /// <summary>
+        /// Changes a given block to a bombblock
+        /// </summary>
+        /// <param name="oldBlock"> A refrence to the old block </param>
+        /// <param name="gridElement"> A refrence of the gridElement </param>
+        /// <returns> Returns BombBlock </returns>
         private BombBlock BlockToBomb(Block oldBlock, GridElement gridElement)
         {
             Destroy(oldBlock);
@@ -612,7 +635,7 @@ namespace Grid
             var bombBlock = Instantiate(bombBlockTemplate, _blocksParent);
 
             bombBlock.Rect.position = CalculateRectPosition(gridElement);
-            gridElement.SetBlock(bombBlock);
+            isBombOnGrid = true;
             return bombBlock;
         }
     }
