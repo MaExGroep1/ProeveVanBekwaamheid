@@ -47,8 +47,8 @@ namespace UI
             var total = Mathf.RoundToInt(newScore + enemyScore);
 
             
-            highScoreText.text = $"High Score: {highScore.ToString("N0").Replace(',', '.')}";
-            scoreText.text = $"Score: {Mathf.RoundToInt(newScore).ToString("N0").Replace(',', '.')}";
+            highScoreText.text = $"High Score: \\n{highScore.ToString("N0").Replace(',', '.')}";
+            scoreText.text = $"Score: \\n{Mathf.RoundToInt(newScore).ToString("N0").Replace(',', '.')}";
             enemyScoreText.text = $"+{Mathf.RoundToInt(enemyScore).ToString("N0").Replace(',', '.')}";
 
             yield return AddEnemyPoints(newScore,EnemyManager.Instance.EnemyPoints);
@@ -72,14 +72,14 @@ namespace UI
                 var current = Mathf.RoundToInt(Mathf.Lerp(score, total, timer/enemyPointsAddTime));
                 var enemyDisplay = Mathf.RoundToInt(Mathf.Lerp(enemy, 0, timer/enemyPointsAddTime));
                 
-                scoreText.text = $"Score: {current.ToString("N0").Replace(',', '.')}";
+                scoreText.text = $"Score: \\n{current.ToString("N0").Replace(',', '.')}";
                 enemyScoreText.text = $"+{enemyDisplay.ToString("N0").Replace(',', '.')}";
                 yield return null;
             }
             var displayTotal = Mathf.RoundToInt(total);
 
             enemyScoreText.gameObject.SetActive(false);
-            scoreText.text = $"Score: {displayTotal.ToString("N0").Replace(',', '.')}";
+            scoreText.text = $"Score: \\n{displayTotal.ToString("N0").Replace(',', '.')}";
         }
     }
 }
