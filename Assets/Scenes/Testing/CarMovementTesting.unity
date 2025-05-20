@@ -1326,7 +1326,7 @@ PrefabInstance:
       objectReference: {fileID: 5363165079460059858, guid: 335e966ec615a5d48bfc64cb7b08abe8, type: 3}
     - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: bombBlockSpawnRate
-      value: 10
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: blockData.Array.size

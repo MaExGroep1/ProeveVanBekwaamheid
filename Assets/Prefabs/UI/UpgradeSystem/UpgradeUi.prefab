@@ -720,7 +720,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74e78812818b7640bf9a416b681764a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeType: 0
+  upgradeType: 1
   completedImage: {fileID: 9146825988460919911}
   imageFillDelay: 0.05
 --- !u!1 &4593906976445940390
@@ -773,7 +773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74e78812818b7640bf9a416b681764a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeType: 2
+  upgradeType: 3
   completedImage: {fileID: 3892714477186859611}
   imageFillDelay: 0.05
 --- !u!1 &5889874882083776277
@@ -826,7 +826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74e78812818b7640bf9a416b681764a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeType: 1
+  upgradeType: 2
   completedImage: {fileID: 4607694162846497802}
   imageFillDelay: 0.05
 --- !u!1 &6779502272258242296
@@ -1060,7 +1060,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74e78812818b7640bf9a416b681764a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeType: 3
+  upgradeType: 4
   completedImage: {fileID: 7722622888156099497}
   imageFillDelay: 0.05
 --- !u!1 &7748915957138697422
@@ -1188,6 +1188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a74e78812818b7640bf9a416b681764a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  upgradeType: 4
+  upgradeType: 5
   completedImage: {fileID: 3998051563171030515}
   imageFillDelay: 0.05
