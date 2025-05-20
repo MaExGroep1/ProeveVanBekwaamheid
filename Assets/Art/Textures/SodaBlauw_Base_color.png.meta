@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Art/Textures/Hotwheels_basecolor.png.meta
-guid: d3267a1684fd63a499483b883dfdf94d
-========
-guid: a3c58ceebad666e4db3abc417430aee2
->>>>>>>> main:Assets/Art/Textures/Couch_Base_color.png.meta
+guid: a50d910efb9cc2f48a4a7da27f3c236c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
