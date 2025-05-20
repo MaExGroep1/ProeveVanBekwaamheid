@@ -41,12 +41,6 @@ namespace Blocks
         /// </summary>
         /// <param name="cords"> the cords of the block</param>
         public void SetCords(Vector2Int cords) => _cords = cords;
-
-        /// <summary>
-        /// Gets the cords of this block
-        /// </summary>
-        /// <returns> The Cords of the block </returns>
-        public Vector2Int GetCords() => _cords;
         
         /// <summary>
         /// Gets the block type of the block

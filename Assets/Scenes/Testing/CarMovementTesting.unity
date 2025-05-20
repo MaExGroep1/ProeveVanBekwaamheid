@@ -764,6 +764,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1707245120892670150, guid: a3e73e10481a98241858b714e0a956e4, type: 3}
+      propertyPath: upgradeType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1816285229369351205, guid: a3e73e10481a98241858b714e0a956e4, type: 3}
+      propertyPath: upgradeType
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4599504465264398801, guid: a3e73e10481a98241858b714e0a956e4, type: 3}
+      propertyPath: upgradeType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6122322031254981304, guid: a3e73e10481a98241858b714e0a956e4, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -847,6 +859,14 @@ PrefabInstance:
     - target: {fileID: 7566608814574596270, guid: a3e73e10481a98241858b714e0a956e4, type: 3}
       propertyPath: m_Name
       value: UpgradeUi
+      objectReference: {fileID: 0}
+    - target: {fileID: 8354833533584568522, guid: a3e73e10481a98241858b714e0a956e4, type: 3}
+      propertyPath: upgradeType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8501566431027054082, guid: a3e73e10481a98241858b714e0a956e4, type: 3}
+      propertyPath: upgradeType
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1301,8 +1321,16 @@ PrefabInstance:
       value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+      propertyPath: bombBlockTemplate
+      value: 
+      objectReference: {fileID: 5363165079460059858, guid: 335e966ec615a5d48bfc64cb7b08abe8, type: 3}
+    - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+      propertyPath: bombBlockSpawnRate
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: blockData.Array.size
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: blockDestroyTravelTime

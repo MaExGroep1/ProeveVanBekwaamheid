@@ -139,6 +139,10 @@ PrefabInstance:
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1030904306199348630, guid: e5be24d46c105fa4fb4f258a3625a508, type: 3}
+      propertyPath: bombBlockTemplate
+      value: 
+      objectReference: {fileID: 5363165079460059858, guid: 335e966ec615a5d48bfc64cb7b08abe8, type: 3}
+    - target: {fileID: 1030904306199348630, guid: e5be24d46c105fa4fb4f258a3625a508, type: 3}
       propertyPath: blockPlaceDistance
       value: 100
       objectReference: {fileID: 0}
@@ -146,6 +150,10 @@ PrefabInstance:
       propertyPath: blockTypeTableData
       value: 
       objectReference: {fileID: 11400000, guid: 59593c9c486455342977553d06124829, type: 2}
+    - target: {fileID: 1030904306199348630, guid: e5be24d46c105fa4fb4f258a3625a508, type: 3}
+      propertyPath: bombBlockSpawnRate
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 1030904306199348630, guid: e5be24d46c105fa4fb4f258a3625a508, type: 3}
       propertyPath: blockSpringBackDistance
       value: 40
