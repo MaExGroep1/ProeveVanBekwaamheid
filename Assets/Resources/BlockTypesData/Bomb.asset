@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Bomb
   m_EditorClassIdentifier: 
   blockTypes: 5
-  blockSprite: {fileID: 1504398998, guid: f44e78f8af6d7ef4fab31b5468221df9, type: 3}
+  blockSprite: {fileID: -45955521, guid: bf0715eec276366458b5b1a554001c7e, type: 3}
   levelSprites: []

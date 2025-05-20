@@ -1281,6 +1281,10 @@ PrefabInstance:
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+      propertyPath: bombBlockData
+      value: 
+      objectReference: {fileID: 11400000, guid: ee83055c3584245499e2604a3f66004e, type: 2}
+    - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: bombBlockRange
       value: 1
       objectReference: {fileID: 0}
@@ -1304,6 +1308,10 @@ PrefabInstance:
       propertyPath: blockDestroyTravelTime
       value: 0.7
       objectReference: {fileID: 0}
+    - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+      propertyPath: bombBlockData.blockType
+      value: 
+      objectReference: {fileID: 11400000, guid: ee83055c3584245499e2604a3f66004e, type: 2}
     - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: blockData.Array.data[0].blockType
       value: 
