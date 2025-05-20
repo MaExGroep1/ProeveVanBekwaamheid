@@ -14,6 +14,7 @@ namespace Weapon
         [SerializeField] private float baseRange;           //the base range that the laser visual has
         [SerializeField] private LayerMask laserLayerMask;  //layer mask for what layers the laser can hit
         [SerializeField] private GameObject laser;          //the ref to the laser visual object
+        [SerializeField] private Transform rayCastOrigin;   //the ref to the transform of where the raycast for finding targets originates from
         
         private bool _canFire;                              //fires the laser on true and disables on false
 
@@ -23,8 +24,8 @@ namespace Weapon
             set
             {
                 _canFire = value;
+                if (value == false) ScaleLaser(Vector3.zero, true); 
                 StartCoroutine(FireTimer());
-                if (value == false) ScaleLaser(Vector3.zero); 
             }
         }
 
@@ -52,7 +53,7 @@ namespace Weapon
             var laserBeam = laser;
             var rayDirection = laserBeam.transform.right;
             
-            if (!Physics.Raycast(laserBeam.transform.position, rayDirection, out var hitInfo, Mathf.Infinity,  laserLayerMask, QueryTriggerInteraction.Ignore))
+            if (!Physics.Raycast(rayCastOrigin.position, rayDirection, out var hitInfo, Mathf.Infinity,  laserLayerMask, QueryTriggerInteraction.Ignore))
             {
                 ScaleLaser(Vector3.zero);
                 return;
@@ -63,13 +64,22 @@ namespace Weapon
         }
 
         /// <summary>
-        /// Scales the visual laser to "hitPoint" location, will disable it when hitPoints is 0,0,0
+        /// Scales the visual laser to "hitPoint" location, will scale it to base range when hitPoints is 0,0,0
+        /// Will set the scale to zero if isEnabled is true
         /// </summary>
         /// <param name="hitPoint"></param>
-        private void ScaleLaser(Vector3 hitPoint)
+        private void ScaleLaser(Vector3 hitPoint, bool isDisabled = false)
         {
             var laserBeam = laser;
             Vector3 scale = laserBeam.transform.localScale;
+            
+            if (isDisabled)
+            {
+                scale.x = 0;
+                laserBeam.transform.localScale = scale;
+                return;
+            }
+            
             float distance = hitPoint != Vector3.zero ? Vector3.Distance(hitPoint, laserBeam.transform.position) : baseRange;
 
             scale.x = distance; 

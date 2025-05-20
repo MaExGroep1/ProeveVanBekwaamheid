@@ -52,7 +52,7 @@ MonoBehaviour:
   baseRange: 50
   laserLayerMask:
     serializedVersion: 2
-    m_Bits: 246
+    m_Bits: 1
   laser: {fileID: 7723881346776181513}
 --- !u!1 &7723881346776181513
 GameObject:
