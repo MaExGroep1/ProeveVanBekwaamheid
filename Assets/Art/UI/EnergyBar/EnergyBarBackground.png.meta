@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fab4f574bfe88e04ab292b9db31948ff
+guid: 0df81fb8e5946ff448b48e491d10289c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Battery_Icon_0
+      name: EnergyBarBackground_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 26
-        width: 510
-        height: 440
+        x: 32
+        y: 0
+        width: 131
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,8 +137,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b65513075f6a2ad4b8bcc3672564edf3
-      internalID: -860167721
+      spriteID: 79ab42e29a6c89e44bc836250424e06f
+      internalID: -1718833130
       vertices: []
       indices: 
       edges: []
@@ -146,7 +146,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: a1605188113cd20489fecf68dbff3a0a
+    spriteID: 7316954f12b62394cb3b482ffd34065d
     internalID: 0
     vertices: []
     indices: 
@@ -154,7 +154,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Battery_Icon_0: -860167721
+      EnergyBarBackground_0: -1718833130
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
