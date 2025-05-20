@@ -77,13 +77,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cbb3c5817c90b94fa8a8754bfeeb81a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 50
-  projectileSpeed: 0.6
+  damage: 15
+  projectileTime: 0.6
   range: 25
-  fireDelay: 0.1
+  fireDelay: 2
   spawnSpeed: 1
-  projectileEaseType: 0
-  ammoSpawnPoint: {fileID: 79530260843003273}
+  projectileSpawnEaseType: 0
+  ammoSpawnPoint: {fileID: 1128827601680187480}
   ammunitionPrefab: {fileID: 7938803016314524456, guid: 4eded030c38c1da4faf1b14b58f855be, type: 3}
 --- !u!1001 &7454442276204026813
 PrefabInstance:
