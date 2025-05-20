@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fab4f574bfe88e04ab292b9db31948ff
+guid: 8c14f81e88c96b146bc702faed36b55c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Battery_Icon_0
+      name: GameOverCar_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 26
-        width: 510
-        height: 440
+        x: 0
+        y: 0
+        width: 1642
+        height: 855
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,8 +137,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b65513075f6a2ad4b8bcc3672564edf3
-      internalID: -860167721
+      spriteID: 9db7816e37714ba4ca61443793a01c00
+      internalID: -1790114157
       vertices: []
       indices: 
       edges: []
@@ -146,7 +146,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: a1605188113cd20489fecf68dbff3a0a
+    spriteID: 6f903c589ff9dae458a6c1bdcc1b4fb3
     internalID: 0
     vertices: []
     indices: 
@@ -154,7 +154,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Battery_Icon_0: -860167721
+      GameOverCar_0: -1790114157
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
