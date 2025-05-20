@@ -7,11 +7,12 @@ namespace UI
 {
     public class DistanceDisplay : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI display;
+        [SerializeField] private TextMeshProUGUI display;   // the text to update
 
-        private void Update()
-        {
+        /// <summary>
+        /// Sets the display to the distance the car has driven
+        /// </summary>
+        private void Update() =>
             display.text = $"{Mathf.RoundToInt(UserData.Instance.DistanceScore).ToString("N0").Replace(',', '.')} cm";
-        }
     }
 }

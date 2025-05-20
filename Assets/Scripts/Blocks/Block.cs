@@ -163,12 +163,13 @@ namespace Blocks
         /// <returns></returns>
         public IEnumerator DestroyBlock(float waitTime, float moveTime, float scale)
         {
+            var distance = Vector3.Distance(transform.position, _destroyDestination.position);
+
             transform.SetParent(transform.parent.parent.parent);
             Destroy(this);
             
             if (LeanTween.isTweening(gameObject))LeanTween.cancel(gameObject);
             
-            var distance = Vector3.Distance(transform.position, _destroyDestination.position);
             
             LeanTween.scale(gameObject, Vector3.one * scale , moveTime / 2 * distance).setLoopPingPong();
             LeanTween.moveX(gameObject, _destroyDestination.position.x, moveTime * distance).setEase(LeanTweenType.easeInSine);

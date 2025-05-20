@@ -10,8 +10,6 @@ namespace Enemy
     public class EnemyManager : Singleton<EnemyManager>
     {
         [SerializeField] private ParticleSystem onDeathParticles;                                               // the enemy death particle
-        [field: SerializeField] public float EnemyMultiplierAmount { get; private set; }                        // the amount of tiles to have instantiated before making the difficulty plus 1
-        public float EnemyPoints { get; private set; }
         
         private readonly List<EnemyBehaviour> _groundEnemies = new();                                           // list of available ground enemies
         private readonly List<EnemyBehaviour> _flyingEnemies = new();                                           // list of available flying enemies
@@ -21,6 +19,10 @@ namespace Enemy
         private static LevelData CurrentLevel => CarGameManager.Instance.CurrentLevel;                          // the level data of the current level
         private EnemyBehaviour RandomGroundEnemies => _groundEnemies[Random.Range(0, _groundEnemies.Count)];    // a random ground enemy
         private EnemyBehaviour RandomFlyingEnemies => _flyingEnemies[Random.Range(0, _flyingEnemies.Count)];    // a random flying enemy
+        
+        [field: SerializeField] public float EnemyMultiplierAmount { get; private set; }                        // the amount of tiles to have instantiated before making the difficulty plus 1
+        public float EnemyPoints { get; private set; }                                                          // the amount of points the user has gotten from enemies
+
         
         /// <summary>
         /// Goes to the first level and starts listening to the OnEnterNextLevel

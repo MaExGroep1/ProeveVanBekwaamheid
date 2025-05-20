@@ -1038,14 +1038,6 @@ PrefabInstance:
       propertyPath: carMovement
       value: 
       objectReference: {fileID: 718314071}
-    - target: {fileID: 6422646911875847187, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: -120
-      objectReference: {fileID: 0}
-    - target: {fileID: 6422646911875847187, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6488845279933802186, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1092,14 +1084,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8076448413347088189, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8107658928376466320, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8107658928376466320, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
-      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

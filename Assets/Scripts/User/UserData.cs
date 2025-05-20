@@ -7,22 +7,24 @@ namespace User
 {
     public class UserData : Singleton<UserData>
     {
-        [SerializeField] private CarMovement car;
-        [SerializeField] private float unitMultiplier;
+        [SerializeField] private CarMovement car;       // the car to track
+        [SerializeField] private float unitMultiplier;  // how much distance to traverse for every unit
         
-        private float _startingPosition;
+        private float _startingPosition;                // the position the car started at
 
-        public float DistanceScore { get; private set; }
+        public float DistanceScore { get; private set; }// the current score gained from distance
 
-        protected override void Awake()
-        {
-            base.Awake();
+        /// <summary>
+        /// Sets the starting position
+        /// </summary>
+        private void Start() => 
             _startingPosition = car.transform.position.x;
-        }
-
-        private void Update()
-        {
+        
+        /// <summary>
+        /// Sets the DistanceScore to the correct amount
+        /// </summary>
+        private void Update() =>
             DistanceScore = (car.transform.position.x - _startingPosition) * unitMultiplier;
-        }
+        
     }
 }

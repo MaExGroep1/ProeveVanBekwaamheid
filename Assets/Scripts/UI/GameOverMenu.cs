@@ -21,6 +21,20 @@ namespace UI
         [SerializeField] private float enemyPointsAddTime;
 
         private void Awake() => StartCoroutine(SetDisplay());
+        
+        /// <summary>
+        /// Summons the new high score text
+        /// </summary>
+        private void WaitForAnimation()
+        {
+            newHighScore.SetActive(true);
+            
+            newHighScore.transform.localScale = Vector3.zero;
+
+            LeanTween.scale(newHighScore, Vector3.one, newHighScoreAppearTime)
+                .setEase(LeanTweenType.easeOutBack);
+        }
+
         /// <summary>
         /// Sets the score display and checks if you have a new high score
         /// Then submits the score to the high score class
@@ -66,19 +80,6 @@ namespace UI
 
             enemyScoreText.gameObject.SetActive(false);
             scoreText.text = $"Score: {displayTotal.ToString("N0").Replace(',', '.')}";
-        }
-        
-        /// <summary>
-        /// Summons the new high score text
-        /// </summary>
-        private void WaitForAnimation()
-        {
-            newHighScore.SetActive(true);
-            
-            newHighScore.transform.localScale = Vector3.zero;
-
-            LeanTween.scale(newHighScore, Vector3.one, newHighScoreAppearTime)
-                .setEase(LeanTweenType.easeOutBack);
         }
     }
 }
