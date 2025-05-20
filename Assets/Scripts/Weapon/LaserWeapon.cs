@@ -8,15 +8,16 @@ namespace Weapon
 {
     public class LaserWeapon : MonoBehaviour
     {
-        [SerializeField] private float damage;      //the damage the laser does when hitting an enemy per frame * deltatime
-        [SerializeField] private float fireTime;    //the time the laser will fire before turning off
-        [SerializeField] private float fireDelay;   //the time the laser is turned off before firing
-        [SerializeField] private float baseRange;   //the base range that the laser visual has
-        [SerializeField] private GameObject laser;  //the ref to the laser visual object
+        [SerializeField] private float damage;              //the damage the laser does when hitting an enemy per frame * deltatime
+        [SerializeField] private float fireTime;            //the time the laser will fire before turning off
+        [SerializeField] private float fireDelay;           //the time the laser is turned off before firing
+        [SerializeField] private float baseRange;           //the base range that the laser visual has
+        [SerializeField] private LayerMask laserLayerMask;  //layer mask for what layers the laser can hit
+        [SerializeField] private GameObject laser;          //the ref to the laser visual object
         
-        private bool _canFire;                      //fires the laser on true and disables on false
+        private bool _canFire;                              //fires the laser on true and disables on false
 
-        private bool CanFire                        //getter/setter for _canFire, when changed will reset the FireTimer and when turned false will disable the laser visual
+        private bool CanFire                                //getter/setter for _canFire, when changed will reset the FireTimer and when turned false will disable the laser visual
         {
             get => _canFire;
             set
@@ -51,7 +52,7 @@ namespace Weapon
             var laserBeam = laser;
             var rayDirection = laserBeam.transform.right;
             
-            if (!Physics.Raycast(laserBeam.transform.position, rayDirection, out var hitInfo, Mathf.Infinity))
+            if (!Physics.Raycast(laserBeam.transform.position, rayDirection, out var hitInfo, Mathf.Infinity,  laserLayerMask, QueryTriggerInteraction.Ignore))
             {
                 ScaleLaser(Vector3.zero);
                 return;

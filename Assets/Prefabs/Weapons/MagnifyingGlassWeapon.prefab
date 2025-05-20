@@ -50,6 +50,9 @@ MonoBehaviour:
   fireTime: 4
   fireDelay: 3
   baseRange: 20
+  laserLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
   laser: {fileID: 7723881346776181513}
 --- !u!1 &7723881346776181513
 GameObject:
