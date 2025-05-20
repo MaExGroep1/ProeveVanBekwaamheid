@@ -112,7 +112,7 @@ MonoBehaviour:
   damage: 20
   projectileTime: 0.8
   range: 25
-  fireDelay: 4
+  fireDelay: 2
   spawnSpeed: 1
   projectileSpawnEaseType: 0
   ammoSpawnPoint: {fileID: 8182160740872615950}

@@ -43,7 +43,7 @@ namespace Weapon
         /// <returns>returns the spawned ammo</returns>
         private WeaponProjectile SpawnAmmo()
         {
-            var ammo = Instantiate(ammunitionPrefab, ammoSpawnPoint.position, ammoSpawnPoint.rotation);
+            var ammo = Instantiate(ammunitionPrefab, ammoSpawnPoint.position, ammoSpawnPoint.rotation, transform);
             ammo.Initialize(damage, projectileTime, range);
             ammo.transform.localScale = Vector3.zero;
             LeanTween.scale(ammo.gameObject, Vector3.one, spawnSpeed).setEase(projectileSpawnEaseType);

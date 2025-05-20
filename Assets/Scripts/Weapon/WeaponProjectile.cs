@@ -56,7 +56,6 @@ namespace Weapon
             Vector3 direction = (hitTarget - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(direction);
             Vector3 eulerRotation = lookRotation.eulerAngles;
-            transform.parent = null;
             LeanTween.move(gameObject, hitTarget, _travelTime).setEase(movementEasingType).setOnComplete(() =>
             {
                 transform.AddComponent<Rigidbody>();
