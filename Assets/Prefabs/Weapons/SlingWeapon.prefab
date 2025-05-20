@@ -110,14 +110,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 100
-  projectileSpeed: 0.5
-  fireDelay: 3
+  projectileSpeed: 0.8
+  range: 25
+  fireDelay: 0
   spawnSpeed: 1
   projectileEaseType: 27
   ammoSpawnPoint: {fileID: 1996609985601781689}
   ammunitionPrefab: {fileID: 1231720228549434103, guid: 2709b06e98f0ba34680e50668e71eaa9, type: 3}
-  fireTime: 0.4
-  reloadTime: 1.5
+  fireTime: 0.2
+  reloadTime: 1
   fireLocation: {fileID: 600313540071456723}
   fireArm: {fileID: 4648315740979271052}
   fireEaseType: 26

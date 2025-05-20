@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3456506598981738000}
   - component: {fileID: 7938803016314524456}
   - component: {fileID: 6497051912857977516}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Ammunition_Nerf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ffd7a318c900c845a4392a4a7723f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leanTweenType: 18
+  destroyDelay: 5
+  movementEasingType: 2
+  rotationTime: 0.3
+  rotationEasingType: 6
 --- !u!136 &6497051912857977516
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -121,6 +124,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 014dd27f66cf957478d37ff87614fb8d, type: 3}
       propertyPath: m_Name
       value: Ammunition_Nerf_Model
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 014dd27f66cf957478d37ff87614fb8d, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5216278615408113073, guid: 014dd27f66cf957478d37ff87614fb8d, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

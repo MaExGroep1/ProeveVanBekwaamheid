@@ -1,3 +1,4 @@
+using Enemy;
 using UnityEngine;
 
 namespace Weapon
@@ -13,12 +14,12 @@ namespace Weapon
         protected override void Shoot(WeaponProjectile ammo)
         {
             var fireArmObject = fireArm;
-            var fireArmLocation = fireArmObject.transform.position;
+            var fireArmLocation = fireArmObject.transform.localPosition;
             ammo.transform.parent = fireArmObject.transform;
-            LeanTween.move(fireArmObject.gameObject, fireLocation.position, fireTime).setEase(fireEaseType).setOnComplete(()=>
+            LeanTween.moveLocal(fireArmObject.gameObject, fireLocation.localPosition, fireTime).setEase(fireEaseType).setOnComplete(()=>
             {
                 ammo.Shoot(GetClosestTarget());
-                LeanTween.move(fireArmObject.gameObject, fireArmLocation, reloadTime).setEase(reloadEaseType).setOnComplete(ShootSequence);
+                LeanTween.moveLocal(fireArmObject.gameObject, fireArmLocation, reloadTime).setEase(reloadEaseType).setOnComplete(ShootSequence);
             });
             
         }
