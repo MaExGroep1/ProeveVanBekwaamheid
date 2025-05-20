@@ -3,15 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Blocks;
-using NUnit.Framework.Internal.Builders;
-using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using Util;
 
 namespace Grid
 {
-    public class GridManager : Util.Singleton<GridManager>
+    public class GridManager : Singleton<GridManager>
     {
         [Header("Grid Scale")]
         [SerializeField] private int gridHeight;                            // the amount of columns
@@ -26,7 +24,8 @@ namespace Grid
         [SerializeField] private BlockData[] blockData;                     // the available block types
         [SerializeField] private float blockPlaceDistance;                  // the distance the block can travel before swapping 
         [SerializeField] private float blockSpringBackDistance;             // the distance the block can travel before not snapping back to its origin
-        [SerializeField] private BombBlock bombBlockTemplate;
+        [SerializeField] private BombBlock bombBlockTemplate;               // the template of the bomb block 
+        [SerializeField] private int bombBlockSpawnRate;                  // the chance the bomb block can spawn when not on the board
         
         [Header("Block times")]
         [SerializeField] private float blockTravelTime;                     // the time it takes for the block to travel somewhere
@@ -177,13 +176,10 @@ namespace Grid
             {
                 var newBlock = Instantiate(blockTemplate, _blocksParent);
                 var block = GetRandomBlock();
-
-                if (block.blockType.blockTypes == BlockType.Bomb || !isBombOnGrid)
-                {
-                    var exclusion = new List<BlockType>();
-                    exclusion.Add(block.blockType.blockTypes);
-                    block = GetRandomBlocksExcluding(exclusion.ToArray(), false);
-                }
+                
+                var exclusion = new List<BlockType>();
+                exclusion.Add(block.blockType.blockTypes);
+                block = GetRandomBlocksExcluding(exclusion.ToArray());
                 
                 var position = new Vector2(_grid[gridHeight-1,y].transform.position.x, _grid[gridHeight-1,y].transform.position.y);
                 var offset = new Vector2(0, _heightOffset * (i + 1));
@@ -191,7 +187,7 @@ namespace Grid
                 newBlock.Initialize(block.blockType,block.destroyDestination.position);
                 newBlock.Rect.position = position + offset;
 
-                if (Random.Range(0, 4) == 1 && !isBombOnGrid)
+                if (Random.Range(0, bombBlockSpawnRate) == 1 && !isBombOnGrid)
                         newBlock = BlockToBomb(newBlock, _grid[i, y]);    
                 
                 blocks.Add(newBlock);
@@ -391,7 +387,7 @@ namespace Grid
                     if (y > 1 && _grid[x, y - 1].GetBlockType() == _grid[x, y - 2].GetBlockType())
                         exclusions.Add(_grid[x, y - 1].GetBlockType());
 
-                    var block = GetRandomBlocksExcluding(exclusions.ToArray(), isBombOnGrid);
+                    var block = GetRandomBlocksExcluding(exclusions.ToArray());
 
                     newBlock.Rect.position = CalculateRectPosition(_grid[x, y]);
 
@@ -405,6 +401,15 @@ namespace Grid
 
             ConvertRandomBlockToBomb();
         }
+        
+        /// <summary>
+        /// Calculates the wait time for WaitToFall
+        /// </summary>
+        /// <param name="cordX"> The X coordinates of the falling block </param>
+        /// <param name="cordY"> The Y coordinates of the falling block </param>
+        /// <returns> Returns a float of the time </returns>
+        private float CalculateWaitTime(int cordX, int cordY) =>
+            (cordX + 1) * 0.05f + (cordY + 1) * 0.05f;
         
         /// <summary>
         /// Checks how many blocks are the same type
@@ -518,14 +523,12 @@ namespace Grid
         /// Gets a random block from the block table
         /// </summary>
         /// <returns> A random block type </returns>
-        private BlockData GetRandomBlocksExcluding(BlockType[] excluding, bool includeBomb)
+        private BlockData GetRandomBlocksExcluding(BlockType[] excluding)
         {
             var blockTypes = blockData.ToList();
             foreach (var blockType in blockTypes.ToList())
             {
                 if (excluding.Contains(blockType.blockType.blockTypes)) blockTypes.Remove(blockType);
-                
-                if (blockType.blockType.blockTypes == BlockType.Bomb && !includeBomb) blockTypes.Remove(blockType);
             }
 
             return blockTypes[Random.Range(0, blockTypes.Count)];
@@ -553,6 +556,11 @@ namespace Grid
         public void HandleBombBlockMatch(Vector2Int originalBombCords, Direction direction, BombBlock thisBomb)
         {
             var bombCords = originalBombCords + DirectionToCords(direction);
+            if (!IsWithinBounds(bombCords))
+            {
+                thisBomb.GoToOrigin(null);
+                return;
+            }
             var otherBlock = _grid[bombCords.x, bombCords.y].GetBlock();
             
             _grid[bombCords.x,bombCords.y].SetBlock(thisBomb);
@@ -579,6 +587,7 @@ namespace Grid
                     var block = _grid[targetCords.x, targetCords.y].GetBlock();
                     
                     isBombOnGrid = false;
+                    _onMatch?.Invoke(block.GetBlockType(), 1);
                     StartCoroutine(block.DestroyBlock(blockWaitTime, blockTravelSpeed, blockDestroyScale));
                 }
         }
@@ -614,15 +623,6 @@ namespace Grid
         }
 
         /// <summary>
-        /// Calculates the wait time for WaitToFall
-        /// </summary>
-        /// <param name="cordX"> The X coordinates of the falling block </param>
-        /// <param name="cordY"> The Y coordinates of the falling block </param>
-        /// <returns> Returns a float of the time </returns>
-        private float CalculateWaitTime(int cordX, int cordY) =>
-            (cordX + 1) * 0.05f + (cordY + 1) * 0.05f;
-
-        /// <summary>
         /// Changes a given block to a bombblock
         /// </summary>
         /// <param name="oldBlock"> A refrence to the old block </param>
@@ -631,9 +631,9 @@ namespace Grid
         private BombBlock BlockToBomb(Block oldBlock, GridElement gridElement)
         {
             Destroy(oldBlock);
-
+            
             var bombBlock = Instantiate(bombBlockTemplate, _blocksParent);
-
+            
             bombBlock.Rect.position = CalculateRectPosition(gridElement);
             isBombOnGrid = true;
             return bombBlock;
