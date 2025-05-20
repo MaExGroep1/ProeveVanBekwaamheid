@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fab4f574bfe88e04ab292b9db31948ff
+guid: 8b75f445c592b5340afd6fb0a874014c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,22 +123,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Battery_Icon_0
+      name: ScoreDisplay_1
       rect:
         serializedVersion: 2
-        x: 1
-        y: 26
-        width: 510
-        height: 440
+        x: 0
+        y: 1300
+        width: 1656
+        height: 506
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b65513075f6a2ad4b8bcc3672564edf3
-      internalID: -860167721
+      spriteID: a10a4e8f3684e8c42800008aea9ac722
+      internalID: 1606138461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScoreDisplay_2
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 739
+        width: 1657
+        height: 525
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83e6be8d0df05e04d862be7bcc9c6210
+      internalID: -70754835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameOverButton_1
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 358
+        width: 1286
+        height: 296
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 993ac5a776536e646a09a4bcca2b02c5
+      internalID: -1477313856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameOverButton_2
+      rect:
+        serializedVersion: 2
+        x: 182
+        y: 0
+        width: 1331
+        height: 314
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e70ae889a0e9ef409597d03cdcd6dd9
+      internalID: 982845806
       vertices: []
       indices: 
       edges: []
@@ -146,7 +209,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: a1605188113cd20489fecf68dbff3a0a
+    spriteID: 5a37ec41ab312434091bb2ab916dd634
     internalID: 0
     vertices: []
     indices: 
@@ -154,7 +217,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Battery_Icon_0: -860167721
+      GameOverButton_1: -1477313856
+      GameOverButton_2: 982845806
+      ScoreDisplay_1: 1606138461
+      ScoreDisplay_2: -70754835
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
