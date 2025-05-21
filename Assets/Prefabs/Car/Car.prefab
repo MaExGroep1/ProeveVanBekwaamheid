@@ -90,7 +90,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.6439512, y: 2.6273947, z: 6.4286127}
+  m_Size: {x: 2.6439512, y: 1.67, z: 5.77}
   m_Center: {x: 0.123566985, y: 1.3536973, z: 0.10450983}
 --- !u!114 &70175858119365887
 MonoBehaviour:
@@ -123,6 +123,8 @@ MonoBehaviour:
   wheels:
   - {fileID: 99258077390203236}
   - {fileID: 4788086164230447868}
+  - {fileID: 8245124741744413352}
+  - {fileID: 5909302804626476056}
   motorForce: 100
   targetThrottle: 1
   torqueCurve:

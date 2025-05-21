@@ -22,3 +22,4 @@ MonoBehaviour:
   endTile: {fileID: 7814343415150388239, guid: dc7dbe2211b148c45b7c094f3b6f1e04, type: 3}
   tiles:
   - {fileID: 6896308163632210337, guid: f4be1554f97b1e244a1aef13dbde7087, type: 3}
+  - {fileID: 7814343415150388239, guid: dc7dbe2211b148c45b7c094f3b6f1e04, type: 3}
