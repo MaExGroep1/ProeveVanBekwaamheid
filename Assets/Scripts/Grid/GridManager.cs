@@ -40,6 +40,7 @@ namespace Grid
         
         [Header("Shuffle data")]
         [SerializeField] private int maxAttempts = 100;                     // the max amount of attempts a shuffle can try a shuffle combination
+        [SerializeField] private float shuffleDuration;                     // the time it takes for the grid to shuffle
         
         private GridElement[,] _grid;                                       // the grid of grid elements
         private Transform _blocksParent;                                    // the parent of all the blocks
@@ -109,7 +110,7 @@ namespace Grid
 
             blockTravelTime *= 5f;
             foreach (var element in _grid)
-                element.GetBlock()?.GoToOrigin(null);   
+                element.GetBlock()?.GoToOrigin(null,shuffleDuration);   
             blockTravelTime *= 0.2f;
         }
 
@@ -173,7 +174,7 @@ namespace Grid
                 var position = new Vector2(_grid[gridHeight-1,y].transform.position.x, _grid[gridHeight-1,y].transform.position.y);
                 var offset = new Vector2(0, _heightOffset * (i + 1));
                 
-                newBlock.Initialize(block.blockType,block.destroyDestination.position);
+                newBlock.Initialize(block.blockType,block.destroyDestination);
                 newBlock.Rect.position = position + offset;
                 blocks.Add(newBlock);
             }
@@ -373,7 +374,7 @@ namespace Grid
 
                     newBlock.Rect.position = position + offset;
                     
-                    newBlock.Initialize(block.blockType,block.destroyDestination.position);
+                    newBlock.Initialize(block.blockType,block.destroyDestination);
                 
                     _grid[i,j].SetBlock(newBlock);
                     
