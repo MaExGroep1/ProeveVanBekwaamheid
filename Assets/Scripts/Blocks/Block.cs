@@ -15,9 +15,9 @@ namespace Blocks
         
         private BlockType _blockType;                   // the block type of the block
 
-        private Vector3 _destroyDestination;            // the position of the destroy location of the block
-        protected Vector3 _gridPosition;                  // the default position of the block
-        protected Vector2Int _cords;                      // the cords in the grid
+        private Transform _destroyDestination;            // the position of the destroy location of the block
+        private Vector3 _gridPosition;                  // the default position of the block
+        private Vector2Int _cords;                      // the cords in the grid
 
         private bool _isMoving;                         // whether the block is moving
         private bool _canMoveWithMouse;                 // whether the block can stick to the mouse
@@ -29,7 +29,7 @@ namespace Blocks
         /// </summary>
         /// <param name="data"> the block type data </param>
         /// <param name="destroyDestination"></param>
-        public void Initialize(BlockTypeData data, Vector3 destroyDestination)
+        public void Initialize(BlockTypeData data, Transform destroyDestination)
         {
             _blockType = data.blockTypes;
             image.sprite = data.blockSprite;
@@ -53,18 +53,20 @@ namespace Blocks
         /// </summary>
         /// <param name="position"> the origin of the block </param>
         public void SetPosition(Vector3 position) => _gridPosition = position;
-        
+
         /// <summary>
         /// Makes the block go to its origin point
         /// </summary>
         /// <param name="onComplete"> when the block gets to its origin</param>
-        public void GoToOrigin(Action onComplete)
+        /// <param name="duration"> the time it takes for the block to go to its origin </param>
+        public void GoToOrigin(Action onComplete, float duration = Mathf.Infinity)
         {
+            var time = float.IsPositiveInfinity(duration) ? GridManager.Instance.BlockTravelTime : duration;
             if (LeanTween.isTweening(gameObject)) LeanTween.cancel(gameObject);
 
             _canMoveWithMouse = false;
             _isMoving = true;
-            LeanTween.move(gameObject, _gridPosition, GridManager.Instance.BlockTravelTime).
+            LeanTween.move(gameObject, _gridPosition, time).
                 setEase(LeanTweenType.easeInCubic).
                 setOnComplete(()=>StopMoving(onComplete));
         }
@@ -166,15 +168,22 @@ namespace Blocks
         /// <returns></returns>
         public IEnumerator DestroyBlock(float waitTime, float moveTime, float scale)
         {
+            var distance = Vector3.Distance(transform.position, _destroyDestination.position);
+
             transform.SetParent(transform.parent.parent.parent);
             Destroy(this);
+            
             if (LeanTween.isTweening(gameObject))LeanTween.cancel(gameObject);
-            var distance = Vector3.Distance(transform.position, _destroyDestination);
+            
+            
             LeanTween.scale(gameObject, Vector3.one * scale , moveTime / 2 * distance).setLoopPingPong();
-            LeanTween.moveX(gameObject, _destroyDestination.x, moveTime * distance).setEase(LeanTweenType.easeInSine);
-            LeanTween.moveY(gameObject, _destroyDestination.y, moveTime * distance).setEase(LeanTweenType.easeOutSine).setDestroyOnComplete(gameObject);
+            LeanTween.moveX(gameObject, _destroyDestination.position.x, moveTime * distance).setEase(LeanTweenType.easeInSine);
+            LeanTween.moveY(gameObject, _destroyDestination.position.y, moveTime * distance).setEase(LeanTweenType.easeOutSine).setDestroyOnComplete(gameObject);
+            
             yield return new WaitForSeconds(waitTime);
+            
             GridManager.Instance.GenerateNewBlocks(_cords.y);
+            
             yield return new WaitForSeconds(moveTime * distance - waitTime);
         }
     }

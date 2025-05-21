@@ -16,6 +16,8 @@ namespace UI.PopUp
         
         private float _backgroundAlpha;                         // the target alpha of the background
         
+        public bool HasOpened { get; private set; }
+        
         private void Awake() => OpenMenu();
         
         /// <summary>
@@ -35,14 +37,15 @@ namespace UI.PopUp
                 .setIgnoreTimeScale(true);
             LeanTween.moveLocalY(box.gameObject, 0, appearTime)
                 .setIgnoreTimeScale(true)
-                .setEase(LeanTweenType.easeOutBack);
+                .setEase(LeanTweenType.easeOutBack)
+                .setOnComplete(() => HasOpened = true);
         }
         
         /// <summary>
         /// Fades the background out and makes the menu go to its resting position
         /// Then unpauses the game
         /// </summary>
-        private void CloseMenu()
+        public void CloseMenu()
         {
             gameObject.SetActive(true);
             background.alpha = _backgroundAlpha;

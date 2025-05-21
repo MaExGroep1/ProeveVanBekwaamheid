@@ -21,7 +21,7 @@ namespace UI
             {
                 var key = HighScore.Keys[i];
                 var hasScore = PlayerPrefs.HasKey(key) && PlayerPrefs.GetInt(key) > 0;
-                highScoreTexts[i].text = hasScore ? PlayerPrefs.GetInt(key).ToString() : noScoreText;
+                highScoreTexts[i].text = hasScore ? $"{PlayerPrefs.GetInt(key).ToString("N0").Replace(',', '.')} pts" : noScoreText;
             }
         }
     }
