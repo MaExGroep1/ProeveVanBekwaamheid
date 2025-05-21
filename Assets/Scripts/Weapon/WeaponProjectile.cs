@@ -13,6 +13,7 @@ namespace Weapon
         [SerializeField] private LeanTweenType movementEasingType;      //The leanTween easing used for the movement of the projectile
         [SerializeField] private float rotationTime;                    //The time it takes for the projectile to rotate towards its target upo being shot
         [SerializeField] private LeanTweenType rotationEasingType;      //The leanTween rotation used for rotating towards the target
+        [SerializeField] private Collider projectileCollider;           //The collider for the projectile that should bee turned on the moment it starts shooting
         
         private EnemyBehaviour _target;                                 //The target that the projectile should move to
         private float _damage;                                          //The damage that the projectile will do when it hits an enemy
@@ -26,7 +27,8 @@ namespace Weapon
         /// <param name="other">the hit collider</param>
         private void OnCollisionEnter(Collision other)
         {
-            if (other.gameObject.TryGetComponent(out IDamageable target)) target.TakeDamage(_damage);            
+            if (!other.gameObject.TryGetComponent(out IDamageable target)) return;
+            target.TakeDamage(_damage);
             LeanTween.cancel(gameObject, true);
         }
 
@@ -56,22 +58,14 @@ namespace Weapon
             Vector3 direction = (hitTarget - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(direction);
             Vector3 eulerRotation = lookRotation.eulerAngles;
+            transform.parent = null;
+            projectileCollider.enabled = true;
             LeanTween.move(gameObject, hitTarget, _travelTime).setEase(movementEasingType).setOnComplete(() =>
             {
                 transform.AddComponent<Rigidbody>();
-                StartCoroutine(DelayedDestroy());
+                Destroy(gameObject, destroyDelay);
             });
             LeanTween.rotate(gameObject, eulerRotation, rotationTime).setEase(rotationEasingType);
-        }
-
-        /// <summary>
-        /// destroys the gameObject after waiting for destroyDelay amount
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerator DelayedDestroy()
-        {
-            yield return new WaitForSeconds(destroyDelay);
-            Destroy(gameObject);
         }
     }
 }
