@@ -251,6 +251,32 @@ namespace Grid
                     cords, horizontalB > 2, verticalB > 2);
             });
         }
+        
+        /// <summary>
+        /// Handles the bombblock match
+        /// </summary>
+        /// <param name="originalBombCords"> Refrence to the original bomb location </param>
+        /// <param name="direction"> The Direction the bomb </param>
+        /// <param name="thisBomb"></param>
+        public void HandleBombBlockMatch(Vector2Int originalBombCords, Direction direction, BombBlock thisBomb)
+        {
+            var bombCords = originalBombCords + DirectionToCords(direction);
+                        
+            if (!IsWithinBounds(bombCords))
+            {
+                thisBomb.GoToOrigin(null);
+                return;
+            }
+            var otherBlock = _grid[bombCords.x, bombCords.y].GetBlock();
+            
+            _grid[bombCords.x,bombCords.y].SetBlock(thisBomb);
+            _grid[originalBombCords.x,originalBombCords.y].SetBlock(otherBlock);
+            
+            thisBomb.GoToOrigin(null);
+            otherBlock.GoToOrigin(() => HandleBombBlockExplosion(bombCords));
+            
+            thisBomb.DestroyBlock(blockWaitTime, blockTravelSpeed, blockDestroyScale);
+        }
 
         private Vector2Int DirectionToCords(Direction direction) =>
             direction switch
@@ -547,33 +573,7 @@ namespace Grid
 
             return blockTypes[Random.Range(0, blockTypes.Count)];
         }
-
-        /// <summary>
-        /// Handles the bombblock match
-        /// </summary>
-        /// <param name="originalBombCords"> Refrence to the original bomb location </param>
-        /// <param name="direction"> The Direction the bomb </param>
-        /// <param name="thisBomb"></param>
-        public void HandleBombBlockMatch(Vector2Int originalBombCords, Direction direction, BombBlock thisBomb)
-        {
-            var bombCords = originalBombCords + DirectionToCords(direction);
-                        
-            if (!IsWithinBounds(bombCords))
-            {
-                thisBomb.GoToOrigin(null);
-                return;
-            }
-            var otherBlock = _grid[bombCords.x, bombCords.y].GetBlock();
-            
-            _grid[bombCords.x,bombCords.y].SetBlock(thisBomb);
-            _grid[originalBombCords.x,originalBombCords.y].SetBlock(otherBlock);
-            
-            thisBomb.GoToOrigin(null);
-            otherBlock.GoToOrigin(() => HandleBombBlockExplosion(bombCords));
-            
-            thisBomb.DestroyBlock(blockWaitTime, blockTravelSpeed, blockDestroyScale);
-        }
-
+        
         /// <summary>
         /// Handles the logic of the bomb explosion
         /// </summary>
