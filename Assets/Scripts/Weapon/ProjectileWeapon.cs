@@ -49,6 +49,16 @@ namespace Weapon
             LeanTween.scale(ammo.gameObject, Vector3.one, spawnSpeed).setEase(projectileSpawnEaseType);
             return ammo;
         }
+        
+        /// <summary>
+        /// Tells the spawned ammo to shoot towards the closest target and resets the shoot loop
+        /// </summary>
+        /// <param name="ammo">The spawned ammunition</param>
+        protected virtual void Shoot(WeaponProjectile ammo)
+        {
+            ammo.Shoot(GetClosestTarget());
+            ShootSequence();
+        }
 
         /// <summary>
         /// Finds the closest enemy within range by using the list of enemies from EnemyManager.enemies
@@ -73,15 +83,6 @@ namespace Weapon
             return target;
         }
 
-        /// <summary>
-        /// Tells the spawned ammo to shoot towards the closest target and resets the shoot loop
-        /// </summary>
-        /// <param name="ammo">The spawned ammunition</param>
-        protected virtual void Shoot(WeaponProjectile ammo)
-        {
-            ammo.Shoot(GetClosestTarget());
-            ShootSequence();
-        }
 
         /// <summary>
         /// Waits until ammo has stopped tweening to avoid issues, then waits for firedelay, the continues the shoot loop
