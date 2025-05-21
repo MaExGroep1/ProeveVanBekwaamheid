@@ -40,11 +40,13 @@ namespace Grid
         
         [Header("Shuffle data")]
         [SerializeField] private int maxAttempts = 100;                     // the max amount of attempts a shuffle can try a shuffle combination
+        [SerializeField] private float shuffleDuration;                     // the time it takes for the grid to shuffle
         
         private GridElement[,] _grid;                                       // the grid of grid elements
         private Transform _blocksParent;                                    // the parent of all the blocks
         private readonly List<int> _checkedColumns = new();                 // a list of columns that have been checked
         private float _heightOffset;                                        // the vertical distance between grid rows
+        private bool _hasMatched;                                           // whether the play has had a match
         
         public float BlockPlaceDistance => blockPlaceDistance;              // the available block types
         public float BlockSpringBackDistance => blockSpringBackDistance;    // the available block types
@@ -53,6 +55,7 @@ namespace Grid
         public GridElement[,] Grid => _grid;
         
         private Action<BlockType, int> _onMatch;                            // the event to invoke when a match is made
+        private Action _onFirstMatch;                                       // the event to invoke when a match is made
         
         private void Start()
         {
@@ -68,8 +71,8 @@ namespace Grid
         /// <summary>
         /// Removes function to the onMatch event
         /// </summary>
-        /// <param name="onMatch"> the function to remove </param>
-        public void StopListeningToOnMatch(Action<BlockType, int> onMatch) => _onMatch -= onMatch;
+        /// <param name="onFirstMatch"> the function to add </param>
+        public void ListenToOnFirstMatch(Action onFirstMatch) => _onFirstMatch += onFirstMatch;
         
         /// <summary>
         /// Shuffles all blocks on the grid while ensuring no immediate matches exist.
@@ -109,7 +112,7 @@ namespace Grid
 
             blockTravelTime *= 5f;
             foreach (var element in _grid)
-                element.GetBlock()?.GoToOrigin(null);   
+                element.GetBlock()?.GoToOrigin(null,shuffleDuration);   
             blockTravelTime *= 0.2f;
         }
 
@@ -173,7 +176,7 @@ namespace Grid
                 var position = new Vector2(_grid[gridHeight-1,y].transform.position.x, _grid[gridHeight-1,y].transform.position.y);
                 var offset = new Vector2(0, _heightOffset * (i + 1));
                 
-                newBlock.Initialize(block.blockType,block.destroyDestination.position);
+                newBlock.Initialize(block.blockType,block.destroyDestination);
                 newBlock.Rect.position = position + offset;
                 blocks.Add(newBlock);
             }
@@ -373,7 +376,7 @@ namespace Grid
 
                     newBlock.Rect.position = position + offset;
                     
-                    newBlock.Initialize(block.blockType,block.destroyDestination.position);
+                    newBlock.Initialize(block.blockType,block.destroyDestination);
                 
                     _grid[i,j].SetBlock(newBlock);
                     
@@ -461,8 +464,20 @@ namespace Grid
             }
 
             if (!vertical && !horizontal) yield break;
-            yield return StartCoroutine(_grid[cords.x, cords.y].GetBlock().DestroyBlock(blockWaitTime,blockTravelSpeed,blockDestroyScale));
+            yield return 
+                StartCoroutine(
+                    _grid[cords.x, cords.y]
+                    .GetBlock()
+                    .DestroyBlock(
+                        blockWaitTime,
+                        blockTravelSpeed, 
+                        blockDestroyScale)
+                    );
+            
             _onMatch?.Invoke(blockType, hor+ver+1);
+            if (_hasMatched) yield break;
+            _onFirstMatch?.Invoke();
+            _hasMatched = true;
         }
         
         /// <summary>
