@@ -18,9 +18,7 @@ MonoBehaviour:
   - {fileID: 1774225178986156370, guid: 2f8e531f312fb9244961b5f9e919da89, type: 3}
   flyingEnemies:
   - {fileID: 8092411296337713472, guid: e228159b4d69d9646837ecf5807f0d1f, type: 3}
-  startTile: {fileID: 5274738865471501743, guid: ac78d53c9f444a543acbf505f8073b3a, type: 3}
-  endTile: {fileID: 5274738865471501743, guid: ac78d53c9f444a543acbf505f8073b3a, type: 3}
+  startTile: {fileID: 7814343415150388239, guid: dc7dbe2211b148c45b7c094f3b6f1e04, type: 3}
+  endTile: {fileID: 7814343415150388239, guid: dc7dbe2211b148c45b7c094f3b6f1e04, type: 3}
   tiles:
-  - {fileID: 5274738865471501743, guid: ac78d53c9f444a543acbf505f8073b3a, type: 3}
-  - {fileID: 2661897436389122401, guid: a53d607b74e359946811107999652706, type: 3}
-  - {fileID: 6511045690372614016, guid: e48d05ae94494b2478f458f04f619950, type: 3}
+  - {fileID: 6896308163632210337, guid: f4be1554f97b1e244a1aef13dbde7087, type: 3}
