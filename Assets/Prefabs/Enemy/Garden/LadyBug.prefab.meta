@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/Enemy/Garden/LadyBug.prefab.meta
 guid: 3b917f0d44e41a04d85b24ad740f6ea2
+========
+guid: d24e8c712e9072046a29ddf65267f3c8
+>>>>>>>> main:Assets/Prefabs/UI/Counter.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 
