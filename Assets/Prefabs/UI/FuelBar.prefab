@@ -139,7 +139,6 @@ GameObject:
   - component: {fileID: 6771435608611426738}
   - component: {fileID: 5093396311499628255}
   - component: {fileID: 8740911087164645875}
-  - component: {fileID: 5968685184773698380}
   m_Layer: 0
   m_Name: FuelBar
   m_TagString: Untagged
@@ -253,7 +252,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -264,7 +263,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2518404973106448724}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a7562e2c31aae84eb12ea60b1ad26d7, type: 3}
   m_Name: 
@@ -273,19 +272,6 @@ MonoBehaviour:
   carMovement: {fileID: 0}
   fuelDisplay: {fileID: 8603788691563235073}
   fuelMask: {fileID: 6321041173670761291}
---- !u!114 &5968685184773698380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2518404973106448724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b78881af8627734c84b7323ab07a548, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  script: {fileID: 8740911087164645875}
 --- !u!1 &5955977094708023687
 GameObject:
   m_ObjectHideFlags: 0
