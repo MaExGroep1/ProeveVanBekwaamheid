@@ -16,7 +16,7 @@ namespace UI.PopUp
                 .onClick.AddListener(CreatePopUp);
 
         /// <summary>
-        /// Instantiates the pop up
+        /// Instantiates the pop-up
         /// </summary>
         private void CreatePopUp() => Instantiate(popUp);
     }
