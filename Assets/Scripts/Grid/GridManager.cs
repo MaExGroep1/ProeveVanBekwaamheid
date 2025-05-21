@@ -25,7 +25,7 @@ namespace Grid
         [SerializeField] private float blockPlaceDistance;                  // the distance the block can travel before swapping 
         [SerializeField] private float blockSpringBackDistance;             // the distance the block can travel before not snapping back to its origin
         [SerializeField] private BombBlock bombBlockTemplate;               // the template of the bomb block 
-        [SerializeField] private int bombBlockSpawnRate;                  // the chance the bomb block can spawn when not on the board
+        [SerializeField] private int bombBlockSpawnRate;                    // the chance the bomb block can spawn when not on the board
         
         [Header("Block times")]
         [SerializeField] private float blockTravelTime;                     // the time it takes for the block to travel somewhere
@@ -36,7 +36,7 @@ namespace Grid
         [SerializeField] private float blockTravelSpeed;                    // The speed the block moves to the destroy point
         [SerializeField] private float blockDestroyScale;                   // the scale of the block when traveling to the destroy point
 
-        [SerializeField] private int bombBlockRange;                      // the range of the bomb block when it explodes
+        [SerializeField] private int bombBlockRange;                        // the range of the bomb block when it explodes
         
         [Header("Spawn animation")]
         [SerializeField] private RectTransform gridRect;                    // the rect of the grid object
