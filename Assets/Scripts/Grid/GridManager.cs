@@ -49,6 +49,7 @@ namespace Grid
         private Transform _blocksParent;                                    // the parent of all the blocks
         private readonly List<int> _checkedColumns = new();                 // a list of columns that have been checked
         private float _heightOffset;                                        // the vertical distance between grid rows
+        private bool _isBombOnGrid;                                         // the bool to check if there's a bomb block on the grid
         
         public float BlockPlaceDistance => blockPlaceDistance;              // the available block types
         public float BlockSpringBackDistance => blockSpringBackDistance;    // the available block types
@@ -58,7 +59,6 @@ namespace Grid
         
         private Action<BlockType, int> _onMatch;                            // the event to invoke when a match is made
 
-        private bool isBombOnGrid = false;                                  // the bool to check if there's a bomb block on the grid
         
         private void Start()
         {
@@ -187,7 +187,7 @@ namespace Grid
                 newBlock.Initialize(block.blockType,block.destroyDestination.position);
                 newBlock.Rect.position = position + offset;
 
-                if (Random.Range(0, bombBlockSpawnRate) == 1 && !isBombOnGrid)
+                if (Random.Range(0, bombBlockSpawnRate) == 1 && !_isBombOnGrid)
                         newBlock = BlockToBomb(newBlock, _grid[i, y]);    
                 
                 blocks.Add(newBlock);
@@ -586,7 +586,7 @@ namespace Grid
                     
                     var block = _grid[targetCords.x, targetCords.y].GetBlock();
                     
-                    isBombOnGrid = false;
+                    _isBombOnGrid = false;
                     _onMatch?.Invoke(block.GetBlockType(), 1);
                     StartCoroutine(block.DestroyBlock(blockWaitTime, blockTravelSpeed, blockDestroyScale));
                 }
@@ -635,7 +635,7 @@ namespace Grid
             var bombBlock = Instantiate(bombBlockTemplate, _blocksParent);
             
             bombBlock.Rect.position = CalculateRectPosition(gridElement);
-            isBombOnGrid = true;
+            _isBombOnGrid = true;
             return bombBlock;
         }
     }
