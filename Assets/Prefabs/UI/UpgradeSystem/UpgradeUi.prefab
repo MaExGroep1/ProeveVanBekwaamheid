@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1303446727211782006}
   - component: {fileID: 2363556830477686049}
+  - component: {fileID: 5162438350114250788}
+  - component: {fileID: 1471284291719636822}
   m_Layer: 5
-  m_Name: UpgradeUI
+  m_Name: UpgradeUi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67,6 +69,44 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
+--- !u!222 &5162438350114250788
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2932510417491050446}
+  m_CullTransparentMesh: 1
+--- !u!114 &1471284291719636822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2932510417491050446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.45882356, g: 0.2392157, b: 0.13333334, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1001 &2174661748885251622
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -217,7 +257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6624969007463259799, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
       propertyPath: upgradeType
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8381077136636687201, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -372,6 +412,10 @@ PrefabInstance:
     - target: {fileID: 6484898658963938139, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6624969007463259799, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
+      propertyPath: upgradeType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8381077136636687201, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -557,7 +601,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6624969007463259799, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
       propertyPath: upgradeType
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8381077136636687201, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -739,7 +783,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6624969007463259799, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
       propertyPath: upgradeType
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8381077136636687201, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -909,7 +953,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6624969007463259799, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
       propertyPath: upgradeType
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8381077136636687201, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
       propertyPath: m_AnchoredPosition.x
