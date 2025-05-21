@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Enemy;
 using UnityEngine;
 using UnityEngine.Rendering;
+using Upgrade;
 
 namespace Weapon
 {
@@ -25,6 +26,7 @@ namespace Weapon
         /// </summary>
         private void Start()
         {
+            AssignEvents();
             ShootSequence();
         }
 
@@ -35,6 +37,10 @@ namespace Weapon
         {
             var ammo = SpawnAmmo();
             StartCoroutine(ShootDelay(ammo));
+        }
+        private void AssignEvents()
+        {
+            
         }
 
         /// <summary>

@@ -34,15 +34,22 @@ namespace Weapon
         /// </summary>
         private void Start()
         {
+            AssignEvents();
             StartCoroutine(FireTimer());
         }
-        
+
+
         /// <summary>
         /// Shoots the laser when CanFire is true
         /// </summary>
         private void Update()
         {
             if (CanFire) Shoot();
+        }
+        
+        private void AssignEvents()
+        {
+            
         }
 
         /// <summary>
