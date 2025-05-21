@@ -54,6 +54,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   laser: {fileID: 7723881346776181513}
+  rayCastOrigin: {fileID: 2833863131539630522}
 --- !u!1 &7723881346776181513
 GameObject:
   m_ObjectHideFlags: 0

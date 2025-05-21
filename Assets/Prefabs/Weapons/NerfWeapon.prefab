@@ -84,7 +84,7 @@ MonoBehaviour:
   spawnSpeed: 1
   projectileSpawnEaseType: 0
   ammoSpawnPoint: {fileID: 1128827601680187480}
-  ammunitionPrefab: {fileID: 7938803016314524456, guid: 4eded030c38c1da4faf1b14b58f855be, type: 3}
+  ammunitionPrefab: {fileID: 1231720228549434103, guid: 2377ab42836ddf44dbaafa814533a786, type: 3}
 --- !u!1001 &7454442276204026813
 PrefabInstance:
   m_ObjectHideFlags: 0
