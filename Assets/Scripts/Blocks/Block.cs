@@ -16,8 +16,8 @@ namespace Blocks
         private BlockType _blockType;                   // the block type of the block
 
         private Transform _destroyDestination;            // the position of the destroy location of the block
-        private Vector3 _gridPosition;                  // the default position of the block
-        private Vector2Int _cords;                      // the cords in the grid
+        protected Vector3 _gridPosition;                  // the default position of the block
+        protected Vector2Int _cords;                      // the cords in the grid
 
         private bool _isMoving;                         // whether the block is moving
         private bool _canMoveWithMouse;                 // whether the block can stick to the mouse

@@ -393,7 +393,7 @@ namespace Grid
 
                     newBlock.Rect.position = CalculateRectPosition(_grid[x, y]);
 
-                    newBlock.Initialize(block.blockType, block.destroyDestination.position);
+                    newBlock.Initialize(block.blockType, block.destroyDestination);
 
                     _grid[x, y].SetBlock(newBlock);
 
@@ -548,19 +548,6 @@ namespace Grid
             return blockTypes[Random.Range(0, blockTypes.Count)];
         }
 
-
-        /// <summary>
-        /// Waits for a set amount of time then moves the block to the position
-        /// </summary>
-        /// <param name="newBlock"> the block to move</param>
-        /// <param name="waitTime"> the time to wait before falling </param>
-        /// <returns></returns>
-        private IEnumerator WaitToDrop(Block newBlock, float waitTime)
-        {
-            yield return new WaitForSeconds(waitTime);
-            newBlock.FallToOrigin(null);
-        }
-
         /// <summary>
         /// Handles the bombblock match
         /// </summary>
@@ -570,6 +557,7 @@ namespace Grid
         public void HandleBombBlockMatch(Vector2Int originalBombCords, Direction direction, BombBlock thisBomb)
         {
             var bombCords = originalBombCords + DirectionToCords(direction);
+                        
             if (!IsWithinBounds(bombCords))
             {
                 thisBomb.GoToOrigin(null);
@@ -651,6 +639,18 @@ namespace Grid
             bombBlock.Rect.position = CalculateRectPosition(gridElement);
             _isBombOnGrid = true;
             return bombBlock;
+        }
+        
+        /// <summary>
+        /// Waits for a set amount of time then moves the block to the position
+        /// </summary>
+        /// <param name="newBlock"> the block to move</param>
+        /// <param name="waitTime"> the time to wait before falling </param>
+        /// <returns></returns>
+        private IEnumerator WaitToDrop(Block newBlock, float waitTime)
+        {
+            yield return new WaitForSeconds(waitTime);
+            newBlock.FallToOrigin(null);
         }
     }
 }
