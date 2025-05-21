@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/UI/FuelBar.prefab.meta
 guid: b2adc7bbef2ebc541b83501abedc923a
+========
+guid: d24e8c712e9072046a29ddf65267f3c8
+>>>>>>>> main:Assets/Prefabs/UI/Counter.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 

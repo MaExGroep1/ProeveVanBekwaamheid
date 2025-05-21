@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/UI/Counter.prefab.meta
+guid: d24e8c712e9072046a29ddf65267f3c8
+========
 guid: 437f895030a10fc4789c915ea477ca5c
+>>>>>>>> main:Assets/Prefabs/Enemy/House/Fly.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 
