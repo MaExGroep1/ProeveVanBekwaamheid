@@ -10,15 +10,12 @@ namespace Enemy
     public class EnemyManager : Singleton<EnemyManager>
     {
         [SerializeField] private ParticleSystem onDeathParticles;                                               // the enemy death particle
-        [field: SerializeField] public float EnemyMultiplierAmount { get; private set; }                        // the amount of tiles to have instantiated before making the difficulty plus 1
         
         private readonly List<EnemyBehaviour> _groundEnemies = new();                                           // list of available ground enemies
         private readonly List<EnemyBehaviour> _flyingEnemies = new();                                           // list of available flying enemies
         private readonly List<EnemyBehaviour> _currentEnemies = new();                                          // list of current enemies
         private List<EnemyBehaviour> _enemies = new();                                                          // list of all enemies
-
-        private float _enemyPoints;
-
+        
         private static LevelData CurrentLevel => CarGameManager.Instance.CurrentLevel;                          // the level data of the current level
         private EnemyBehaviour RandomGroundEnemies => _groundEnemies[Random.Range(0, _groundEnemies.Count)];    // a random ground enemy
         private EnemyBehaviour RandomFlyingEnemies => _flyingEnemies[Random.Range(0, _flyingEnemies.Count)];    // a random flying enemy
@@ -28,6 +25,10 @@ namespace Enemy
             get => _enemies;
             private set => _enemies = value;
         }
+        
+        [field: SerializeField] public float EnemyMultiplierAmount { get; private set; }                        // the amount of tiles to have instantiated before making the difficulty plus 1
+        public float EnemyPoints { get; private set; }                                                          // the amount of points the user has gotten from enemies
+
         
         /// <summary>
         /// Goes to the first level and starts listening to the OnEnterNextLevel
@@ -87,7 +88,7 @@ namespace Enemy
         /// <param name="addPoints"></param>
         public void DestroyEnemy(EnemyBehaviour enemy, bool addPoints = true)
         {
-            if (addPoints) _enemyPoints += enemy.Worth;
+            if (addPoints) EnemyPoints += enemy.Worth;
             
             _enemies.Remove(enemy);
             if (onDeathParticles == null) return;
