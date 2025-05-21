@@ -12,6 +12,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: DIY_Objects_Material2
+    second: {fileID: 2100000, guid: 93f221aa4a28f48409638b63b26c928a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Wheels_M
     second: {fileID: 2100000, guid: ffb8d92775addbb4fa62c42050364111, type: 2}
   - first:
