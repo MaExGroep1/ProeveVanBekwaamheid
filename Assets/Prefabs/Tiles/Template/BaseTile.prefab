@@ -87,6 +87,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7442851851752293422}
     m_Modifications:
+    - target: {fileID: 1795222996919140092, guid: d715614fbc7ab974797842b85db00d55, type: 3}
+      propertyPath: m_Size.y
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5178279830897845072, guid: d715614fbc7ab974797842b85db00d55, type: 3}
       propertyPath: m_Name
       value: LoadCollider

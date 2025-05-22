@@ -13,7 +13,6 @@ namespace Enemy
         
         private readonly List<EnemyBehaviour> _groundEnemies = new();                                           // list of available ground enemies
         private readonly List<EnemyBehaviour> _flyingEnemies = new();                                           // list of available flying enemies
-        private readonly List<EnemyBehaviour> _currentEnemies = new();                                          // list of current enemies
         private List<EnemyBehaviour> _enemies = new();                                                          // list of all enemies
         
         private static LevelData CurrentLevel => CarGameManager.Instance.CurrentLevel;                          // the level data of the current level
@@ -39,21 +38,18 @@ namespace Enemy
         /// </summary>
         private void OnEnterNextLevel()
         {
-            _currentEnemies.Clear();
             
             foreach (var groundEnemy in CurrentLevel.groundEnemies)
             {
                 if (_groundEnemies.Contains(groundEnemy)) continue;
                 _groundEnemies.Add(groundEnemy);
             }
-            _currentEnemies.AddRange(CurrentLevel.groundEnemies);
             
             foreach (var flyingEnemy in CurrentLevel.flyingEnemies)
             {
                 if (_flyingEnemies.Contains(flyingEnemy)) continue;
                 _flyingEnemies.Add(flyingEnemy);
             }
-            _currentEnemies.AddRange(CurrentLevel.flyingEnemies);
         }
         
         /// <summary>
@@ -66,10 +62,6 @@ namespace Enemy
             var newEnemy = spawner.InAir ? 
                 RandomFlyingEnemies:
                 RandomGroundEnemies;
-            if (!_currentEnemies.Contains(newEnemy))
-                newEnemy = spawner.InAir ? 
-                    RandomFlyingEnemies:
-                    RandomGroundEnemies;
             var enemyPrefab = spawner.CreateEnemy(newEnemy);
             enemyPrefab.transform.parent = transform;
             _enemies.Add(enemyPrefab);

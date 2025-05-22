@@ -38,15 +38,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7538976819723803712, guid: 9c0dcd8b56b9fc14f9195b650b5d997f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 7538976819723803712, guid: 9c0dcd8b56b9fc14f9195b650b5d997f, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 7538976819723803712, guid: 9c0dcd8b56b9fc14f9195b650b5d997f, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 7538976819723803712, guid: 9c0dcd8b56b9fc14f9195b650b5d997f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -110,6 +110,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9049515706047966172, guid: 9c0dcd8b56b9fc14f9195b650b5d997f, type: 3}
       propertyPath: followsOnX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9049515706047966172, guid: 9c0dcd8b56b9fc14f9195b650b5d997f, type: 3}
+      propertyPath: followsOnY
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9049515706047966172, guid: 9c0dcd8b56b9fc14f9195b650b5d997f, type: 3}
@@ -213,6 +217,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wasp
       objectReference: {fileID: 0}
+    - target: {fileID: 7421595010507851855, guid: 20cc875692358d7458ed48056a37c45f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7905257687587328757, guid: 20cc875692358d7458ed48056a37c45f, type: 3}
       propertyPath: m_LocalScale.y
       value: 1
@@ -223,7 +231,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7905257687587328757, guid: 20cc875692358d7458ed48056a37c45f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7905257687587328757, guid: 20cc875692358d7458ed48056a37c45f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -307,7 +315,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 122
   m_CollisionDetection: 0
 --- !u!136 &3280665464332924215
 CapsuleCollider:

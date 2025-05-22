@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: f7c97987214c5234da8a48bf08df0d0f, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -548,13 +548,37 @@ PrefabInstance:
       propertyPath: minimumEnemyDamage
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 70175858119365887, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: playerKnockbackMultiplier
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 99258077390203236, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: m_ForwardFriction.m_ExtremumSlip
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 99258077390203236, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: m_ForwardFriction.m_AsymptoteSlip
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 99258077390203236, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: m_ForwardFriction.m_ExtremumValue
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 660503264983705721, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: m_Name
       value: Car
       objectReference: {fileID: 0}
+    - target: {fileID: 2747415062530452956, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3766563224734153053, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: m_Drag
       value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 3766563224734153053, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: m_Mass
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 3766563224734153053, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: m_Constraints
@@ -571,6 +595,18 @@ PrefabInstance:
     - target: {fileID: 3766563224734153053, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: m_CenterOfMass.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4788086164230447868, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: m_ForwardFriction.m_ExtremumSlip
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4788086164230447868, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: m_ForwardFriction.m_AsymptoteSlip
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4788086164230447868, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: m_ForwardFriction.m_ExtremumValue
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4972746181076016607, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[0].newUpgradeValue
@@ -591,6 +627,18 @@ PrefabInstance:
     - target: {fileID: 4972746181076016607, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[4].newUpgradeValue
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 5909302804626476056, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: m_ForwardFriction.m_ExtremumSlip
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5909302804626476056, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: m_ForwardFriction.m_AsymptoteSlip
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5909302804626476056, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: m_ForwardFriction.m_ExtremumValue
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6443464816435975901, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: m_IsActive
@@ -615,6 +663,18 @@ PrefabInstance:
     - target: {fileID: 7997584271820306200, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[4].newUpgradeValue
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7997584271820306200, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: upgradeValues.Array.data[5].newUpgradeValue
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 7997584271820306200, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: upgradeValues.Array.data[6].newUpgradeValue
+      value: 0.425
+      objectReference: {fileID: 0}
+    - target: {fileID: 7997584271820306200, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: upgradeValues.Array.data[7].newUpgradeValue
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8008199929602477756, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: m_LocalPosition.x
@@ -656,9 +716,61 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8036212065358873854, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8036212065358873854, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.816035
+      objectReference: {fileID: 0}
+    - target: {fileID: 8036212065358873854, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.07139385
+      objectReference: {fileID: 0}
+    - target: {fileID: 8036212065358873854, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.5713938
+      objectReference: {fileID: 0}
+    - target: {fileID: 8036212065358873854, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.049990498
+      objectReference: {fileID: 0}
+    - target: {fileID: 8036212065358873854, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -70
+      objectReference: {fileID: 0}
+    - target: {fileID: 8245124741744413352, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: m_ForwardFriction.m_ExtremumSlip
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 8245124741744413352, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: m_ForwardFriction.m_AsymptoteSlip
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 8245124741744413352, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: m_ForwardFriction.m_ExtremumValue
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8910477642296879986, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: maxSpeed
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 8910477642296879986, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: motorForce
-      value: 250
+      value: 350
+      objectReference: {fileID: 0}
+    - target: {fileID: 8910477642296879986, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: tiltClamp.max
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 8910477642296879986, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: tiltClamp.min
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8910477642296879986, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: tiltMultiplier
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 8910477642296879986, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: fuelAddMultiplier
@@ -684,20 +796,25 @@ PrefabInstance:
       propertyPath: 'wheels.Array.data[3]'
       value: 
       objectReference: {fileID: 1920140460}
+    - target: {fileID: 8910477642296879986, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: torqueCurve.m_Curve.Array.data[0].time
+      value: 0.0000014137477
+      objectReference: {fileID: 0}
+    - target: {fileID: 8910477642296879986, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: torqueCurve.m_Curve.Array.data[0].value
+      value: 7.9768143
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 660503264983705721, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2114926947}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
 --- !u!114 &718314071 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8910477642296879986, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
   m_PrefabInstance: {fileID: 718314070}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2114926944}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dee8ce03a4968fe4c99639fc2a2f68a3, type: 3}
@@ -773,25 +890,6 @@ WheelCollider:
   m_CorrespondingSourceObject: {fileID: 5909302804626476056, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
   m_PrefabInstance: {fileID: 718314070}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2114926944 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 660503264983705721, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
-  m_PrefabInstance: {fileID: 718314070}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2114926947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2114926944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f76beceefb546ab4d95ab71bfcbe2e26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rigidBody: {fileID: 1506727087}
-  multiplier: 0.1
 --- !u!1001 &3881325620490697993
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -844,6 +942,10 @@ PrefabInstance:
       propertyPath: <EnemyMultiplierAmount>k__BackingField
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 2651958496116248446, guid: 7340e1b8df78d4449a7d7101517f289a, type: 3}
+      propertyPath: startTile
+      value: 
+      objectReference: {fileID: 992418990642241341, guid: a4c6185758be8d545b80039c4f90e8f1, type: 3}
     - target: {fileID: 4207963978160901125, guid: 7340e1b8df78d4449a7d7101517f289a, type: 3}
       propertyPath: m_Name
       value: CarGameManager
