@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74863fb1c83fcca40ac0323693058b28, type: 3}
   m_Name: Attack
   m_EditorClassIdentifier: 
-  blockTypes: 0
+  blockTypes: 1
   blockSprite: {fileID: 1102913536, guid: ca2b822e6064c92498320bd6bb8c577e, type: 3}
   levelSprites: []

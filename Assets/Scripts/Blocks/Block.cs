@@ -13,12 +13,11 @@ namespace Blocks
         [SerializeField] private Image image;           // the image of the block
         [SerializeField] private RectTransform rect;    // the rect of the grid element
         
+        protected Vector3 _gridPosition;                  // the default position of the block
+        protected Vector2Int _cords;                      // the cords in the grid
+        
         private BlockType _blockType;                   // the block type of the block
-
         private Transform _destroyDestination;            // the position of the destroy location of the block
-        private Vector3 _gridPosition;                  // the default position of the block
-        private Vector2Int _cords;                      // the cords in the grid
-
         private bool _isMoving;                         // whether the block is moving
         private bool _canMoveWithMouse;                 // whether the block can stick to the mouse
         
@@ -129,21 +128,26 @@ namespace Blocks
         /// <summary>
         /// Starts the matching process
         /// </summary>
-        private void TryToMatch()
+        protected virtual void TryToMatch()
         {
             var direction =  transform.position - _gridPosition;
             var normalized = direction.normalized;
-            var dir = Mathf.Abs(normalized.x) < Mathf.Abs(normalized.y) ?
+            
+            
+            GridManager.Instance.TryMatch(_cords, CalculateDirection(normalized), _blockType);
+        }
+        
+        protected Direction CalculateDirection(Vector3 normalized)
+        {
+            return Mathf.Abs(normalized.x) < Mathf.Abs(normalized.y) ?
                 normalized.y > 0 ? 
                     Direction.Up: 
                     Direction.Down: 
                 normalized.x > 0 ? 
                     Direction.Right: 
                     Direction.Left;
-
-            GridManager.Instance.TryMatch(_cords, dir, _blockType);
         }
-        
+
         /// <summary>
         /// Sets the block to immobile 
         /// </summary>
