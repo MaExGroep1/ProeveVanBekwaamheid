@@ -1,6 +1,7 @@
 using System;
 using Car;
 using Interfaces;
+using Sound;
 using UnityEngine;
 
 namespace Enemy
@@ -22,6 +23,9 @@ namespace Enemy
         
         [Header("Near Player")]
         [SerializeField] private float nearPlayerDistance;  // the distance the enemy will stop chasing the player
+        
+        [Header("audio")]
+        [SerializeField] private SoundService soundService;  //Sound service for playing sound clips
         
         private Rigidbody _rigidBody;                       // the enemy's rigidbody
         private Transform _target;                          // the transform of the target
@@ -163,6 +167,7 @@ namespace Enemy
             health -= damage;
             if (health > 0) return;
 
+            soundService.PlaySound();
             MarkedForDeletion = true;
             gameObject.layer = LayerMask.NameToLayer("IgnorePlayer");
             EnemyManager.Instance.DestroyEnemy(this);
