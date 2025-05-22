@@ -63,7 +63,7 @@ namespace Upgrade
         /// todo add upgrade car comments
         /// </summary>
         /// <param name="upgradeType"></param>
-        public void Upgrade(BlockType upgradeType)
+        private void Upgrade(BlockType upgradeType)
         {
             var pointsLeft = _upgradePoints[upgradeType] - _requiredUpgradePoints[upgradeType];
 
@@ -72,7 +72,6 @@ namespace Upgrade
             
             _upgradePoints[upgradeType] = 0;
             IncreaseUpgradePoints(upgradeType, pointsLeft);
-            
         }
         
         /// <summary>
