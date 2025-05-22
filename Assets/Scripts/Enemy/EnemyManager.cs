@@ -19,6 +19,12 @@ namespace Enemy
         private static LevelData CurrentLevel => CarGameManager.Instance.CurrentLevel;                          // the level data of the current level
         private EnemyBehaviour RandomGroundEnemies => _groundEnemies[Random.Range(0, _groundEnemies.Count)];    // a random ground enemy
         private EnemyBehaviour RandomFlyingEnemies => _flyingEnemies[Random.Range(0, _flyingEnemies.Count)];    // a random flying enemy
+
+        public List<EnemyBehaviour> Enemies
+        {
+            get => _enemies;
+            private set => _enemies = value;
+        }
         
         [field: SerializeField] public float EnemyMultiplierAmount { get; private set; }                        // the amount of tiles to have instantiated before making the difficulty plus 1
         public float EnemyPoints { get; private set; }                                                          // the amount of points the user has gotten from enemies

@@ -183,15 +183,17 @@ MonoBehaviour:
     destroyDestination: {fileID: 0}
   blockPlaceDistance: 100
   blockSpringBackDistance: 40
+  bombBlockTemplate: {fileID: 5363165079460059858, guid: 335e966ec615a5d48bfc64cb7b08abe8, type: 3}
+  bombBlockSpawnRate: 20
   blockTravelTime: 0.25
   blockFallTime: 0.75
   blockWaitTime: 0.2
   blockTravelSpeed: 0.0006
   blockDestroyScale: 1.5
+  bombBlockRange: 1
   gridRect: {fileID: 6764372624370830685}
   gridRectOffset: 15
   maxAttempts: 100
-  shuffleDuration: 0.2
 --- !u!114 &2172344736452675612
 MonoBehaviour:
   m_ObjectHideFlags: 0

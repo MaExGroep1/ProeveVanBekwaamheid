@@ -46,11 +46,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a27318189492424dbd6a28d9211e3bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 3
+  damage: 5
   fireTime: 5
   fireDelay: 4
-  laserScaleSpeed: 2
+  baseRange: 50
+  laserLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
   laser: {fileID: 7723881346776181513}
+  rayCastOrigin: {fileID: 2833863131539630522}
 --- !u!1 &7723881346776181513
 GameObject:
   m_ObjectHideFlags: 0
