@@ -12,6 +12,7 @@ namespace Car
         [SerializeField] private float minimumKnockBack;      // the minimum knock back of the impact
         [SerializeField] private float airForceMultiplier;      // the minimum knock back of the impact
         [SerializeField] private float minimumEnemyDamage;    // the minimum knock back of the impact
+        [SerializeField] private float playerKnockBackMultiplier;    // the minimum knock back of the impact
         
         private Rigidbody _rigidBody;       // the rigid body of the car
         private CarMovement _carMovement;   // the movement script of the car
@@ -56,7 +57,7 @@ namespace Car
 
             if (enemy.MarkedForDeletion) return;
             
-            _rigidBody.AddForce(new Vector3(-totalKnockBack,0));
+            _rigidBody.AddForce(new Vector3(-totalKnockBack* playerKnockBackMultiplier *_rigidBody.mass,0));
             
             enemyRigidbody.AddForce(new Vector3(totalKnockBack,totalKnockBack * airForceMultiplier));
         }

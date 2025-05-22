@@ -379,6 +379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultLoadTime: 0.5
   transitionFade: {fileID: 1334355010}
+  startSceneName: 
 --- !u!114 &2047574502
 MonoBehaviour:
   m_ObjectHideFlags: 0

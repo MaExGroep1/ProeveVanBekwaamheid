@@ -10,18 +10,23 @@ namespace Tiles
 
         [SerializeField] private Transform tileParent;                                      // the parent of the tiles
         [SerializeField] private int levelLength;                                           // the amount of tiles in a level before going to the next
-        
+        [SerializeField]private Tile startTile;                                             // the tile at the start of the game
+
         private Tile _currentTile;                                                          // the tile under the player
         private Tile _previousTile;                                                         // the tile before the current tile
         private int _currentTileIndex;                                                      // the current tile index in the level
         private static LevelData CurrentLevel => CarGameManager.Instance.CurrentLevel;      // the level data of the current level
         
-        private Action _onEnterNextLevel;
+        private Action _onEnterNextLevel;                                                   // event when entering new level
 
+        /// <summary>
+        /// Creates start tiles
+        /// </summary>
         private void Start()
         {
-            CreateNewTile(CurrentLevel.startTile);
+            CreateNewTile(startTile);
             CreateNewTile(CurrentLevel.RandomTile);
+            _currentTileIndex++;
         }
         
         /// <summary>
