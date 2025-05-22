@@ -78,7 +78,6 @@ namespace Car
             
             var tiltForce = Mathf.Clamp(-rotation, tiltClamp.min, tiltClamp.max) * tiltMultiplier;
             
-            Debug.Log(tiltForce);
             var force = throttle * motorForce * tiltForce * torqueMultiplier;
             
             foreach (var wheel in wheels)
