@@ -54,10 +54,10 @@ namespace Weapon
         /// <param name="target">the target where to move towards</param>
         public void Shoot(EnemyBehaviour target)
         {
-            Vector3 hitTarget = target != null ? target.transform.position : Vector3.right * _range + transform.position;
-            Vector3 direction = (hitTarget - transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-            Vector3 eulerRotation = lookRotation.eulerAngles;
+            var hitTarget = target != null ? target.transform.position : Vector3.right * _range + transform.position;
+            var direction = (hitTarget - transform.position).normalized;
+            var lookRotation = Quaternion.LookRotation(direction);
+            var eulerRotation = lookRotation.eulerAngles;
             transform.parent = null;
             projectileCollider.enabled = true;
             LeanTween.move(gameObject, hitTarget, _travelTime).setEase(movementEasingType).setOnComplete(() =>

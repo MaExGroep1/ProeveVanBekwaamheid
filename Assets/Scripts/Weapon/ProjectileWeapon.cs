@@ -21,15 +21,16 @@ namespace Weapon
         [SerializeField] private Transform ammoSpawnPoint;                  //Reference to a gameObject transform that has the location and rotation for spawning the ammunition
         [SerializeField] private WeaponProjectile ammunitionPrefab;         //prefab of the ammunition
 
-        private float _damage;
+        private float _damage;                                              //The damage that the projectile will do when it hits an enemy, updates on upgrades
         private GameObject _target;                                         //The target that will be shot
         
         /// <summary>
-        /// Starting the shoot sequence the moment the weapon is instantiated
+        /// Starting the shoot sequence the moment the weapon is instantiated and increases damage to ensure _damage has a value
         /// </summary>
         private void Start()
         {
             AssignEvents();
+            IncreaseDamage();
             ShootSequence();
         }
 
@@ -59,7 +60,7 @@ namespace Weapon
         protected EnemyBehaviour GetClosestTarget()
         {
             EnemyBehaviour target = null;
-            float closestEnemyDistance = float.MaxValue;
+            var closestEnemyDistance = float.MaxValue;
             List<EnemyBehaviour> enemies = new List<EnemyBehaviour>(EnemyManager.Instance.Enemies); 
             
             foreach (var enemy in enemies)
@@ -75,9 +76,12 @@ namespace Weapon
             return target;
         }
 
+        /// <summary>
+        /// assigns events
+        /// </summary>
         private void AssignEvents()
         {
-            if (!UpgradeManager.Instance.OnUpgrade.TryAdd(BlockType.Weapon, IncreaseDamage)) UpgradeManager.Instance.OnUpgrade[BlockType.Weapon] += IncreaseDamage;
+            if (!UpgradeManager.Instance.OnUpgradeCompleted.TryAdd(BlockType.Weapon, IncreaseDamage)) UpgradeManager.Instance.OnUpgradeCompleted[BlockType.Weapon] += IncreaseDamage;
         }
 
         /// <summary>
@@ -87,15 +91,19 @@ namespace Weapon
         private WeaponProjectile SpawnAmmo()
         {
             var ammo = Instantiate(ammunitionPrefab, ammoSpawnPoint.position, ammoSpawnPoint.rotation, transform);
-            ammo.Initialize(baseDamage, projectileTime, range);
+            ammo.Initialize(_damage, projectileTime, range);
             ammo.transform.localScale = Vector3.zero;
             LeanTween.scale(ammo.gameObject, Vector3.one, spawnSpeed).setEase(projectileSpawnEaseType);
             return ammo;
         }
 
+        /// <summary>
+        /// takes the bseDamage of the weapon and multiplies it by the WeaponAttackMultiplier
+        /// </summary>
         private void IncreaseDamage()
         {
             _damage = CarData.Instance.WeaponAttackMultiplier * baseDamage;
+            Debug.Log(gameObject.name + _damage);
         }
 
         /// <summary>
