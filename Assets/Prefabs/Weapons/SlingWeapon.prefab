@@ -1,0 +1,192 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1502400853383181570
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 600313540071456723}
+  m_Layer: 0
+  m_Name: FireLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &600313540071456723
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1502400853383181570}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.24823685, y: -0.20361184, z: -0.07949502, w: 0.9437167}
+  m_LocalPosition: {x: -1.59, y: 2.96, z: -0.212}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8184389140329152301}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1996609985601781689
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8182160740872615950}
+  m_Layer: 0
+  m_Name: AmmoSpawnLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8182160740872615950
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996609985601781689}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.24232, y: -0.19730562, z: -0.05040261, w: 0.9485837}
+  m_LocalPosition: {x: -0.452, y: 1.87, z: -2.54}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8184389140329152301}
+  m_LocalEulerAnglesHint: {x: -28.66, y: -23.5, z: 0}
+--- !u!1 &7801992622112091536
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8184389140329152301}
+  - component: {fileID: 5691197058604385686}
+  m_Layer: 0
+  m_Name: SlingWeapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8184389140329152301
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7801992622112091536}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8182160740872615950}
+  - {fileID: 600313540071456723}
+  - {fileID: 2129198450822657039}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5691197058604385686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7801992622112091536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feef28a529445284988121b7b9389985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseDamage: 10
+  projectileTime: 0.8
+  range: 25
+  fireDelay: 2
+  spawnSpeed: 1
+  projectileSpawnEaseType: 0
+  ammoSpawnPoint: {fileID: 8182160740872615950}
+  ammunitionPrefab: {fileID: 1231720228549434103, guid: 2709b06e98f0ba34680e50668e71eaa9, type: 3}
+  fireTime: 0.2
+  reloadTime: 1
+  fireLocation: {fileID: 600313540071456723}
+  fireArm: {fileID: 4648315740979271052}
+  fireEaseType: 26
+  reloadEaseType: 27
+--- !u!1001 &1875423551979639780
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8184389140329152301}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 9bac25ad50e03554d8b46d6eff7a58b9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9bac25ad50e03554d8b46d6eff7a58b9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9bac25ad50e03554d8b46d6eff7a58b9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9bac25ad50e03554d8b46d6eff7a58b9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99988645
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9bac25ad50e03554d8b46d6eff7a58b9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.008649722
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9bac25ad50e03554d8b46d6eff7a58b9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.008802021
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9bac25ad50e03554d8b46d6eff7a58b9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.008649722
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9bac25ad50e03554d8b46d6eff7a58b9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9bac25ad50e03554d8b46d6eff7a58b9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9bac25ad50e03554d8b46d6eff7a58b9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9bac25ad50e03554d8b46d6eff7a58b9, type: 3}
+      propertyPath: m_Name
+      value: Weapon_UPG2_Model
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9bac25ad50e03554d8b46d6eff7a58b9, type: 3}
+--- !u!4 &2129198450822657039 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9bac25ad50e03554d8b46d6eff7a58b9, type: 3}
+  m_PrefabInstance: {fileID: 1875423551979639780}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4648315740979271052 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2700764215453890968, guid: 9bac25ad50e03554d8b46d6eff7a58b9, type: 3}
+  m_PrefabInstance: {fileID: 1875423551979639780}
+  m_PrefabAsset: {fileID: 0}

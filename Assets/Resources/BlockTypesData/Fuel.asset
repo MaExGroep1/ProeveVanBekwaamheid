@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74863fb1c83fcca40ac0323693058b28, type: 3}
   m_Name: Fuel
   m_EditorClassIdentifier: 
-  blockTypes: 2
+  blockTypes: 3
   blockSprite: {fileID: -860167721, guid: fab4f574bfe88e04ab292b9db31948ff, type: 3}
   levelSprites: []
