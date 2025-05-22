@@ -225,6 +225,8 @@ MonoBehaviour:
   - {fileID: 2387176539745063576}
   - {fileID: 1554395452292381182}
   - {fileID: 6333725947082562769}
+  rotationStopUpgradeLevel: 0
+  speedUpgrades: {fileID: 2313926844903586578}
 --- !u!1 &3870295332874665954
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,6 +735,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3755916629854399318, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}
   m_PrefabInstance: {fileID: 2417835053849154216}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2313926844903586578 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 112968357918894522, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}
+  m_PrefabInstance: {fileID: 2417835053849154216}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ca008c5f485a394d90cc8a5ee07e76a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2387176539745063576 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 48717442885353520, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}

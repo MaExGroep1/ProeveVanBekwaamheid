@@ -32,11 +32,18 @@ namespace Upgrade
         protected virtual void ChangeCarVisuals()
         {
             var carPart = upgradeValues[_upgradeLevel].visuals;
-            if (!carPart) return;
+            if (!carPart)
+            { 
+                if (UpgradeManager.Instance.OnUpgradeCompleted.ContainsKey(upgradeType)) UpgradeManager.Instance.OnUpgradeCompleted[upgradeType]?.Invoke();
+                return;
+            }
            
             var upgradePart = Instantiate(carPart, startTransform.position, transform.rotation, transform);
             
-            LeanTween.moveLocal(upgradePart, Vector3.zero, appearTime).setEaseOutQuint();
+            LeanTween.moveLocal(upgradePart, Vector3.zero, appearTime).setEaseOutQuint().setOnComplete(() =>
+            {
+                if (UpgradeManager.Instance.OnUpgradeCompleted.ContainsKey(upgradeType)) UpgradeManager.Instance.OnUpgradeCompleted[upgradeType]?.Invoke();
+            });
         }
         
         /// <summary>

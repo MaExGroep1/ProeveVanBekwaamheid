@@ -1,28 +1,35 @@
 using System;
 using System.Collections;
+using Blocks;
+using Car;
 using Interfaces;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Upgrade;
 
 namespace Weapon
 {
     public class LaserWeapon : MonoBehaviour
     {
-        [SerializeField] private float damage;      //the damage the laser does when hitting an enemy per frame * deltatime
-        [SerializeField] private float fireTime;    //the time the laser will fire before turning off
-        [SerializeField] private float fireDelay;   //the time the laser is turned off before firing
-        [SerializeField] private GameObject laser;  //the ref to the laser visual object
+        [SerializeField] private float baseDamage;          //the base damage the laser does when hitting an enemy per frame * deltatime
+        [SerializeField] private float fireTime;            //the time the laser will fire before turning off
+        [SerializeField] private float fireDelay;           //the time the laser is turned off before firing
+        [SerializeField] private float baseRange;           //the base range that the laser visual has
+        [SerializeField] private LayerMask laserLayerMask;  //layer mask for what layers the laser can hit
+        [SerializeField] private GameObject laser;          //the ref to the laser visual object
+        [SerializeField] private Transform rayCastOrigin;   //the ref to the transform of where the raycast for finding targets originates from
         
-        private bool _canFire;                      //fires the laser on true and disables on false
+        private float _damage;                              //The damage that the projectile will do when it hits an enemy, updates on upgrades
+        private bool _canFire;                              //fires the laser on true and disables on false
 
-        private bool CanFire                        //getter/setter for _canFire, when changed will reset the FireTimer and when turned false will disable the laser visual
+        private bool CanFire                                //getter/setter for _canFire, when changed will reset the FireTimer and when turned false will disable the laser visual
         {
             get => _canFire;
             set
             {
                 _canFire = value;
+                if (value == false) ScaleLaser(Vector3.zero, true); 
                 StartCoroutine(FireTimer());
-                if (value == false) ScaleLaser(Vector3.zero); 
             }
         }
 
@@ -31,15 +38,26 @@ namespace Weapon
         /// </summary>
         private void Start()
         {
+            AssignEvents();
+            IncreaseDamage();
             StartCoroutine(FireTimer());
         }
-        
+
+
         /// <summary>
         /// Shoots the laser when CanFire is true
         /// </summary>
         private void Update()
         {
             if (CanFire) Shoot();
+        }
+        
+        /// <summary>
+        /// assigns events
+        /// </summary>
+        private void AssignEvents()
+        {
+            if (!UpgradeManager.Instance.OnUpgradeCompleted.TryAdd(BlockType.Weapon, IncreaseDamage)) UpgradeManager.Instance.OnUpgradeCompleted[BlockType.Weapon] += IncreaseDamage;
         }
 
         /// <summary>
@@ -50,28 +68,46 @@ namespace Weapon
             var laserBeam = laser;
             var rayDirection = laserBeam.transform.right;
             
-            if (!Physics.Raycast(laserBeam.transform.position, rayDirection, out var hitInfo, Mathf.Infinity))
+            if (!Physics.Raycast(rayCastOrigin.position, rayDirection, out var hitInfo, Mathf.Infinity,  laserLayerMask, QueryTriggerInteraction.Ignore))
             {
                 ScaleLaser(Vector3.zero);
                 return;
             }
             ScaleLaser(hitInfo.point);
             if (!hitInfo.collider.gameObject.TryGetComponent(out IDamageable target)) return;
-            target.TakeDamage(damage * Time.deltaTime);
+            target.TakeDamage(_damage * Time.deltaTime);
         }
 
         /// <summary>
-        /// Scales the visual laser to "hitPoint" location, will disable it when hitPoints is 0,0,0
+        /// Scales the visual laser to "hitPoint" location, will scale it to base range when hitPoints is 0,0,0
+        /// Will set the scale to zero if isEnabled is true
         /// </summary>
         /// <param name="hitPoint"></param>
-        private void ScaleLaser(Vector3 hitPoint)
+        private void ScaleLaser(Vector3 hitPoint, bool isDisabled = false)
         {
             var laserBeam = laser;
-            Vector3 scale = laserBeam.transform.localScale;
-            float distance = hitPoint != Vector3.zero ? Vector3.Distance(hitPoint, laserBeam.transform.position) : 0f;
+            var scale = laserBeam.transform.localScale;
+            
+            if (isDisabled)
+            {
+                scale.x = 0;
+                laserBeam.transform.localScale = scale;
+                return;
+            }
+            
+            var distance = hitPoint != Vector3.zero ? Vector3.Distance(hitPoint, laserBeam.transform.position) : baseRange;
 
             scale.x = distance; 
             laserBeam.transform.localScale = scale;
+        }
+        
+        /// <summary>
+        /// takes the bseDamage of the weapon and multiplies it by the WeaponAttackMultiplier
+        /// </summary>
+        private void IncreaseDamage()
+        {
+            _damage = CarData.Instance.WeaponAttackMultiplier * baseDamage;
+            Debug.Log(gameObject.name + _damage);
         }
 
         /// <summary>
