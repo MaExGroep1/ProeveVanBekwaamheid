@@ -71,7 +71,7 @@ namespace Weapon
         private void ScaleLaser(Vector3 hitPoint, bool isDisabled = false)
         {
             var laserBeam = laser;
-            Vector3 scale = laserBeam.transform.localScale;
+            var scale = laserBeam.transform.localScale;
             
             if (isDisabled)
             {
@@ -80,7 +80,7 @@ namespace Weapon
                 return;
             }
             
-            float distance = hitPoint != Vector3.zero ? Vector3.Distance(hitPoint, laserBeam.transform.position) : baseRange;
+            var distance = hitPoint != Vector3.zero ? Vector3.Distance(hitPoint, laserBeam.transform.position) : baseRange;
 
             scale.x = distance; 
             laserBeam.transform.localScale = scale;

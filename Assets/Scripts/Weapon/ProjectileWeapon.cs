@@ -67,7 +67,7 @@ namespace Weapon
         protected EnemyBehaviour GetClosestTarget()
         {
             EnemyBehaviour target = null;
-            float closestEnemyDistance = float.MaxValue;
+            var closestEnemyDistance = float.MaxValue;
             List<EnemyBehaviour> enemies = new List<EnemyBehaviour>(EnemyManager.Instance.Enemies); 
             
             foreach (var enemy in enemies)
