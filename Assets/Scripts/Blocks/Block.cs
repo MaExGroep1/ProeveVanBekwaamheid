@@ -17,7 +17,7 @@ namespace Blocks
         protected Vector2Int _cords;                      // the cords in the grid
         
         private BlockType _blockType;                   // the block type of the block
-        private Transform _destroyDestination;            // the position of the destroy location of the block
+        protected Transform _destroyDestination;            // the position of the destroy location of the block
         private bool _isMoving;                         // whether the block is moving
         private bool _canMoveWithMouse;                 // whether the block can stick to the mouse
         
@@ -165,7 +165,7 @@ namespace Blocks
         /// <param name="moveTime"> Time it takes to go to destruction destination</param>
         /// <param name="scale"> The max scale of the blocks while being destroyed</param>
         /// <returns></returns>
-        public IEnumerator DestroyBlock(float waitTime, float moveTime, float scale)
+        public virtual IEnumerator DestroyBlock(float waitTime, float moveTime, float scale)
         {
             var distance = Vector3.Distance(transform.position, _destroyDestination.position);
 
