@@ -981,7 +981,7 @@ MonoBehaviour:
   - newUpgradeValue: 50
     visuals: {fileID: 919132149155446097, guid: a0aa81ada9ef7ef4c81c2f13503f456a, type: 3}
   - newUpgradeValue: 55
-    visuals: {fileID: 919132149155446097, guid: b90da8007e29ce64d999c73b411dda86, type: 3}
+    visuals: {fileID: 1749606512423539146, guid: c45f9ad2962c3b941afaff780b4f78eb, type: 3}
   upgradeType: 4
   startTransform: {fileID: 3694384481663042480}
   appearTime: 0.4

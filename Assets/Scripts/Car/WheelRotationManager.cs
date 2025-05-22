@@ -17,22 +17,33 @@ public class WheelRotationManager : MonoBehaviour
     [SerializeField] private SpeedUpgradeBehaviour speedUpgrades;   // The speed upgrade, used to check when to disable rotation for the upgrades
     
     private Vector3 _lastPosition;                                  // The last position of the wheel
-
+    private List<Vector3> _wheelRotations = new List<Vector3>();
+    
     /// <summary>
     /// assigns events and Initializes
     /// </summary>
     private void Start()
     {
         AssignEvents();
+        GetBaseWheelRotations();
         InitializeWheel();
     }
-    
+
+
     /// <summary>
     /// Will rotate wheels if _isRotating is ture
     /// </summary>
     private void Update()
     {
         if (_isRotating) RotateWheels();
+    }
+    
+    private void GetBaseWheelRotations()
+    {
+        for (int i = 0; i < wheelTransforms.Length; i++)
+        {
+            _wheelRotations.Add(wheelTransforms[i].localRotation.eulerAngles);
+        }
     }
     
     /// <summary>
@@ -63,9 +74,9 @@ public class WheelRotationManager : MonoBehaviour
     {
         DisableWheelRotating();
         UnassignEvents();
-        foreach (var wheel in wheelTransforms)
+        for (int i = 0; i < wheelTransforms.Length; i++)
         {
-            wheel.eulerAngles = Vector3.zero;
+            wheelTransforms[i].localEulerAngles = _wheelRotations[i];
         } 
         enabled = false;
     }
