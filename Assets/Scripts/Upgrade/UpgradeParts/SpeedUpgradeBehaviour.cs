@@ -1,6 +1,7 @@
 using Car;
 using UnityEngine;
 using Upgrade.UpgradeParts.Wheel_data;
+using System;
 
 namespace Upgrade.UpgradeParts
 {
@@ -8,6 +9,11 @@ namespace Upgrade.UpgradeParts
     {
         [SerializeField] private float disappearSpeed;                                  //The speed at which the old tires should disappear.
         [SerializeField] private WheelUpgradeMovementData[] wheelMovementData;          //Struct which collects the wheel gameObjects and associated location and spawning location.
+        [SerializeField] private int hoverWheelsUpgrade;                                //Upgrade level when the hoverwheels will be added, used for disabling rotation
+
+        public Action OnUpgrade;
+        public Action OnUpgradeComplete;
+        public Action OnHoverWheels;
         
         /// <summary>
         /// Changes the stats used for gameplay upon upgrade.
@@ -23,7 +29,9 @@ namespace Upgrade.UpgradeParts
         protected override void ChangeCarVisuals()
         {
             var upgradeValue = upgradeValues[_upgradeLevel].visuals;
-            if (!upgradeValue) return;
+            if (!upgradeValue)  return; 
+            if (_upgradeLevel >= hoverWheelsUpgrade) OnHoverWheels?.Invoke();
+            OnUpgrade?.Invoke();
 
             for (int i = 0; i < wheelMovementData.Length; i++)
             {
@@ -48,7 +56,7 @@ namespace Upgrade.UpgradeParts
         private void ChangeWheels(GameObject newWheel)
         {
             newWheel.transform.localScale = Vector3.zero;
-            LeanTween.moveLocal(newWheel, Vector3.zero, appearTime).setEaseOutQuint().setOnComplete(() => UpgradeManager.Instance.OnUpgradeCompleted[upgradeType]?.Invoke());
+            LeanTween.moveLocal(newWheel, Vector3.zero, appearTime).setEaseOutQuint().setOnComplete(() => OnUpgradeComplete?.Invoke());
             LeanTween.scale(newWheel, Vector3.one, disappearSpeed).setEaseOutBack();
         }
     }
