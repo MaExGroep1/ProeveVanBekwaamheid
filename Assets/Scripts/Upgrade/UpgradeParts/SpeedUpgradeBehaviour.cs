@@ -11,9 +11,9 @@ namespace Upgrade.UpgradeParts
         [SerializeField] private WheelUpgradeMovementData[] wheelMovementData;          //Struct which collects the wheel gameObjects and associated location and spawning location.
         [SerializeField] private int hoverWheelsUpgrade;                                //Upgrade level when the hoverwheels will be added, used for disabling rotation
 
-        public Action OnUpgrade;
-        public Action OnUpgradeComplete;
-        public Action OnHoverWheels;
+        public Action OnUpgrade;                                                        //Action called whenever the wheels visuals upgrade
+        public Action OnUpgradeComplete;                                                //Action called whenever the wheels visual has upgraded
+        public Action OnHoverWheels;                                                    //Action called whenever the hoverwheels are aquired
         
         /// <summary>
         /// Changes the stats used for gameplay upon upgrade.

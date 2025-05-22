@@ -55,6 +55,10 @@ public class WheelRotationManager : MonoBehaviour
         speedUpgrades.OnUpgrade -= DisableWheelRotating;
         speedUpgrades.OnHoverWheels -= RotationPermaStop;
     }
+    
+    /// <summary>
+    /// Permanently stops the wheel rotation and sets the wheels to rotation 0, for when wheels are aquired that do not rotate
+    /// </summary>
     private void RotationPermaStop()
     {
         DisableWheelRotating();
@@ -67,10 +71,9 @@ public class WheelRotationManager : MonoBehaviour
     }
 
 
-    private void EnableWheelRotating()
-    { 
-        _isRotating = true;   //sets isRotating to true (used for events)
-    }
+    
+    private void EnableWheelRotating() => _isRotating = true;   //sets isRotating to true (used for events)
+    
     private void DisableWheelRotating() => _isRotating = false; //sets isRotating to true (used for events)
     
     
