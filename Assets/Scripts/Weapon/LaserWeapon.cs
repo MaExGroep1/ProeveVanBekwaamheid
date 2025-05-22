@@ -52,6 +52,9 @@ namespace Weapon
             if (CanFire) Shoot();
         }
         
+        /// <summary>
+        /// assigns events
+        /// </summary>
         private void AssignEvents()
         {
             if (!UpgradeManager.Instance.OnUpgradeCompleted.TryAdd(BlockType.Weapon, IncreaseDamage)) UpgradeManager.Instance.OnUpgradeCompleted[BlockType.Weapon] += IncreaseDamage;
