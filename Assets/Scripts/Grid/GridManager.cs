@@ -273,9 +273,10 @@ namespace Grid
             _grid[originalBombCords.x,originalBombCords.y].SetBlock(otherBlock);
             
             thisBomb.GoToOrigin(null);
-            otherBlock.GoToOrigin(() => HandleBombBlockExplosion(bombCords));
             
-            thisBomb.DestroyBlock(blockWaitTime, blockTravelSpeed, blockDestroyScale);
+            otherBlock.GoToOrigin(() => HandleBombBlockExplosion(bombCords));
+
+            StartCoroutine(thisBomb.DestroyBlock(blockWaitTime, blockWaitTime, blockDestroyScale));
         }
 
         private Vector2Int DirectionToCords(Direction direction) =>
