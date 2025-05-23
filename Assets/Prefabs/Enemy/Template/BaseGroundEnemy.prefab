@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1456423988508469180}
   - component: {fileID: 946525902762677887}
   - component: {fileID: 9049515706047966172}
+  - component: {fileID: -3861440120547788916}
   m_Layer: 0
   m_Name: BaseGroundEnemy
   m_TagString: Enemy
@@ -123,3 +124,21 @@ MonoBehaviour:
   followsOnX: 0
   followsOnY: 0
   nearPlayerDistance: 0
+  soundService: {fileID: -3861440120547788916}
+--- !u!114 &-3861440120547788916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 326605417475434034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a34862c0e928f9448955227d5c4b8aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClips:
+  - {fileID: 8300000, guid: 85fcfabf674882e44aa4f0887493790d, type: 3}
+  volume: 0.02
+  loop: 0
+  soundObjectSpawn: {fileID: 7538976819723803712}

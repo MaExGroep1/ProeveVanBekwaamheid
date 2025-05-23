@@ -110,8 +110,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseDamage: 10
-  projectileTime: 0.8
-  range: 25
+  projectileTime: 0.55
+  range: 35
   fireDelay: 2
   spawnSpeed: 1
   projectileSpawnEaseType: 0

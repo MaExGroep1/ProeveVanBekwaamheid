@@ -16,6 +16,8 @@ namespace UI
         [SerializeField] private float imageFillDelay;      //the time between each time 
         
         private float _progressAmountPerPointPercentage;    //The percentage that the completedImage should fill per point
+        
+        private Action _onComplete;                         //When the bar reaches 100%
     
         /// <summary>
         /// Assigns events and calculates the _progressAmountPerPointPercentage
@@ -46,6 +48,7 @@ namespace UI
         {
             _progressAmountPerPointPercentage = CalculateProgressAmountPerPoint(UpgradeManager.Instance.RequiredUpgradePoints[upgradeType]);
             completedImage.fillAmount = 0;
+            _onComplete?.Invoke();
         }
 
         /// <summary>
@@ -87,5 +90,7 @@ namespace UI
                 yield return new WaitForSeconds(imageFillDelay);
             }
         }
+        
+        public void AddListener(Action onComplete) => _onComplete += onComplete;
     }
 }
