@@ -93,3 +93,8 @@
 
 [Camera](https://github.com/MaExGroep1/ProeveVanBekwaamheid/tree/main/Assets/Scripts/Camera)
 - [Camera Manager](https://github.com/MaExGroep1/ProeveVanBekwaamheid/blob/main/Assets/Scripts/Camera/CameraManager.cs)
+
+## Reflectie
+[Brayden](https://docs.google.com/document/d/1koDQUKuXGNrNStpDqs6viS_Obh9CZnKnw4nOjEQGa1E/edit?tab=t.0#heading=h.jdnvtua4y69b)<br>
+[Sten](https://docs.google.com/document/d/1ndQflF04t8aIIsZCyjs_7hSqhtuIwoPbfhC4A8WyEAs/edit?tab=t.0#heading=h.jdnvtua4y69b)<br>
+[Tom](https://docs.google.com/document/d/1Hj4KduOvEARLYof7y-cTsGoyAPRqj3Ibo5qjFIfz1m8/edit?usp=drive_web&ouid=105528622531826973810)
