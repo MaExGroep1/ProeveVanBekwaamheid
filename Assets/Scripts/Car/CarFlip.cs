@@ -10,7 +10,7 @@ namespace Car
         private void Update() => CalculateCenterOfMass();
 
         /// <summary>
-        /// calculates the center of mass of the car to flip it around
+        /// Calculates the center of mass of the car to flip it around
         /// </summary>
         private void CalculateCenterOfMass()
         {

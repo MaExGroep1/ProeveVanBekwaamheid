@@ -23,12 +23,6 @@ namespace CarGame
         public void ListenToOnEnterNextLevel(Action onEnterNextLevel) => _onEnterNextLevel += onEnterNextLevel;
         
         /// <summary>
-        /// Removes function to the onMatch event
-        /// </summary>
-        /// <param name="onEnterNextLevel"> the function to remove </param>
-        public void StopListeningToOnEnterNextLevel(Action onEnterNextLevel) => _onEnterNextLevel -= onEnterNextLevel;
-
-        /// <summary>
         /// Sets the next level to the current level +1 or the first level
         /// </summary>
         private void OnEnterNextLevel()

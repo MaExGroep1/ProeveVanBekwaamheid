@@ -5,7 +5,7 @@ namespace Tiles
 {
     public class TileLoader : MonoBehaviour
     {
-        public Action OnLoad; // triggers when near the end of the tile
+        public Action _onLoad; // triggers when near the end of the tile
         
         /// <summary>
         /// Checks if the player collides with the loader
@@ -14,7 +14,7 @@ namespace Tiles
         private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag("Player")) return;
-            OnLoad?.Invoke();
+            _onLoad?.Invoke();
         }
     }
 }

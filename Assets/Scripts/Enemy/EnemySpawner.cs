@@ -5,10 +5,8 @@ namespace Enemy
 {
     public class EnemySpawner : MonoBehaviour
     {
-        [SerializeField] private bool inAir;    // whether the spawner is in the air
-        private EnemyBehaviour _enemy;          // this spawners enemy
-        
-        public bool InAir => inAir;
+        private EnemyBehaviour _enemy;                                      // this spawners enemy
+        [field: SerializeField] public bool InAir { get; private set; }     // whether the spawner is in the air
 
         /// <summary>
         /// Spawns an enemy
@@ -30,7 +28,7 @@ namespace Enemy
         /// </summary>
         private void OnDrawGizmos()
         {
-            Gizmos.color = inAir ? Color.cyan: Color.red;
+            Gizmos.color = InAir ? Color.cyan: Color.red;
             Gizmos.DrawSphere(transform.position, 1);
         }
         

@@ -15,8 +15,8 @@ namespace Car
         [SerializeField, Range(0, 1)] private float targetThrottle;     // the amount of throttle that needs to be multiplied by the motorForce
         [SerializeField] private AnimationCurve torqueCurve;            // the acceleration of the car
         [Header("Fuel")]
-        [SerializeField] private float maxFuel = 200f;                  // the Maximum amount of fuel the car has
-        [SerializeField] private float fuelAddMultiplier;               // the Maximum amount of fuel the car has
+        [SerializeField] private float maxFuel = 200f;                  // the maximum amount of fuel the car has
+        [SerializeField] private float fuelAddMultiplier;               // the multiplier when adding fuel
         [Header("Tilt")]
         [SerializeField] private Rigidbody mainBody;                    // the main body of the car
         [SerializeField] private float tiltMultiplier;                  // the multiplier of the extra throttle while the car is tilted

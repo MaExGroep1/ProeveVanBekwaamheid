@@ -8,17 +8,24 @@ namespace UI
 {
     public class UpgradeComplete : MonoBehaviour
     {
-        [SerializeField] private Transform targetLocation;
-        [SerializeField] private RectTransform text;
-        [SerializeField] private CanvasGroup textGroup;
-        [SerializeField] private float duration;
-        [SerializeField] private float fadeStart;
-        [SerializeField] private UpgradeUiBehaviour upgradeUiBehaviour;
+        [SerializeField] private Transform targetLocation;              // the target location when going up
+        [SerializeField] private RectTransform text;                    // the element to move up
+        [SerializeField] private CanvasGroup textGroup;                 // the group to fade off
+        [SerializeField] private float duration;                        // the lenght the animation takes
+        [SerializeField] private float fadeStart;                       // the lenght before the alpha starts to fade
+        [SerializeField] private UpgradeUiBehaviour upgradeUiBehaviour; // the upgrade to listen to
 
+        /// <summary>
+        /// Adds listeners to the upgrade element
+        /// </summary>
         private void Awake() => upgradeUiBehaviour.AddListener(StartPopUp);
 
         private void StartPopUp() => StartCoroutine(PopUp());
 
+        /// <summary>
+        /// Moves the Text up to the target then resets it
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator PopUp()
         {
             LeanTween.moveY(text.gameObject, targetLocation.position.y, duration);
