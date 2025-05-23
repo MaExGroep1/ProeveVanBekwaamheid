@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 70175858119365887}
   - component: {fileID: 8910477642296879986}
   - component: {fileID: 3276202510003483861}
+  - component: {fileID: 5959938713889621130}
   m_Layer: 6
   m_Name: Car
   m_TagString: Player
@@ -108,6 +109,8 @@ MonoBehaviour:
   minimumKnockBack: 500
   airForceMultiplier: 0.4
   minimumEnemyDamage: 10
+  playerKnockBackMultiplier: 0
+  audioSource: {fileID: 5959938713889621130}
 --- !u!114 &8910477642296879986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +178,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 3766563224734153053}
   multiplier: 0.1
+--- !u!114 &5959938713889621130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660503264983705721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a34862c0e928f9448955227d5c4b8aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClips:
+  - {fileID: 8300000, guid: 8b30fe56fa0386a48a55a7e64b55905d, type: 3}
+  - {fileID: 8300000, guid: f42ce721c1af6d04fa7187a910cb37dc, type: 3}
+  volume: 0.02
+  loop: 0
+  soundObjectSpawn: {fileID: 8008199929602477756}
 --- !u!1 &3564329412405619317
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1165400799625273842}
   - component: {fileID: 1231720228549434103}
   - component: {fileID: 8010230296803205989}
+  - component: {fileID: 3957477774475488745}
   m_Layer: 7
   m_Name: AmmunitionNerf
   m_TagString: Untagged
@@ -51,6 +52,7 @@ MonoBehaviour:
   rotationTime: 0.5
   rotationEasingType: 6
   projectileCollider: {fileID: 8010230296803205989}
+  audioSource: {fileID: 3957477774475488745}
 --- !u!136 &8010230296803205989
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -74,6 +76,23 @@ CapsuleCollider:
   m_Height: 1.58
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0.68}
+--- !u!114 &3957477774475488745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3629094179123161706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a34862c0e928f9448955227d5c4b8aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClips:
+  - {fileID: 8300000, guid: 71761a5aed844494a901248e60bd130c, type: 3}
+  volume: 0.1
+  loop: 0
+  soundObjectSpawn: {fileID: 1165400799625273842}
 --- !u!1001 &1216749865224785517
 PrefabInstance:
   m_ObjectHideFlags: 0

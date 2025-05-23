@@ -3,6 +3,7 @@ using System.Collections;
 using Blocks;
 using Car;
 using Interfaces;
+using Sound;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Upgrade;
@@ -18,6 +19,7 @@ namespace Weapon
         [SerializeField] private LayerMask laserLayerMask;  //layer mask for what layers the laser can hit
         [SerializeField] private GameObject laser;          //the ref to the laser visual object
         [SerializeField] private Transform rayCastOrigin;   //the ref to the transform of where the raycast for finding targets originates from
+        [SerializeField] private SoundService audioSource;  //Sound service for playing sound clips
         
         private float _damage;                              //The damage that the projectile will do when it hits an enemy, updates on upgrades
         private bool _canFire;                              //fires the laser on true and disables on false
@@ -67,6 +69,8 @@ namespace Weapon
         {
             var laserBeam = laser;
             var rayDirection = laserBeam.transform.right;
+            
+            audioSource.PlaySound();
             
             if (!Physics.Raycast(rayCastOrigin.position, rayDirection, out var hitInfo, Mathf.Infinity,  laserLayerMask, QueryTriggerInteraction.Ignore))
             {

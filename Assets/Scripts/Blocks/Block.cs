@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Grid;
+using Sound;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,14 +11,16 @@ namespace Blocks
 {
     public class Block : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        [SerializeField] private Image image;           // the image of the block
-        [SerializeField] private RectTransform rect;    // the rect of the grid element
+        [SerializeField] private Image image;               // the image of the block
+        [SerializeField] private RectTransform rect;        // the rect of the grid element
+        [SerializeField] private SoundService audioSource;  //Sound service for playing sound clips
+
         
         protected Vector3 _gridPosition;                  // the default position of the block
         protected Vector2Int _cords;                      // the cords in the grid
         
         private BlockType _blockType;                   // the block type of the block
-        private Transform _destroyDestination;            // the position of the destroy location of the block
+        private Transform _destroyDestination;          // the position of the destroy location of the block
         private bool _isMoving;                         // whether the block is moving
         private bool _canMoveWithMouse;                 // whether the block can stick to the mouse
         
@@ -168,6 +171,8 @@ namespace Blocks
         public virtual IEnumerator DestroyBlock(float waitTime, float moveTime, float scale)
         {
             var distance = Vector3.Distance(transform.position, _destroyDestination.position);
+            
+            audioSource.PlaySound();
 
             transform.SetParent(transform.parent.parent.parent);
             Destroy(this);
