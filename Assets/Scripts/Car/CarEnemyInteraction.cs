@@ -22,15 +22,6 @@ namespace Car
 
 
         private void Awake() => SetVariables();
-
-        /// <summary>
-        /// Sets the movement scripts and the rigidbody
-        /// </summary>
-        private void SetVariables()
-        {
-            _carMovement = GetComponent<CarMovement>();
-            _rigidBody = GetComponent<Rigidbody>();
-        }
         
         /// <summary>
         /// Adds force to the player and enemy based on the impact
@@ -65,6 +56,15 @@ namespace Car
             _rigidBody.AddForce(new Vector3(-totalKnockBack* playerKnockBackMultiplier *_rigidBody.mass,0));
             
             enemyRigidbody.AddForce(new Vector3(totalKnockBack,totalKnockBack * airForceMultiplier));
+        }
+
+        /// <summary>
+        /// Sets the movement scripts and the rigidbody
+        /// </summary>
+        private void SetVariables()
+        {
+            _carMovement = GetComponent<CarMovement>();
+            _rigidBody = GetComponent<Rigidbody>();
         }
     }
 }

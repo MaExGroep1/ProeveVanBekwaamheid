@@ -9,15 +9,14 @@ using Upgrade.UpgradeParts;
 
 public class WheelRotationManager : MonoBehaviour
 {
-    private bool _isRotating = true;                                // Bool to enable and disable the wheel rotation
-    
     [SerializeField] private WheelCollider wheelCollider;           // Reference to the WheelCollider
     [SerializeField] private Transform[] wheelTransforms;           // References to the wheel transforms
     [SerializeField] private int rotationStopUpgradeLevel;          // The upgrade level where rotation will be disabled
     [SerializeField] private SpeedUpgradeBehaviour speedUpgrades;   // The speed upgrade, used to check when to disable rotation for the upgrades
     
     private Vector3 _lastPosition;                                  // The last position of the wheel
-    private List<Vector3> _wheelRotations = new List<Vector3>();
+    private bool _isRotating = true;                                // Bool to enable and disable the wheel rotation
+    private List<Vector3> _wheelRotations = new List<Vector3>();    // Stores the base rotations of the wheels to be able to reset it
     
     /// <summary>
     /// assigns events and Initializes

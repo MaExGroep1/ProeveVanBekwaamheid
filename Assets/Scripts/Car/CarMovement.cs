@@ -36,6 +36,18 @@ namespace Car
     
         
         private void FixedUpdate() => MoveCar();
+        
+        /// <summary>
+        /// Drains the fuel by an amount
+        /// </summary>
+        /// <param name="drain"> The amount to drain </param>
+        public void DrainFuel(float drain)
+        {
+            _fuel -= drain;
+            if (_fuel > 0 || _hasHadZeroFuel) return;
+            _hasHadZeroFuel = true;
+            StartCoroutine(WaitToCreatePopUp());
+        }
 
         /// <summary>
         /// Adds listener to on match
@@ -104,18 +116,6 @@ namespace Car
         {
             _hasHadZeroFuel = false;
             _fuel = maxFuel;
-        }
-
-        /// <summary>
-        /// Drains the fuel by an amount
-        /// </summary>
-        /// <param name="drain"> The amount to drain </param>
-        public void DrainFuel(float drain)
-        {
-            _fuel -= drain;
-            if (_fuel > 0 || _hasHadZeroFuel) return;
-            _hasHadZeroFuel = true;
-            StartCoroutine(WaitToCreatePopUp());
         }
 
         /// <summary>
