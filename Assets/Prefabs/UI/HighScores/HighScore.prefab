@@ -271,7 +271,7 @@ MonoBehaviour:
   - {fileID: 4864511653202858011}
   - {fileID: 1180891431869102764}
   - {fileID: 3586026388467107609}
-  noScoreText: NaN
+  noScoreText: 
 --- !u!1 &5448756973591694398
 GameObject:
   m_ObjectHideFlags: 0
@@ -1307,6 +1307,14 @@ PrefabInstance:
     - target: {fileID: 2995435202682995172, guid: 917358a1caf6e5b459a23c9f92254495, type: 3}
       propertyPath: m_Name
       value: ThirdHighest
+      objectReference: {fileID: 0}
+    - target: {fileID: 5059797325424378117, guid: 917358a1caf6e5b459a23c9f92254495, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5059797325424378117, guid: 917358a1caf6e5b459a23c9f92254495, type: 3}
+      propertyPath: m_fontSize
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 5059797325424378117, guid: 917358a1caf6e5b459a23c9f92254495, type: 3}
       propertyPath: m_fontAsset

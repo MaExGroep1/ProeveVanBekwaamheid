@@ -1,5 +1,6 @@
 using System;
 using Car;
+using Grid;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,9 +15,23 @@ namespace UI
 
         private float _rectSize;                            // the height of the fuel display
 
-        private void Awake() => _rectSize = fuelDisplay.rect.height;
-
+        /// <summary>
+        /// Sets the rect height and starts listening to the match 3
+        /// </summary>
+        private void Awake()
+        {
+            _rectSize = fuelDisplay.rect.height;
+            GridManager.Instance.ListenToOnFirstMatch(StartUpdate);
+            enabled = false;
+        }
+        
         private void Update() => UpdateDisplay();
+        
+        /// <summary>
+        /// Sets the script enabled
+        /// </summary>
+        private void StartUpdate() => enabled = true;
+        
 
         /// <summary>
         /// Sets the fill of the display to the cars fill

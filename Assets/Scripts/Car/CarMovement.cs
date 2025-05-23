@@ -14,7 +14,6 @@ namespace Car
         [SerializeField] private float motorForce = 500f;               // the Motor Force of the vehicle
         [SerializeField, Range(0, 1)] private float targetThrottle;     // the amount of throttle that needs to be multiplied by the motorForce
         [SerializeField] private AnimationCurve torqueCurve;            // the acceleration of the car
-        [SerializeField] private float maxSpeed = 60f;                  // the cars maximum speed
         [Header("Fuel")]
         [SerializeField] private float maxFuel = 200f;                  // the Maximum amount of fuel the car has
         [SerializeField] private float fuelAddMultiplier;               // the Maximum amount of fuel the car has
@@ -30,6 +29,8 @@ namespace Car
         private bool _hasHadZeroFuel = true;                            // whether the car has been at 0 fuel
 
         public float Fill => _fuel / maxFuel;                           // the percent the fuel tank is full
+        private static float MaxSpeed => CarData.Instance.Speed;        // the cars maximum speed
+
         
         private void Awake() => AddListeners();
     
@@ -65,7 +66,7 @@ namespace Car
         /// <param name="throttle"> The Amount to multiply the motorForce by </param>
         private void ApplyTorque(float throttle)
         {
-            var speedFactor = mainBody.velocity.magnitude / maxSpeed;
+            var speedFactor = mainBody.velocity.magnitude / MaxSpeed;
             var torqueMultiplier = torqueCurve.Evaluate(speedFactor);
             var rotation = mainBody.transform.rotation.eulerAngles.x switch
             {
