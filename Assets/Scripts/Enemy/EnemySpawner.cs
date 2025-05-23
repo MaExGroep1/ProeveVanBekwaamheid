@@ -5,9 +5,8 @@ namespace Enemy
 {
     public class EnemySpawner : MonoBehaviour
     {
-        [field: SerializeField] public bool InAir { get; private set; }     // whether the spawner is in the air
         private EnemyBehaviour _enemy;                                      // this spawners enemy
-        
+        [field: SerializeField] public bool InAir { get; private set; }     // whether the spawner is in the air
 
         /// <summary>
         /// Spawns an enemy
