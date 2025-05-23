@@ -19,7 +19,7 @@
 - [CarGameManager](https://github.com/MaExGroep1/ProeveVanBekwaamheid/blob/main/Assets/Scripts/CarGame/CarGameManager.cs)
 - [LevelData](https://github.com/MaExGroep1/ProeveVanBekwaamheid/blob/main/Assets/Scripts/CarGame/LevelData.cs)
 - [CarGame in het technisch ontwerp](https://docs.google.com/document/d/1Ggl7A66DDrH71Wtq5iBK97H9jE5bK9cU5yE0PzBsqrE/edit?tab=t.0#heading=h.29fu6l3nw580)
-- 
+
 [Editor](https://github.com/MaExGroep1/ProeveVanBekwaamheid/tree/main/Assets/Scripts/Editor)
 - [GridManagerEditor](https://github.com/MaExGroep1/ProeveVanBekwaamheid/blob/main/Assets/Scripts/Editor/GridManagerEditor.cs)
 
