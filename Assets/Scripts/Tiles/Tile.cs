@@ -10,8 +10,8 @@ namespace Tiles
         
         public Action OnTileLoaded                      // the event to invoke when loading a new tile
         {
-            get => loadNext.OnLoad;
-            set => loadNext.OnLoad = value;
+            get => loadNext._onLoad;
+            set => loadNext._onLoad = value;
         }
     
         public Transform TileEnd => tileEnd;

@@ -14,7 +14,7 @@ namespace Car
         [SerializeField] private float airForceMultiplier;              // the minimum knock back of the impact
         [SerializeField] private float minimumEnemyDamage;              // the minimum knock back of the impact
         [SerializeField] private float playerKnockBackMultiplier;       // the minimum knock back of the impact
-        [SerializeField] private SoundService audioSource;              //Sound service for playing sound clips
+        [SerializeField] private SoundService audioSource;              // sound service for playing sound clips
 
         
         private Rigidbody _rigidBody;       // the rigid body of the car

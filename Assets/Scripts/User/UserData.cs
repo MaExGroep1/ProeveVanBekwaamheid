@@ -7,12 +7,12 @@ namespace User
 {
     public class UserData : Singleton<UserData>
     {
-        [SerializeField] private CarMovement car;       // the car to track
-        [SerializeField] private float unitMultiplier;  // how much distance to traverse for every unit
+        [SerializeField] private CarMovement car;           // the car to track
+        [SerializeField] private float unitMultiplier;      // how much distance to traverse for every unit
         
-        private float _startingPosition;                // the position the car started at
+        private float _startingPosition;                    // the position the car started at
 
-        public float DistanceScore { get; private set; }// the current score gained from distance
+        public float DistanceScore { get; private set; }    // the current score gained from distance
 
         /// <summary>
         /// Sets the starting position

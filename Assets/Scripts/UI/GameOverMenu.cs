@@ -64,7 +64,7 @@ namespace UI
         /// Adds points slowly to the main score
         /// </summary>
         /// <param name="score"> Score without enemy points </param>
-        /// <param name="enemy"> Enemy points</param>
+        /// <param name="enemy"> Enemy points </param>
         /// <returns></returns>
         private IEnumerator AddEnemyPoints(float score, float enemy)
         {

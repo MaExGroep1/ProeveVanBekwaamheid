@@ -7,6 +7,5 @@ namespace Blocks
     {
         public BlockType blockTypes;        // the block type of this data
         public Sprite blockSprite;          // the icon of this block type
-        public Sprite[] levelSprites;       // the icons of this block type per level
     }
 }

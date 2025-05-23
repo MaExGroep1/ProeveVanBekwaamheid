@@ -11,13 +11,13 @@ namespace UI
 {
     public class UpgradeUiBehaviour : MonoBehaviour
     {
-        [SerializeField] private BlockType upgradeType;     //The type of upgrade the UI element represents
-        [SerializeField] private Image completedImage;      //The reference to the coloured image that represents the amount of upgrade points you have gained
-        [SerializeField] private float imageFillDelay;      //the time between each time 
+        [SerializeField] private BlockType upgradeType;     // the type of upgrade the UI element represents
+        [SerializeField] private Image completedImage;      // the reference to the coloured image that represents the amount of upgrade points you have gained
+        [SerializeField] private float imageFillDelay;      // the time between each time 
         
-        private float _progressAmountPerPointPercentage;    //The percentage that the completedImage should fill per point
+        private float _progressAmountPerPointPercentage;    // the percentage that the completedImage should fill per point
         
-        private Action _onComplete;                         //When the bar reaches 100%
+        private Action _onComplete;                         // when the bar reaches 100%
     
         /// <summary>
         /// Assigns events and calculates the _progressAmountPerPointPercentage
@@ -58,7 +58,7 @@ namespace UI
         /// </summary>
         /// <param name="upgradePointsRequired"></param>
         /// <returns></returns>
-        private float CalculateProgressAmountPerPoint(int upgradePointsRequired)
+        private static float CalculateProgressAmountPerPoint(int upgradePointsRequired)
         {
             if (upgradePointsRequired == 0) return 0;
             var increasePerPoint = 100f / upgradePointsRequired;
@@ -75,9 +75,9 @@ namespace UI
         }
 
         /// <summary>
-        /// Fills the upgradebar little by little by the amount of points gaines
+        /// Fills the upgrade bar little by little to the amount of points gained
         /// </summary>
-        /// <param name="points"></param>
+        /// <param name="points"> Amount of points to increase by </param>
         /// <returns></returns>
         private IEnumerator IncreaseFillAmount(int points)
         {
@@ -91,6 +91,10 @@ namespace UI
             }
         }
         
+        /// <summary>
+        /// Adds listeners to onComplete
+        /// </summary>
+        /// <param name="onComplete"> The added event </param>
         public void AddListener(Action onComplete) => _onComplete += onComplete;
     }
 }
