@@ -71,7 +71,48 @@
 
 
 ### Sten Kristel:
-[]()
+[Car](https://github.com/MaExGroep1/ProeveVanBekwaamheid/tree/main/Assets/Scripts/Car)
+- [CarData](https://github.com/MaExGroep1/ProeveVanBekwaamheid/blob/main/Assets/Scripts/Car/CarData.cs)
+- [WheelRotationManager (deels)](https://github.com/MaExGroep1/ProeveVanBekwaamheid/blob/main/Assets/Scripts/Car/WheelRotationManager.cs)
+- [CarData in het technisch ontwerp](https://docs.google.com/document/d/1Ggl7A66DDrH71Wtq5iBK97H9jE5bK9cU5yE0PzBsqrE/edit?tab=t.0#heading=h.zi540dfqzs8e)
+- [Mijn deel aan WheelRotationManager in het technisch ontwerp](https://docs.google.com/document/d/1Ggl7A66DDrH71Wtq5iBK97H9jE5bK9cU5yE0PzBsqrE/edit?tab=t.0#heading=h.blqrsay9x16g)
+
+[Interfaces](https://github.com/MaExGroep1/ProeveVanBekwaamheid/tree/main/Assets/Scripts/Interfaces)
+- [Idamagable](https://github.com/MaExGroep1/ProeveVanBekwaamheid/blob/main/Assets/Scripts/Interfaces/IDamageable.cs)
+- [IDamagable in het technisch ontwerp](https://docs.google.com/document/d/1Ggl7A66DDrH71Wtq5iBK97H9jE5bK9cU5yE0PzBsqrE/edit?tab=t.0#heading=h.pku1geh9swiz)
+
+[Sound](https://github.com/MaExGroep1/ProeveVanBekwaamheid/tree/main/Assets/Scripts/Sound)
+- [MusicPlayer](https://github.com/MaExGroep1/ProeveVanBekwaamheid/blob/main/Assets/Scripts/Sound/MusicPlayer.cs)
+- [Music player in het technisch ontwerp](https://docs.google.com/document/d/1Ggl7A66DDrH71Wtq5iBK97H9jE5bK9cU5yE0PzBsqrE/edit?tab=t.0#heading=h.sp2ydzxi8fj5)
+
+[UI](https://github.com/MaExGroep1/ProeveVanBekwaamheid/tree/main/Assets/Scripts/UI)
+- [UpgradeUIBehaviour](https://github.com/MaExGroep1/ProeveVanBekwaamheid/blob/main/Assets/Scripts/UI/UpgradeUiBehaviour.cs)
+- [UpgradeUIBehaviour in het technisch ontwerp](https://docs.google.com/document/d/1Ggl7A66DDrH71Wtq5iBK97H9jE5bK9cU5yE0PzBsqrE/edit?tab=t.0#heading=h.d7wm58d5szbu)
+
+[Upgrade](https://github.com/MaExGroep1/ProeveVanBekwaamheid/tree/main/Assets/Scripts/Upgrade)
+- [BaseUpgradePart](https://github.com/MaExGroep1/ProeveVanBekwaamheid/blob/main/Assets/Scripts/Upgrade/BaseUpgradePart.cs)
+- [UpgradeManager](https://github.com/MaExGroep1/ProeveVanBekwaamheid/blob/main/Assets/Scripts/Upgrade/UpgradeManager.cs)
+- [Upgradevalues](https://github.com/MaExGroep1/ProeveVanBekwaamheid/blob/main/Assets/Scripts/Upgrade/UpgradeValues.cs)
+- [Upgrade systeem in het technisch ontwerp](https://docs.google.com/document/d/1Ggl7A66DDrH71Wtq5iBK97H9jE5bK9cU5yE0PzBsqrE/edit?tab=t.0#heading=h.81fgki8zd732)
+
+  
+  - [UpgradeParts](https://github.com/MaExGroep1/ProeveVanBekwaamheid/tree/main/Assets/Scripts/Upgrade/UpgradeParts)
+    - [AttackUpgradeBehaviour](https://github.com/MaExGroep1/ProeveVanBekwaamheid/blob/main/Assets/Scripts/Upgrade/UpgradeParts/AttackUpgradeBehaviour.cs)
+    - [DefenseUpgradeBehaviour](https://github.com/MaExGroep1/ProeveVanBekwaamheid/blob/main/Assets/Scripts/Upgrade/UpgradeParts/DefenseUpgradeBehaviour.cs)
+    - [FuelUpgradeBehaviour](https://github.com/MaExGroep1/ProeveVanBekwaamheid/blob/main/Assets/Scripts/Upgrade/UpgradeParts/FuelUpgradeBehaviour.cs)
+    - [SpeedUpgradeBehaviour](https://github.com/MaExGroep1/ProeveVanBekwaamheid/blob/main/Assets/Scripts/Upgrade/UpgradeParts/SpeedUpgradeBehaviour.cs)
+    - [WeaponUpgradeBehaviour](https://github.com/MaExGroep1/ProeveVanBekwaamheid/blob/main/Assets/Scripts/Upgrade/UpgradeParts/WeaponUpgradeBehaviour.cs)
+      - [Wheeldata](https://github.com/MaExGroep1/ProeveVanBekwaamheid/tree/main/Assets/Scripts/Upgrade/UpgradeParts/Wheel%20data)
+        - [WheelUpgradeMovementData](https://github.com/MaExGroep1/ProeveVanBekwaamheid/blob/main/Assets/Scripts/Upgrade/UpgradeParts/Wheel%20data/WheelUpgradeMovementData.cs)
+    - [UpgradeParts in het technisch ontwerp](https://docs.google.com/document/d/1Ggl7A66DDrH71Wtq5iBK97H9jE5bK9cU5yE0PzBsqrE/edit?tab=t.0#heading=h.lni2msfvlpxb)
+       
+[Weapon](https://github.com/MaExGroep1/ProeveVanBekwaamheid/tree/main/Assets/Scripts/Weapon)
+- [LaserWeapon](https://github.com/MaExGroep1/ProeveVanBekwaamheid/blob/main/Assets/Scripts/Weapon/LaserWeapon.cs)
+- [ProjectileWeapon](https://github.com/MaExGroep1/ProeveVanBekwaamheid/blob/main/Assets/Scripts/Weapon/ProjectileWeapon.cs)
+- [SlingShotWeapon](https://github.com/MaExGroep1/ProeveVanBekwaamheid/blob/main/Assets/Scripts/Weapon/SlingShotWeapon.cs)
+- [WeaponProjectile](https://github.com/MaExGroep1/ProeveVanBekwaamheid/blob/main/Assets/Scripts/Weapon/WeaponProjectile.cs)
+- [Laser weapon in het technisch ontwerp](https://docs.google.com/document/d/1Ggl7A66DDrH71Wtq5iBK97H9jE5bK9cU5yE0PzBsqrE/edit?tab=t.0#heading=h.905uxuyn5waf)
+- [Projectile weapons in het technisch ontwerp](https://docs.google.com/document/d/1Ggl7A66DDrH71Wtq5iBK97H9jE5bK9cU5yE0PzBsqrE/edit?tab=t.0#heading=h.wx4ubk66vsoa)
 
 ### Tom Mulder:
 [Car](https://github.com/MaExGroep1/ProeveVanBekwaamheid/tree/main/Assets/Scripts/Car)
