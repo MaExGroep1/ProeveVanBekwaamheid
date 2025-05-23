@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Blocks;
+using Sound;
 using UnityEngine;
 using User;
 
@@ -12,6 +13,7 @@ namespace Upgrade
         [SerializeField] protected BlockType upgradeType;              //The type of upgrade belonging to this upgrade part.
         [SerializeField] protected Transform startTransform;           //The transform of the object where the upgrade parts should be instantiated.
         [SerializeField] protected float appearTime;                   //The time it takes for the upgrade parts to move from their start transform to the right position on the car
+        [SerializeField] private SoundService audioSource;             //Sound service for playing sound clips
         
         protected int _upgradeLevel;                                   //The current level of upgrades that this upgrade type has
 
@@ -61,6 +63,7 @@ namespace Upgrade
         {
             _upgradeLevel++;
             if (_upgradeLevel >= upgradeValues.Length) return;
+            audioSource.PlaySound();
             IncreaseUpgradeStats();
             ChangeCarVisuals();
         }

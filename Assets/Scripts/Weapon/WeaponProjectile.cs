@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Enemy;
 using Interfaces;
+using Sound;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace Weapon
         [SerializeField] private float rotationTime;                    //The time it takes for the projectile to rotate towards its target upo being shot
         [SerializeField] private LeanTweenType rotationEasingType;      //The leanTween rotation used for rotating towards the target
         [SerializeField] private Collider projectileCollider;           //The collider for the projectile that should bee turned on the moment it starts shooting
+        [SerializeField] private SoundService audioSource;              //Sound service for playing sound clips
         
         private EnemyBehaviour _target;                                 //The target that the projectile should move to
         private float _damage;                                          //The damage that the projectile will do when it hits an enemy
@@ -58,6 +60,7 @@ namespace Weapon
             var direction = (hitTarget - transform.position).normalized;
             var lookRotation = Quaternion.LookRotation(direction);
             var eulerRotation = lookRotation.eulerAngles;
+            audioSource.PlaySound();
             transform.parent = null;
             projectileCollider.enabled = true;
             LeanTween.move(gameObject, hitTarget, _travelTime).setEase(movementEasingType).setOnComplete(() =>
