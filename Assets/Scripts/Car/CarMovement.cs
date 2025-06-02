@@ -17,6 +17,7 @@ namespace Car
         [Header("Fuel")]
         [SerializeField] private float maxFuel = 200f;                  // the maximum amount of fuel the car has
         [SerializeField] private float fuelAddMultiplier;               // the multiplier when adding fuel
+        [SerializeField] private float fuelDrainMultiplier;               // the multiplier when adding fuel
         [Header("Tilt")]
         [SerializeField] private Rigidbody mainBody;                    // the main body of the car
         [SerializeField] private float tiltMultiplier;                  // the multiplier of the extra throttle while the car is tilted
@@ -67,7 +68,7 @@ namespace Car
             {
                 ApplyTorque(targetThrottle);
 
-                DrainFuel(CarData.Instance.FuelContinuousDrain * Time.deltaTime);
+                DrainFuel(CarData.Instance.FuelContinuousDrain * Time.deltaTime * fuelDrainMultiplier * mainBody.velocity.magnitude);
             }
             else ApplyTorque(0f);
         }
