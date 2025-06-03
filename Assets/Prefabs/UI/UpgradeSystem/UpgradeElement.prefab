@@ -250,7 +250,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 0
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -467,9 +467,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Upgrade
-
-    acquired'
+  m_text: Upgrade
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d1b3344a2f8bd51408b06790e524aa11, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: d1b3344a2f8bd51408b06790e524aa11, type: 2}
@@ -496,7 +494,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 65.95
+  m_fontSize: 71.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -553,7 +551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetLocation: {fileID: 2036701940307709759}
-  text: {fileID: 7815663177329419957}
+  text: {fileID: 7471453582488984841}
   textGroup: {fileID: 5824968993471507028}
   duration: 1
   fadeStart: 0.5

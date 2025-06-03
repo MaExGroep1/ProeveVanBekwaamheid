@@ -411,11 +411,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1671308669422170112, guid: 498e0731a784ad14aae504f5b3b44114, type: 3}
       propertyPath: upgradePointsBaseRequirement
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1671308669422170112, guid: 498e0731a784ad14aae504f5b3b44114, type: 3}
       propertyPath: upgradePointsRequirementIncrease
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5156162677853702317, guid: 498e0731a784ad14aae504f5b3b44114, type: 3}
@@ -828,40 +828,56 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7997584271820306200, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: upgradeValues.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7997584271820306200, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: upgradeValues.Array.data[9].visuals
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7997584271820306200, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[0].newUpgradeValue
-      value: 3.8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7997584271820306200, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[1].newUpgradeValue
-      value: 3.5
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 7997584271820306200, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[2].newUpgradeValue
-      value: 3.2
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 7997584271820306200, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[3].newUpgradeValue
-      value: 2.9
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 7997584271820306200, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[4].newUpgradeValue
-      value: 2.5
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 7997584271820306200, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[5].newUpgradeValue
-      value: 2.3
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 7997584271820306200, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[6].newUpgradeValue
-      value: 2.1
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 7997584271820306200, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[7].newUpgradeValue
-      value: 1.8
+      value: 0.575
       objectReference: {fileID: 0}
     - target: {fileID: 7997584271820306200, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[8].newUpgradeValue
-      value: 1.5
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 7997584271820306200, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: upgradeValues.Array.data[9].newUpgradeValue
+      value: 0.525
+      objectReference: {fileID: 0}
+    - target: {fileID: 7997584271820306200, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: upgradeValues.Array.data[10].newUpgradeValue
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8008199929602477756, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: m_LocalPosition.x
@@ -966,6 +982,10 @@ PrefabInstance:
     - target: {fileID: 8910477642296879986, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: wheels.Array.size
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8910477642296879986, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: fuelDrainMultiplier
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8910477642296879986, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: 'wheels.Array.data[0]'
@@ -1365,10 +1385,6 @@ PrefabInstance:
     - target: {fileID: 2537854335858282498, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 6.649994
-      objectReference: {fileID: 0}
-    - target: {fileID: 2599521659463567010, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
-      propertyPath: m_FillAmount
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: shuffleDuration
