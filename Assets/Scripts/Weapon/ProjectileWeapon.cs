@@ -103,7 +103,6 @@ namespace Weapon
         private void IncreaseDamage()
         {
             _damage = CarData.Instance.WeaponAttackMultiplier * baseDamage;
-            Debug.Log(gameObject.name + _damage);
         }
 
         /// <summary>

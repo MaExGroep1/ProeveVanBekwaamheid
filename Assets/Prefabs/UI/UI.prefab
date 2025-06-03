@@ -667,7 +667,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5093396311499628255, guid: b2adc7bbef2ebc541b83501abedc923a, type: 3}
       propertyPath: m_Value
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -789,6 +789,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1585934465472411849}
     m_Modifications:
+    - target: {fileID: 142379929177162449, guid: d0622d3952cd247458c413547da9798d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 6.649994
+      objectReference: {fileID: 0}
+    - target: {fileID: 1160743469445356842, guid: d0622d3952cd247458c413547da9798d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 6.649994
+      objectReference: {fileID: 0}
     - target: {fileID: 1303446727211782006, guid: d0622d3952cd247458c413547da9798d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -921,6 +929,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UpgradeUI
       objectReference: {fileID: 0}
+    - target: {fileID: 3161976256711271206, guid: d0622d3952cd247458c413547da9798d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 6.649994
+      objectReference: {fileID: 0}
     - target: {fileID: 3779075832222449471, guid: d0622d3952cd247458c413547da9798d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -968,6 +980,14 @@ PrefabInstance:
     - target: {fileID: 5175497638708821373, guid: d0622d3952cd247458c413547da9798d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567783980679940599, guid: d0622d3952cd247458c413547da9798d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 6.649994
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240218523020640403, guid: d0622d3952cd247458c413547da9798d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 6.649994
       objectReference: {fileID: 0}
     - target: {fileID: 8704493529132971033, guid: d0622d3952cd247458c413547da9798d, type: 3}
       propertyPath: m_AnchorMax.y

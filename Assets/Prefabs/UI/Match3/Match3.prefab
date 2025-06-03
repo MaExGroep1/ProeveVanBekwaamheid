@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 6094820501622072286}
   - component: {fileID: 1030904306199348630}
   - component: {fileID: 2172344736452675612}
+  - component: {fileID: 5961660250153451332}
   m_Layer: 5
   m_Name: Grid
   m_TagString: Untagged
@@ -165,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfc809002255cb54fbbd0d02a4f3f891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bombSound: {fileID: 5961660250153451332}
   gridHeight: 6
   gridWidth: 7
   unitPadding: 2.5
@@ -194,6 +196,7 @@ MonoBehaviour:
   gridRect: {fileID: 6764372624370830685}
   gridRectOffset: 15
   maxAttempts: 100
+  shuffleDuration: 0.1
 --- !u!114 &2172344736452675612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,3 +210,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!114 &5961660250153451332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9014436322718214555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a34862c0e928f9448955227d5c4b8aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClips:
+  - {fileID: 8300000, guid: 534128d060e6eb84b89d36c4d4d8654e, type: 3}
+  volume: 0.03
+  loop: 0
+  soundObjectSpawn: {fileID: 6764372624370830685}

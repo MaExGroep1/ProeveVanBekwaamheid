@@ -31,7 +31,7 @@ namespace UI
         private IEnumerator PopUp()
         {
             _level++;
-            text.text = $"Upgrade {_level}";
+            text.text = $"Lvl {_level}";
             LeanTween.moveY(text.gameObject, targetLocation.position.y, duration);
             
             yield return new WaitForSeconds(fadeStart);
