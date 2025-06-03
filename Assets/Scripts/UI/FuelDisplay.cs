@@ -11,16 +11,13 @@ namespace UI
         [SerializeField] private Slider fuelSlider;         // the fuel bar fill
         [SerializeField] private CarMovement carMovement;   // the car which fuel to display
         [SerializeField] private RectTransform fuelDisplay; // the fuel display rect transform
-        [SerializeField] private RectMask2D fuelMask;       // the mask of the fuel bar
-
-        private float _rectSize;                            // the height of the fuel display
+        [SerializeField] private Image fuelMask;       // the mask of the fuel bar
 
         /// <summary>
-        /// Sets the rect height and starts listening to the match 3
+        /// Starts listening to the match 3
         /// </summary>
         private void Awake()
         {
-            _rectSize = fuelDisplay.rect.height;
             GridManager.Instance.ListenToOnFirstMatch(StartUpdate);
             enabled = false;
         }
@@ -39,7 +36,7 @@ namespace UI
         private void UpdateDisplay()
         {
             fuelSlider.value = carMovement.Fill;
-            fuelMask.padding = new Vector4(0, 0, 0, _rectSize - _rectSize * carMovement.Fill);
+            fuelMask.fillAmount = carMovement.Fill;
         }
     }
 }
