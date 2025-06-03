@@ -395,7 +395,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 93112607873455075, guid: 17fe71b98508d3f428bcc1076865a5bb, type: 3}
       propertyPath: m_Name
-      value: RampTile
+      value: BusyTile
       objectReference: {fileID: 0}
     - target: {fileID: 7377935377218713960, guid: 17fe71b98508d3f428bcc1076865a5bb, type: 3}
       propertyPath: m_LocalPosition.x
