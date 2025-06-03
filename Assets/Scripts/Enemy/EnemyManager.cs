@@ -15,8 +15,8 @@ namespace Enemy
         private readonly List<EnemyBehaviour> _flyingEnemies = new();                                           // list of available flying enemies
 
         private static LevelData CurrentLevel => CarGameManager.Instance.CurrentLevel;                          // the level data of the current level
-        private EnemyBehaviour RandomGroundEnemies => _groundEnemies[Random.Range(0, _groundEnemies.Count)];    // a random ground enemy
-        private EnemyBehaviour RandomFlyingEnemies => _flyingEnemies[Random.Range(0, _flyingEnemies.Count)];    // a random flying enemy
+        private EnemyBehaviour RandomGroundEnemies => _groundEnemies[Random.Range(0, _groundEnemies.Count-1)];    // a random ground enemy
+        private EnemyBehaviour RandomFlyingEnemies => _flyingEnemies[Random.Range(0, _flyingEnemies.Count-1)];    // a random flying enemy
 
         [field: SerializeField] public float EnemyMultiplierAmount { get; private set; }                        // the amount of tiles to have instantiated before making the difficulty plus 1
         public List<EnemyBehaviour> Enemies { get; private set; } = new();                                      // a list of all active enemies
@@ -29,27 +29,22 @@ namespace Enemy
         protected override void Awake()
         {
             base.Awake();
-            OnEnterNextLevel();
+            OnEnterNextLevel(false);
             CarGameManager.Instance.ListenToOnEnterNextLevel(OnEnterNextLevel);
         } 
         
         /// <summary>
         /// Adds all new enemies to the enemy pool
         /// </summary>
-        private void OnEnterNextLevel()
+        private void OnEnterNextLevel(bool hasLooped)
         {
+            if (hasLooped) return;
             
             foreach (var groundEnemy in CurrentLevel.groundEnemies)
-            {
-                if (_groundEnemies.Contains(groundEnemy)) continue;
                 _groundEnemies.Add(groundEnemy);
-            }
             
             foreach (var flyingEnemy in CurrentLevel.flyingEnemies)
-            {
-                if (_flyingEnemies.Contains(flyingEnemy)) continue;
                 _flyingEnemies.Add(flyingEnemy);
-            }
         }
         
         /// <summary>
