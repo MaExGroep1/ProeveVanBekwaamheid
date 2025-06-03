@@ -647,18 +647,30 @@ PrefabInstance:
       propertyPath: m_ForwardFriction.m_ExtremumValue
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 509854662447516625, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: upgradeValues.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 509854662447516625, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: upgradeValues.Array.data[9].newUpgradeValue
+      value: 2.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 509854662447516625, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: upgradeValues.Array.data[10].newUpgradeValue
+      value: 3.2
+      objectReference: {fileID: 0}
     - target: {fileID: 660503264983705721, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: m_Name
       value: Car
       objectReference: {fileID: 0}
     - target: {fileID: 2313926844903586578, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.size
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2313926844903586578, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[7].visuals
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1749606512423539146, guid: c45f9ad2962c3b941afaff780b4f78eb, type: 3}
     - target: {fileID: 2313926844903586578, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[8].visuals
       value: 
@@ -669,35 +681,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2313926844903586578, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[1].newUpgradeValue
-      value: 17.5
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 2313926844903586578, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[2].newUpgradeValue
-      value: 20
+      value: 17.5
       objectReference: {fileID: 0}
     - target: {fileID: 2313926844903586578, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[3].newUpgradeValue
-      value: 22.5
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 2313926844903586578, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[4].newUpgradeValue
-      value: 25
+      value: 20.5
       objectReference: {fileID: 0}
     - target: {fileID: 2313926844903586578, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[5].newUpgradeValue
-      value: 27.5
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 2313926844903586578, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[6].newUpgradeValue
-      value: 30
+      value: 23.5
       objectReference: {fileID: 0}
     - target: {fileID: 2313926844903586578, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[7].newUpgradeValue
-      value: 32.5
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2313926844903586578, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[8].newUpgradeValue
-      value: 35
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2747415062530452956, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: m_Size.x
@@ -740,6 +752,30 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4972746181076016607, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: upgradeValues.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4972746181076016607, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: upgradeValues.Array.data[4].visuals
+      value: 
+      objectReference: {fileID: 919132149155446097, guid: f3f290fd9be1abf4ca0d6a63a839b9f2, type: 3}
+    - target: {fileID: 4972746181076016607, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: upgradeValues.Array.data[5].visuals
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4972746181076016607, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: upgradeValues.Array.data[6].visuals
+      value: 
+      objectReference: {fileID: 919132149155446097, guid: 6c01bbd619029c740ae0f5aac353c3e7, type: 3}
+    - target: {fileID: 4972746181076016607, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: upgradeValues.Array.data[7].visuals
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4972746181076016607, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: upgradeValues.Array.data[8].visuals
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4972746181076016607, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[0].newUpgradeValue
       value: 20
       objectReference: {fileID: 0}
@@ -753,11 +789,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4972746181076016607, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[3].newUpgradeValue
-      value: 35
+      value: 32.5
       objectReference: {fileID: 0}
     - target: {fileID: 4972746181076016607, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[4].newUpgradeValue
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4972746181076016607, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: upgradeValues.Array.data[5].newUpgradeValue
+      value: 37.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4972746181076016607, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: upgradeValues.Array.data[6].newUpgradeValue
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4972746181076016607, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: upgradeValues.Array.data[7].newUpgradeValue
+      value: 42.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4972746181076016607, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: upgradeValues.Array.data[8].newUpgradeValue
+      value: 42.5
       objectReference: {fileID: 0}
     - target: {fileID: 5909302804626476056, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: m_ForwardFriction.m_ExtremumSlip
@@ -777,7 +829,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7997584271820306200, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[0].newUpgradeValue
-      value: 1
+      value: 3.8
       objectReference: {fileID: 0}
     - target: {fileID: 7997584271820306200, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[1].newUpgradeValue
@@ -793,11 +845,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7997584271820306200, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[4].newUpgradeValue
-      value: 2.6
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 7997584271820306200, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[5].newUpgradeValue
-      value: 2.5
+      value: 2.3
       objectReference: {fileID: 0}
     - target: {fileID: 7997584271820306200, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[6].newUpgradeValue
@@ -809,7 +861,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7997584271820306200, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: upgradeValues.Array.data[8].newUpgradeValue
-      value: 1.6
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8008199929602477756, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
       propertyPath: m_LocalPosition.x
