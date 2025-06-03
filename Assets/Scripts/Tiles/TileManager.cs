@@ -83,6 +83,7 @@ namespace Tiles
             {
                 _currentTile.OnTileLoaded -= GenerateNewTile;
                 _previousTile = _currentTile;
+                _previousTile.EnableBackWall();
                 attach = _currentTile.TileEnd;
             }
             _currentTile = Instantiate(tile,tileParent);
