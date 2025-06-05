@@ -13,7 +13,7 @@ namespace Blocks
     {
         [SerializeField] private Image image;               // the image of the block
         [SerializeField] private RectTransform rect;        // the rect of the grid element
-        [SerializeField] private SoundService audioSource;  //Sound service for playing sound clips
+        [SerializeField] private SoundService audioSource;  // sound service for playing sound clips
         
         protected Vector3 _gridPosition;                    // the default position of the block
         protected Vector2Int _cords;                        // the cords in the grid
@@ -77,6 +77,7 @@ namespace Blocks
         /// </summary>
         public void FallToOrigin(Action onComplete)
         {
+            if(gameObject == null) return;
             if (LeanTween.isTweening(gameObject)) LeanTween.cancel(gameObject);
             
             _canMoveWithMouse = false;
@@ -192,5 +193,25 @@ namespace Blocks
             
             yield return new WaitForSeconds(moveTime * distance - waitTime);
         }
+
+        public IEnumerator DestroyBlockBomb(float waitTime, float moveTime, float scale)
+        {
+
+            transform.SetParent(transform.parent.parent.parent);
+            
+            LeanTween.scale(gameObject, Vector3.one * scale , moveTime / 2);
+            
+            yield return new WaitForSeconds(moveTime / 2);
+            
+            LeanTween.scale(gameObject, Vector3.zero , moveTime / 2).setDestroyOnComplete(true);
+            
+            Destroy(this);
+            
+            yield return new WaitForSeconds(waitTime);
+            
+            GridManager.Instance.GenerateNewBlocks(_cords.y);
+
+        }
+
     }
 }

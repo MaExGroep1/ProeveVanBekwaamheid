@@ -3,46 +3,58 @@ using System.Collections;
 using ntw.CurvedTextMeshPro;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI
 {
     public class UpgradeComplete : MonoBehaviour
     {
         [SerializeField] private Transform targetLocation;              // the target location when going up
-        [SerializeField] private TextMeshProUGUI text;                    // the element to move up
+        [SerializeField] private TextMeshProUGUI text;                  // the element to move up
         [SerializeField] private CanvasGroup textGroup;                 // the group to fade off
+        [SerializeField] private UpgradeUiBehaviour upgradeUiBehaviour; // the upgrade to listen to
+        [SerializeField] private Button popUpButton;                    // the button to listen to
+        [Header("Animation")]
         [SerializeField] private float duration;                        // the lenght the animation takes
         [SerializeField] private float fadeStart;                       // the lenght before the alpha starts to fade
-        [SerializeField] private UpgradeUiBehaviour upgradeUiBehaviour; // the upgrade to listen to
 
         private int _level;
 
         /// <summary>
         /// Adds listeners to the upgrade element
         /// </summary>
-        private void Awake() => upgradeUiBehaviour.AddListener(StartPopUp);
+        private void Awake()
+        {
+            popUpButton.onClick.AddListener(PopUp);
+            upgradeUiBehaviour.AddListener(PopUpPlusOne);
+        }
 
-        private void StartPopUp() => StartCoroutine(PopUp());
+        private void PopUp() => StartCoroutine(TextPopUp());
 
+        private void PopUpPlusOne()
+        {
+            _level++;
+            StartCoroutine(TextPopUp());
+        }
         /// <summary>
         /// Moves the Text up to the target then resets it
         /// </summary>
         /// <returns></returns>
-        private IEnumerator PopUp()
+        private IEnumerator TextPopUp()
         {
-            _level++;
-            text.text = $"Upgrade {_level}";
+            LeanTween.cancel(text.gameObject);
+            
+            text.transform.localPosition = Vector3.zero;
+            
+            textGroup.alpha = 1;
+            
+            text.text = $"Lvl {_level}";
+            
             LeanTween.moveY(text.gameObject, targetLocation.position.y, duration);
             
             yield return new WaitForSeconds(fadeStart);
 
             LeanTween.alphaCanvas(textGroup, 0, duration - fadeStart);
-            
-            yield return new WaitForSeconds(duration - fadeStart);
-
-            text.transform.localPosition = Vector3.zero;
-            
-            textGroup.alpha = 1;
         }
     }
 }
