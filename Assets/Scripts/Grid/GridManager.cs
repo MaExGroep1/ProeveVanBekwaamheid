@@ -614,21 +614,14 @@ namespace Grid
                     _isBombOnGrid = false;
                     StartCoroutine(block.DestroyBlockBomb(blockWaitTime, blockTravelTime, blockDestroyScale));
                 }
-            _onMatch?.Invoke(BlockType.Null, total / 2);
             bombSound.PlaySound();
+            _onMatch?.Invoke(BlockType.Null, total / 2);
+            if (_hasMatched) return;
+            _onFirstMatch?.Invoke();
+            _hasMatched = true;
+
         }
-
-        /// <summary>
-        /// Converts a random block to a bomb-block
-        /// </summary>
-        private void CreateBombBlock(Vector2Int cords)
-        {
-            var bombBlock = MakeBombBlock(Grid[cords.x, cords.y]);
-            
-            StartCoroutine(WaitToDrop(bombBlock, CalculateWaitTime(cords.x, cords.y)));
-        }
-
-
+        
         /// <summary>
         /// Calculates the position of the Rect
         /// </summary>
@@ -640,22 +633,6 @@ namespace Grid
             var offset = new Vector2(0, gridRect.rect.height + gridRectOffset);
 
             return position + offset;
-        }
-
-        /// <summary>
-        /// Changes a given block to a bomb-block
-        /// </summary>
-        /// <param name="gridElement"> A reference of the gridElement </param>
-        /// <returns> Returns BombBlock </returns>
-        private BombBlock MakeBombBlock(GridElement gridElement)
-        {
-            var bombBlock = Instantiate(bombBlockTemplate, _blocksParent);
-            
-            gridElement.SetBlock(bombBlock);
-            
-            bombBlock.Rect.position = CalculateRectPosition(gridElement);
-            _isBombOnGrid = true;
-            return bombBlock;
         }
         
         /// <summary>

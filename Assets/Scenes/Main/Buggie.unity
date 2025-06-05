@@ -415,7 +415,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1671308669422170112, guid: 498e0731a784ad14aae504f5b3b44114, type: 3}
       propertyPath: upgradePointsRequirementIncrease
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5156162677853702317, guid: 498e0731a784ad14aae504f5b3b44114, type: 3}

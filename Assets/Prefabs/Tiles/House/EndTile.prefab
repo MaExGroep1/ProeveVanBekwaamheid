@@ -271,6 +271,10 @@ PrefabInstance:
       propertyPath: inAir
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2209785237263059183, guid: b8592e1e6feaf534b9cb7ef7cb62ace0, type: 3}
+      propertyPath: <InAir>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3029848738564605192, guid: b8592e1e6feaf534b9cb7ef7cb62ace0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 99.4
@@ -709,6 +713,10 @@ PrefabInstance:
       propertyPath: inAir
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2209785237263059183, guid: b8592e1e6feaf534b9cb7ef7cb62ace0, type: 3}
+      propertyPath: <InAir>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3029848738564605192, guid: b8592e1e6feaf534b9cb7ef7cb62ace0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 132.7
@@ -773,6 +781,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2209785237263059183, guid: b8592e1e6feaf534b9cb7ef7cb62ace0, type: 3}
       propertyPath: inAir
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2209785237263059183, guid: b8592e1e6feaf534b9cb7ef7cb62ace0, type: 3}
+      propertyPath: <InAir>k__BackingField
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3029848738564605192, guid: b8592e1e6feaf534b9cb7ef7cb62ace0, type: 3}
@@ -965,6 +977,10 @@ PrefabInstance:
       propertyPath: inAir
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2209785237263059183, guid: b8592e1e6feaf534b9cb7ef7cb62ace0, type: 3}
+      propertyPath: <InAir>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3029848738564605192, guid: b8592e1e6feaf534b9cb7ef7cb62ace0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 161
@@ -1023,9 +1039,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 49245092628534154, guid: dc7dbe2211b148c45b7c094f3b6f1e04, type: 3}
+      propertyPath: <InAir>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 139746959597348619, guid: dc7dbe2211b148c45b7c094f3b6f1e04, type: 3}
+      propertyPath: <InAir>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 911682020832998403, guid: dc7dbe2211b148c45b7c094f3b6f1e04, type: 3}
       propertyPath: m_Name
       value: EndTile
+      objectReference: {fileID: 0}
+    - target: {fileID: 1091626741059324995, guid: dc7dbe2211b148c45b7c094f3b6f1e04, type: 3}
+      propertyPath: <InAir>k__BackingField
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7684951621980775374, guid: dc7dbe2211b148c45b7c094f3b6f1e04, type: 3}
       propertyPath: m_LocalPosition.x

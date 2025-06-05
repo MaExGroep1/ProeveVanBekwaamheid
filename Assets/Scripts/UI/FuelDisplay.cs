@@ -1,8 +1,10 @@
 using System;
+using Blocks;
 using Car;
 using Grid;
 using UnityEngine;
 using UnityEngine.UI;
+using Util;
 
 namespace UI
 {
@@ -10,8 +12,9 @@ namespace UI
     {
         [SerializeField] private Slider fuelSlider;         // the fuel bar fill
         [SerializeField] private CarMovement carMovement;   // the car which fuel to display
-        [SerializeField] private RectTransform fuelDisplay; // the fuel display rect transform
-        [SerializeField] private Image fuelMask;       // the mask of the fuel bar
+        [SerializeField] private Image fuelMask;            // the mask of the fuel bar
+        [Header("Fuel Display")]
+        [SerializeField] private SquishAndStretch warp;     // the warp of the fuel bar
 
         /// <summary>
         /// Starts listening to the match 3
@@ -19,6 +22,7 @@ namespace UI
         private void Awake()
         {
             GridManager.Instance.ListenToOnFirstMatch(StartUpdate);
+            GridManager.Instance.ListenToOnMatch((_, _) => warp.WarpObject());
             enabled = false;
         }
         
@@ -29,7 +33,6 @@ namespace UI
         /// </summary>
         private void StartUpdate() => enabled = true;
         
-
         /// <summary>
         /// Sets the fill of the display to the cars fill
         /// </summary>
