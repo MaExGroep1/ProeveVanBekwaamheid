@@ -119,6 +119,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Weapon
       objectReference: {fileID: 0}
+    - target: {fileID: 1867577098264133040, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
+      propertyPath: textPreFix
+      value: Weapon
+      objectReference: {fileID: 0}
     - target: {fileID: 2037255151238317700, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -293,6 +297,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Attack
       objectReference: {fileID: 0}
+    - target: {fileID: 1867577098264133040, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
+      propertyPath: textPreFix
+      value: Attack
+      objectReference: {fileID: 0}
     - target: {fileID: 5276799884072631412, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
       propertyPath: m_Color.b
       value: 0.648
@@ -421,6 +429,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1631420877329661933, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
       propertyPath: m_Name
+      value: Fuel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867577098264133040, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
+      propertyPath: textPreFix
       value: Fuel
       objectReference: {fileID: 0}
     - target: {fileID: 2037255151238317700, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
@@ -591,6 +603,14 @@ PrefabInstance:
       propertyPath: upgradeType
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7471453582488984841, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
+      propertyPath: m_fontSize
+      value: 178.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7815663177329419957, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 348
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -611,6 +631,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1631420877329661933, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
       propertyPath: m_Name
+      value: Defense
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867577098264133040, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
+      propertyPath: textPreFix
       value: Defense
       objectReference: {fileID: 0}
     - target: {fileID: 2037255151238317700, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
@@ -785,6 +809,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1631420877329661933, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
       propertyPath: m_Name
+      value: Speed
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867577098264133040, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}
+      propertyPath: textPreFix
       value: Speed
       objectReference: {fileID: 0}
     - target: {fileID: 2037255151238317700, guid: ee4b985e120c4af42b4aac276cdb91d2, type: 3}

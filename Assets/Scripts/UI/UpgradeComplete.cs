@@ -10,13 +10,16 @@ namespace UI
     public class UpgradeComplete : MonoBehaviour
     {
         [SerializeField] private Transform targetLocation;              // the target location when going up
-        [SerializeField] private TextMeshProUGUI text;                  // the element to move up
-        [SerializeField] private CanvasGroup textGroup;                 // the group to fade off
         [SerializeField] private UpgradeUiBehaviour upgradeUiBehaviour; // the upgrade to listen to
         [SerializeField] private Button popUpButton;                    // the button to listen to
         [Header("Animation")]
         [SerializeField] private float duration;                        // the lenght the animation takes
         [SerializeField] private float fadeStart;                       // the lenght before the alpha starts to fade
+        [Header("Text")]
+        [SerializeField] private TextMeshProUGUI text;                  // the element to move up
+        [SerializeField] private CanvasGroup textGroup;                 // the group to fade off
+        [SerializeField] private string textPreFix;                     // the prefix of the upgrade pop up
+
 
         private int _level;
 
@@ -48,7 +51,7 @@ namespace UI
             
             textGroup.alpha = 1;
             
-            text.text = $"Lvl {_level}";
+            text.text = $"{textPreFix}\\nLvl {_level}";
             
             LeanTween.moveY(text.gameObject, targetLocation.position.y, duration);
             

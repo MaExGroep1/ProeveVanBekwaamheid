@@ -310,6 +310,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6484898658963938139}
   - component: {fileID: 6624969007463259799}
+  - component: {fileID: 2175274348207969583}
   m_Layer: 5
   m_Name: UpgradeElement
   m_TagString: Untagged
@@ -355,6 +356,23 @@ MonoBehaviour:
   upgradeType: 0
   completedImage: {fileID: 7736566781998018581}
   imageFillDelay: 0.05
+  warp: {fileID: 2175274348207969583}
+--- !u!114 &2175274348207969583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631420877329661933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ed597f23fd302f4a8442de700d043e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  warpObject: {fileID: 1631420877329661933}
+  squish: {x: 0.975, y: 1.025, z: 1}
+  stretch: {x: 1.025, y: 0.975, z: 1}
+  warpTime: 0.2
 --- !u!1 &2214358640016583042
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,12 +614,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetLocation: {fileID: 2036701940307709759}
-  text: {fileID: 7471453582488984841}
-  textGroup: {fileID: 5824968993471507028}
   upgradeUiBehaviour: {fileID: 6624969007463259799}
   popUpButton: {fileID: 2404208789774555699}
   duration: 1
   fadeStart: 0.5
+  text: {fileID: 7471453582488984841}
+  textGroup: {fileID: 5824968993471507028}
+  textPreFix: 
 --- !u!225 &5824968993471507028
 CanvasGroup:
   m_ObjectHideFlags: 0

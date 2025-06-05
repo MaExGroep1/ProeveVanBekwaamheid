@@ -3,6 +3,7 @@ using System.Collections;
 using Blocks;
 using UnityEngine;
 using Upgrade;
+using Util;
 using Image = UnityEngine.UI.Image;
 
 namespace UI
@@ -11,7 +12,8 @@ namespace UI
     {
         [SerializeField] private BlockType upgradeType;     // the type of upgrade the UI element represents
         [SerializeField] private Image completedImage;      // the reference to the coloured image that represents the amount of upgrade points you have gained
-        [SerializeField] private float imageFillDelay;      // the time between each time 
+        [SerializeField] private float imageFillDelay;      // the time between each increment of filling the image
+        [SerializeField] private SquishAndStretch warp;     // the warp of the upgrade bar
         
         private Action _onComplete;                         // when the bar reaches 100%
     
@@ -62,6 +64,7 @@ namespace UI
             while (usedPoints <= points || image.fillAmount >= 1)
             {
                 usedPoints += 1;
+                warp.WarpObject();
                 image.fillAmount = UpgradeManager.Instance.GetPercentFill(upgradeType,usedPoints - points);
                 yield return new WaitForSeconds(imageFillDelay);
             }
