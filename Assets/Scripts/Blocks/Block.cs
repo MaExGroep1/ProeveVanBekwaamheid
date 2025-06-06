@@ -171,7 +171,7 @@ namespace Blocks
         /// <param name="moveTime"> Time it takes to go to destruction destination</param>
         /// <param name="scale"> The max scale of the blocks while being destroyed</param>
         /// <returns></returns>
-        public virtual IEnumerator DestroyBlock(float waitTime, float moveTime, float scale)
+        public IEnumerator DestroyBlock(float waitTime, float moveTime, float scale)
         {
             var distance = Vector3.Distance(transform.position, _destroyDestination.position);
             
