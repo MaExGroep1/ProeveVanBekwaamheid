@@ -371,6 +371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  offset: {x: 0, y: 0, z: 0}
 --- !u!1001 &1472159171142508204
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -497,6 +498,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1585934465472411849}
     m_Modifications:
+    - target: {fileID: 1030904306199348630, guid: e5be24d46c105fa4fb4f258a3625a508, type: 3}
+      propertyPath: bombBlockDestroyDestination
+      value: 
+      objectReference: {fileID: 8358431589205668776}
     - target: {fileID: 1030904306199348630, guid: e5be24d46c105fa4fb4f258a3625a508, type: 3}
       propertyPath: blockData.Array.data[0].destroyDestination
       value: 

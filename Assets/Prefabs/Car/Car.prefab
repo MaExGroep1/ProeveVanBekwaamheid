@@ -14,7 +14,9 @@ GameObject:
   - component: {fileID: 70175858119365887}
   - component: {fileID: 8910477642296879986}
   - component: {fileID: 3276202510003483861}
+  - component: {fileID: 8595297595088592186}
   - component: {fileID: 5959938713889621130}
+  - component: {fileID: 577934208603898424}
   m_Layer: 6
   m_Name: Car
   m_TagString: Player
@@ -157,6 +159,7 @@ MonoBehaviour:
   maxFuel: 200
   fuelAddMultiplier: 0.75
   fuelDrainMultiplier: 0
+  velocityFuelDrainMultiplier: 0
   mainBody: {fileID: 3766563224734153053}
   tiltMultiplier: 1
   tiltClamp:
@@ -178,6 +181,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 3766563224734153053}
   multiplier: 0.1
+--- !u!114 &8595297595088592186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660503264983705721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f909e7273ad2b7a4d84a00927a19e019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 25
+  thrust: 50
+  upwardsThrust: 7.5
+  audioSource: {fileID: 577934208603898424}
 --- !u!114 &5959938713889621130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,6 +215,23 @@ MonoBehaviour:
   volume: 0.02
   loop: 0
   soundObjectSpawn: {fileID: 8008199929602477756}
+--- !u!114 &577934208603898424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660503264983705721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a34862c0e928f9448955227d5c4b8aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClips:
+  - {fileID: 8300000, guid: 8b30fe56fa0386a48a55a7e64b55905d, type: 3}
+  volume: 0.002
+  loop: 0
+  soundObjectSpawn: {fileID: 8008199929602477756}
 --- !u!1 &3564329412405619317
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,7 +244,7 @@ GameObject:
   - component: {fileID: 1198371228995376833}
   m_Layer: 6
   m_Name: WheelRotationManager
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -260,7 +296,7 @@ GameObject:
   - component: {fileID: 4788086164230447868}
   m_Layer: 6
   m_Name: BL_Wheel
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -331,7 +367,7 @@ GameObject:
   - component: {fileID: 99258077390203236}
   m_Layer: 6
   m_Name: BR_Wheel
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -494,7 +530,7 @@ GameObject:
   - component: {fileID: 8245124741744413352}
   m_Layer: 6
   m_Name: FR_Wheel
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -565,7 +601,7 @@ GameObject:
   - component: {fileID: 5909302804626476056}
   m_Layer: 6
   m_Name: FL_Wheel
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -676,6 +712,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: -7566548017074118590, guid: 5bf494aef0a6d364ea3bb7f2e68d5725, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5bf494aef0a6d364ea3bb7f2e68d5725, type: 3}
       propertyPath: m_Name
       value: RC_Car_Model
@@ -683,6 +723,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 5bf494aef0a6d364ea3bb7f2e68d5725, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 5bf494aef0a6d364ea3bb7f2e68d5725, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -745,6 +789,10 @@ PrefabInstance:
     - target: {fileID: 574134954041168998, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}
       propertyPath: m_Name
       value: Upgradeparts
+      objectReference: {fileID: 0}
+    - target: {fileID: 574134954041168998, guid: 39c8792b1f4779f4db6c0c234f63edd9, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

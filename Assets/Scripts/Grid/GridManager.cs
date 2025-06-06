@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Blocks;
+using Car;
 using Sound;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -28,8 +29,6 @@ namespace Grid
         [SerializeField] private BlockData[] blockData;                     // the available block types
         [SerializeField] private float blockPlaceDistance;                  // the distance the block can travel before swapping 
         [SerializeField] private float blockSpringBackDistance;             // the distance the block can travel before not snapping back to its origin
-        [SerializeField] private BombBlock bombBlockTemplate;               // the template of the bomb block 
-        [SerializeField] private int bombBlockSpawnRate;                    // the chance the bomb block can spawn when not on the board
         
         [Header("Block times")]
         [SerializeField] private float blockTravelTime;                     // the time it takes for the block to travel somewhere
@@ -40,7 +39,12 @@ namespace Grid
         [SerializeField] private float blockTravelSpeed;                    // the speed the block moves to the destroy point
         [SerializeField] private float blockDestroyScale;                   // the scale of the block when traveling to the destroy point
 
+        [Header("Bomb")]
         [SerializeField] private int bombBlockRange;                        // the range of the bomb block when it explodes
+        [SerializeField] private Transform bombBlockDestroyDestination;     // the range of the bomb block when it explodes
+        [SerializeField] private BombBlock bombBlockTemplate;               // the template of the bomb block 
+        [SerializeField] private int bombBlockSpawnRate;                    // the chance the bomb block can spawn when not on the board
+        [SerializeField] private CarShockWave carShockWave;                 //
         
         [Header("Spawn animation")]
         [SerializeField] private RectTransform gridRect;                    // the rect of the grid object
@@ -158,10 +162,9 @@ namespace Grid
             return false;
         }
 
-        private bool HasBombInGrid()
-        {
-            return Grid.Cast<GridElement>().Any(element => element.GetBlockType() == BlockType.Null);
-        }
+        private bool HasBombInGrid() =>
+            Grid.Cast<GridElement>().Any(element => element.GetBlockType() == BlockType.Null);
+        
         
         /// <summary>
         /// Generates new blocks in a specified column to replace missing ones
@@ -193,9 +196,12 @@ namespace Grid
                 
                 var position = new Vector2(Grid[gridHeight-1,y].transform.position.x, Grid[gridHeight-1,y].transform.position.y);
                 var offset = new Vector2(0, _heightOffset * (i + 1));
-                
+
                 if (isBomb)
+                {
                     _isBombOnGrid = true;
+                    newBlock.GetComponent<BombBlock>().SetDestroyDestination(bombBlockDestroyDestination);
+                }
                 else
                     newBlock.Initialize(block.blockType,block.destroyDestination);
                 
@@ -440,8 +446,11 @@ namespace Grid
 
                     newBlock.Rect.position = CalculateRectPosition(Grid[x, y]);
 
-                    if(!isBomb) 
+                    if (isBomb)
+                        newBlock.GetComponent<BombBlock>().SetDestroyDestination(bombBlockDestroyDestination);
+                    else
                         newBlock.Initialize(block.blockType, block.destroyDestination);
+
 
                     Grid[x, y].SetBlock(newBlock);
 
@@ -612,7 +621,9 @@ namespace Grid
 
                     total++;
                     _isBombOnGrid = false;
-                    StartCoroutine(block.DestroyBlockBomb(blockWaitTime, blockTravelTime, blockDestroyScale));
+                    StartCoroutine(targetCords == bombCords
+                        ? block.DestroyBlock(blockWaitTime, blockTravelSpeed, blockDestroyScale,carShockWave.Shockwave)
+                        : block.DestroyBlockBomb(blockWaitTime, blockTravelTime, blockDestroyScale));
                 }
             bombSound.PlaySound();
             _onMatch?.Invoke(BlockType.Null, total / 2);

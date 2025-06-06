@@ -13,5 +13,8 @@ namespace Blocks
 
             GridManager.Instance.HandleBombBlockMatch(_cords, CalculateDirection(normalized), this);
         }
+
+        public void SetDestroyDestination(Transform destination) =>
+            _destroyDestination = destination;
     }
 }

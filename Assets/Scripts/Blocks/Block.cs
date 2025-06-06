@@ -17,9 +17,9 @@ namespace Blocks
         
         protected Vector3 _gridPosition;                    // the default position of the block
         protected Vector2Int _cords;                        // the cords in the grid
+        protected Transform _destroyDestination;              // the position of the destroy location of the block
         
         private BlockType _blockType;                       // the block type of the block
-        private Transform _destroyDestination;              // the position of the destroy location of the block
         private bool _isMoving;                             // whether the block is moving
         private bool _canMoveWithMouse;                     // whether the block can stick to the mouse
         
@@ -170,12 +170,13 @@ namespace Blocks
         /// <param name="waitTime"> Time to wait before making new blocks</param>
         /// <param name="moveTime"> Time it takes to go to destruction destination</param>
         /// <param name="scale"> The max scale of the blocks while being destroyed</param>
+        /// <param name="onComplete"> Action to invoke on completion </param>
         /// <returns></returns>
-        public IEnumerator DestroyBlock(float waitTime, float moveTime, float scale)
+        public IEnumerator DestroyBlock(float waitTime, float moveTime, float scale, Action onComplete = null)
         {
             var distance = Vector3.Distance(transform.position, _destroyDestination.position);
             
-            audioSource.PlaySound();
+            if(audioSource != null)audioSource.PlaySound();
 
             transform.SetParent(transform.parent.parent.parent);
             Destroy(this);
@@ -192,6 +193,7 @@ namespace Blocks
             GridManager.Instance.GenerateNewBlocks(_cords.y);
             
             yield return new WaitForSeconds(moveTime * distance - waitTime);
+            onComplete?.Invoke();
         }
 
         public IEnumerator DestroyBlockBomb(float waitTime, float moveTime, float scale)

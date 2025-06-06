@@ -1167,6 +1167,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dee8ce03a4968fe4c99639fc2a2f68a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &718314072 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8595297595088592186, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+  m_PrefabInstance: {fileID: 718314070}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f909e7273ad2b7a4d84a00927a19e019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!146 &888864339 stripped
 WheelCollider:
   m_CorrespondingSourceObject: {fileID: 99258077390203236, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
@@ -1176,6 +1187,11 @@ WheelCollider:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8036212065358873854, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
   m_PrefabInstance: {fileID: 718314070}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &1048785028 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8358431589205668776, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+  m_PrefabInstance: {fileID: 8257311985010801516}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1173510616
 GameObject:
@@ -1507,6 +1523,14 @@ PrefabInstance:
       propertyPath: offset.y
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+      propertyPath: carShockWave
+      value: 
+      objectReference: {fileID: 718314072}
+    - target: {fileID: 2622883996525585364, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+      propertyPath: bombBlockDestroyDestination
+      value: 
+      objectReference: {fileID: 1048785028}
     - target: {fileID: 3003888560560530568, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
