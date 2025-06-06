@@ -34,11 +34,15 @@ namespace UI
 
         private void PopUp() => StartCoroutine(TextPopUp());
 
+        /// <summary>
+        /// Adds one then creates pop up
+        /// </summary>
         private void PopUpPlusOne()
         {
             _level++;
             StartCoroutine(TextPopUp());
         }
+        
         /// <summary>
         /// Moves the Text up to the target then resets it
         /// </summary>

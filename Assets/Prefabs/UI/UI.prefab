@@ -82,6 +82,7 @@ RectTransform:
   - {fileID: 6726350944868597552}
   - {fileID: 4708675168549291705}
   - {fileID: 133348642459689380}
+  - {fileID: 8358431589205668776}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -321,6 +322,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shakeDuration: 3
   shakeTarget: 5
+--- !u!1 &5724085431740412161
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8358431589205668776}
+  - component: {fileID: 2327149257055054298}
+  m_Layer: 0
+  m_Name: CarScreenSpace
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8358431589205668776
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5724085431740412161}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1585934465472411849}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2327149257055054298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5724085431740412161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 370bdc12790496e46b1548552b5e2629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
 --- !u!1001 &1472159171142508204
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -789,6 +839,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 6.649994
       objectReference: {fileID: 0}
+    - target: {fileID: 870716987627734101, guid: d0622d3952cd247458c413547da9798d, type: 3}
+      propertyPath: targetLocation
+      value: 
+      objectReference: {fileID: 8358431589205668776}
     - target: {fileID: 1160743469445356842, guid: d0622d3952cd247458c413547da9798d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 6.649994
@@ -873,6 +927,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2159326209594760110, guid: d0622d3952cd247458c413547da9798d, type: 3}
+      propertyPath: targetLocation
+      value: 
+      objectReference: {fileID: 8358431589205668776}
     - target: {fileID: 2191480742995779272, guid: d0622d3952cd247458c413547da9798d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -921,6 +979,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2741888504019396002, guid: d0622d3952cd247458c413547da9798d, type: 3}
+      propertyPath: targetLocation
+      value: 
+      objectReference: {fileID: 8358431589205668776}
     - target: {fileID: 2932510417491050446, guid: d0622d3952cd247458c413547da9798d, type: 3}
       propertyPath: m_Name
       value: UpgradeUI
@@ -953,6 +1015,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4658977876819496819, guid: d0622d3952cd247458c413547da9798d, type: 3}
+      propertyPath: targetLocation
+      value: 
+      objectReference: {fileID: 8358431589205668776}
     - target: {fileID: 5175497638708821373, guid: d0622d3952cd247458c413547da9798d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1009,6 +1075,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9202998776649631255, guid: d0622d3952cd247458c413547da9798d, type: 3}
+      propertyPath: targetLocation
+      value: 
+      objectReference: {fileID: 8358431589205668776}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
