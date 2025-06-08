@@ -583,6 +583,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8595297595088592186, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: carScreenspace
+      value: 
+      objectReference: {fileID: 8257311985010801517}
+    - target: {fileID: 8595297595088592186, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: rippleAspectProperty
+      value: _Aspect
+      objectReference: {fileID: 0}
+    - target: {fileID: 8595297595088592186, guid: 39ad309262a655143b1bacacf51fb433, type: 3}
+      propertyPath: ripplePositionProperty
+      value: _FocalPoint
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1039,6 +1051,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+--- !u!224 &8257311985010801517 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8358431589205668776, guid: 47d29046e4cffda4b8f73e502c65c0fe, type: 3}
+  m_PrefabInstance: {fileID: 8257311985010801516}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
