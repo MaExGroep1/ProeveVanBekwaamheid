@@ -13,6 +13,11 @@ namespace Grid
         
         public RectTransform Rect => rect;              // getter of the rect of the grid element
         
+        /// <summary>
+        /// Sets the cords of this block
+        /// </summary>
+        /// <param name="x"> the x index </param>
+        /// <param name="y"> the y index </param>
         public void SetCords(int x, int y) => _cords = new Vector2Int(x, y);
         
         /// <summary>

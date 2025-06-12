@@ -43,8 +43,8 @@ namespace Upgrade
         /// If the required amount of upgrade points is reached for an upgrade, it calls the associated event to signal that.
         /// If the points required are not reached, it only calls the associated event that points have been gained.
         /// </summary>
-        /// <param name="upgradeType"></param>
-        /// <param name="upgradePoints"></param>
+        /// <param name="upgradeType"> The type to increase </param>
+        /// <param name="upgradePoints"> The amounts to add to the type </param>
         public void IncreaseUpgradePoints(BlockType upgradeType, int upgradePoints)
         {
             _upgradePoints[upgradeType] += upgradePoints;
@@ -52,7 +52,8 @@ namespace Upgrade
             if (!OnPointIncreaseByType.TryGetValue(upgradeType, out Action<int> increasePointAction)) return;
             increasePointAction?.Invoke(upgradePoints);
             
-            if (_upgradePoints[upgradeType] >= _requiredUpgradePoints[upgradeType]) { Upgrade(upgradeType); }
+            if (_upgradePoints[upgradeType] >= _requiredUpgradePoints[upgradeType]-1) 
+                Upgrade(upgradeType);
         }
         
         /// <summary>
@@ -60,10 +61,9 @@ namespace Upgrade
         /// retracts the amount of upgrade points needed for the upgrade, increases the requirement for the next upgrade,
         /// calls the associated event for that upgrade.
         /// If upgrade points are left, it resets the amount of points and then re-adds them to make sure that the associated are triggerd
-        /// todo add upgrade car comments
         /// </summary>
-        /// <param name="upgradeType"></param>
-        public void Upgrade(BlockType upgradeType)
+        /// <param name="upgradeType"> The type to upgrade </param>
+        private void Upgrade(BlockType upgradeType)
         {
             var pointsLeft = _upgradePoints[upgradeType] - _requiredUpgradePoints[upgradeType];
 
@@ -72,7 +72,6 @@ namespace Upgrade
             
             _upgradePoints[upgradeType] = 0;
             IncreaseUpgradePoints(upgradeType, pointsLeft);
-            
         }
         
         /// <summary>
@@ -106,5 +105,15 @@ namespace Upgrade
         {
             GridManager.Instance.ListenToOnMatch(IncreaseUpgradePoints);
         }
+
+        /// <summary>
+        /// Calculates the percent that the block-type is filled
+        /// </summary>
+        /// <param name="upgradeType"> The type to calculate from </param>
+        /// <param name="extra"> Amount to add to the points </param>
+        /// <returns> The percentage of points achieved from 0 to 1</returns>
+        public float GetPercentFill(BlockType upgradeType, int extra = 0) =>
+            (float)(_upgradePoints[upgradeType] + extra) / _requiredUpgradePoints[upgradeType];
+        
     }
 }

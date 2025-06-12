@@ -7,14 +7,20 @@ namespace Tiles
     {
         [SerializeField] private Transform tileEnd;     // the end of this tile to spawn the next tile
         [SerializeField] private TileLoader loadNext;   // the loader of the tile to load the next tile
+        [SerializeField] private Collider backWall;     // the wall at the back of the tile
         
         public Action OnTileLoaded                      // the event to invoke when loading a new tile
         {
-            get => loadNext.OnLoad;
-            set => loadNext.OnLoad = value;
+            get => loadNext._onLoad;
+            set => loadNext._onLoad = value;
         }
     
         public Transform TileEnd => tileEnd;
+        
+        /// <summary>
+        /// Turns on the back wall
+        /// </summary>
+        public void EnableBackWall() => backWall.enabled = true;
         
         /// <summary>
         /// Draws a dot on the start point of the tile

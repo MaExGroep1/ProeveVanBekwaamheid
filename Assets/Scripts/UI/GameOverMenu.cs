@@ -16,9 +16,9 @@ namespace UI
         [Header("Text Elements")]
         [SerializeField] private TextMeshProUGUI scoreText;         // the new score text
         [SerializeField] private TextMeshProUGUI highScoreText;     // the high score text
-        [SerializeField] private TextMeshProUGUI enemyScoreText;     // the high score text
+        [SerializeField] private TextMeshProUGUI enemyScoreText;    // the high score text
         [Header("Enemy Points")] 
-        [SerializeField] private float enemyPointsAddTime;
+        [SerializeField] private float enemyPointsAddTime;          // the amount of time it takes to add all the enemy points
 
         private void Awake() => StartCoroutine(SetDisplay());
         
@@ -49,7 +49,7 @@ namespace UI
             
             highScoreText.text = $"High Score: \\n{highScore.ToString("N0").Replace(',', '.')}";
             scoreText.text = $"Score: \\n{Mathf.RoundToInt(newScore).ToString("N0").Replace(',', '.')}";
-            enemyScoreText.text = $"+{Mathf.RoundToInt(enemyScore).ToString("N0").Replace(',', '.')}";
+            enemyScoreText.text = $"+{Mathf.RoundToInt(enemyScore).ToString("N0").Replace(',', '.')}<sprite=0>";
 
             yield return AddEnemyPoints(newScore,EnemyManager.Instance.EnemyPoints);
 
@@ -58,7 +58,14 @@ namespace UI
             
             HighScore.SetScore(total);
         }
-
+        
+        
+        /// <summary>
+        /// Adds points slowly to the main score
+        /// </summary>
+        /// <param name="score"> Score without enemy points </param>
+        /// <param name="enemy"> Enemy points </param>
+        /// <returns></returns>
         private IEnumerator AddEnemyPoints(float score, float enemy)
         {
             yield return new WaitForSeconds(newHighScoreWaitTime);
@@ -73,7 +80,7 @@ namespace UI
                 var enemyDisplay = Mathf.RoundToInt(Mathf.Lerp(enemy, 0, timer/enemyPointsAddTime));
                 
                 scoreText.text = $"Score: \\n{current.ToString("N0").Replace(',', '.')}";
-                enemyScoreText.text = $"+{enemyDisplay.ToString("N0").Replace(',', '.')}";
+                enemyScoreText.text = $"+{enemyDisplay.ToString("N0").Replace(',', '.')}<sprite=0>";
                 yield return null;
             }
             var displayTotal = Mathf.RoundToInt(total);

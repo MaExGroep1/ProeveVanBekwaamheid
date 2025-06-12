@@ -10,11 +10,20 @@ namespace Car
         private void Update() => CalculateCenterOfMass();
 
         /// <summary>
-        /// calculates the center of mass of the car to flip it around
+        /// Calculates the center of mass of the car to flip it around
         /// </summary>
         private void CalculateCenterOfMass()
         {
-            var rotation = -180 + Mathf.Abs(Mathf.Abs(transform.rotation.eulerAngles.x) - Mathf.Abs(180));
+            var rotation = transform.rotation.eulerAngles.x;
+            rotation = rotation switch
+            {
+                > 0 and < 180 => -transform.rotation.eulerAngles.x,
+                > 180 => transform.rotation.eulerAngles.x - 360,
+                < 0 and > -180 => transform.rotation.eulerAngles.x,
+                < -180 => -transform.rotation.eulerAngles.x - 360,
+                _ => rotation
+            };
+
             rigidBody.centerOfMass = new Vector3(0, rotation * multiplier, 0);
         }
     }

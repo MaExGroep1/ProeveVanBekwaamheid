@@ -6,36 +6,34 @@ namespace Tiles
 {
     public class TileManager : Util.Singleton<TileManager>
     {
-        public int TileAmount { get; private set; }                                         // the amount of tiles that have passed
-
         [SerializeField] private Transform tileParent;                                      // the parent of the tiles
         [SerializeField] private int levelLength;                                           // the amount of tiles in a level before going to the next
-        
+        [SerializeField]private Tile startTile;                                             // the tile at the start of the game
+
         private Tile _currentTile;                                                          // the tile under the player
         private Tile _previousTile;                                                         // the tile before the current tile
         private int _currentTileIndex;                                                      // the current tile index in the level
+        
+        public int TileAmount { get; private set; }                                         // the amount of tiles that have passed
         private static LevelData CurrentLevel => CarGameManager.Instance.CurrentLevel;      // the level data of the current level
         
-        private Action _onEnterNextLevel;
+        private Action _onEnterNextLevel;                                                   // event when entering new level
 
+        /// <summary>
+        /// Creates start tiles
+        /// </summary>
         private void Start()
         {
-            CreateNewTile(CurrentLevel.startTile);
+            CreateNewTile(startTile);
             CreateNewTile(CurrentLevel.RandomTile);
+            _currentTileIndex++;
         }
         
         /// <summary>
         /// Adds function to the onMatch event
         /// </summary>
-        /// <param name="onEnterNextLevel"> the function to add </param>
+        /// <param name="onEnterNextLevel"> The function to add </param>
         public void ListenToOnEnterNextLevel(Action onEnterNextLevel) => _onEnterNextLevel += onEnterNextLevel;
-        
-        /// <summary>
-        /// Removes function to the onMatch event
-        /// </summary>
-        /// <param name="onEnterNextLevel"> the function to remove </param>
-        public void StopListeningToOnEnterNextLevel(Action onEnterNextLevel) => _onEnterNextLevel -= onEnterNextLevel;
-
 
         /// <summary>
         /// Places a new tile at the end of the previous
@@ -85,6 +83,7 @@ namespace Tiles
             {
                 _currentTile.OnTileLoaded -= GenerateNewTile;
                 _previousTile = _currentTile;
+                _previousTile.EnableBackWall();
                 attach = _currentTile.TileEnd;
             }
             _currentTile = Instantiate(tile,tileParent);

@@ -13,11 +13,12 @@ namespace Car
         [SerializeField] private WheelCollider[] wheels;                // reference to the wheels
         [SerializeField] private float motorForce = 500f;               // the Motor Force of the vehicle
         [SerializeField, Range(0, 1)] private float targetThrottle;     // the amount of throttle that needs to be multiplied by the motorForce
-        [SerializeField] private AnimationCurve torqueCurve;
-        [SerializeField] private float maxSpeed = 60f;
+        [SerializeField] private AnimationCurve torqueCurve;            // the acceleration of the car
         [Header("Fuel")]
-        [SerializeField] private float maxFuel = 200f;                  // the Maximum amount of fuel the car has
-        [SerializeField] private float fuelAddMultiplier;               // the Maximum amount of fuel the car has
+        [SerializeField] private float maxFuel = 200f;                  // the maximum amount of fuel the car has
+        [SerializeField] private float fuelAddMultiplier;               // the multiplier when adding fuel
+        [SerializeField] private float fuelDrainMultiplier;             // the multiplier when adding fuel
+        [SerializeField] private float velocityFuelDrainMultiplier;     // the multiplier when adding fuel
         [Header("Tilt")]
         [SerializeField] private Rigidbody mainBody;                    // the main body of the car
         [SerializeField] private float tiltMultiplier;                  // the multiplier of the extra throttle while the car is tilted
@@ -27,14 +28,28 @@ namespace Car
         [SerializeField] private float carRollTime;                     // the time to wait after having dropped to 0 fuel to create the game over pop up
         
         private float _fuel;                                            // the value of the current amount of fuel
-        private bool _hasHadZeroFuel;                                   // whether the car has been at 0 fuel
+        private bool _hasHadZeroFuel = true;                            // whether the car has been at 0 fuel
 
         public float Fill => _fuel / maxFuel;                           // the percent the fuel tank is full
+        private static float MaxSpeed => CarData.Instance.Speed;        // the cars maximum speed
+
         
         private void Awake() => AddListeners();
     
         
         private void FixedUpdate() => MoveCar();
+        
+        /// <summary>
+        /// Drains the fuel by an amount
+        /// </summary>
+        /// <param name="drain"> The amount to drain </param>
+        public void DrainFuel(float drain)
+        {
+            _fuel -= drain;
+            if (_fuel > 0 || _hasHadZeroFuel) return;
+            _hasHadZeroFuel = true;
+            StartCoroutine(WaitToCreatePopUp());
+        }
 
         /// <summary>
         /// Adds listener to on match
@@ -52,9 +67,11 @@ namespace Car
         { 
             if (_fuel > 0f)
             {
+                var velocity = Mathf.Clamp(mainBody.velocity.magnitude * velocityFuelDrainMultiplier,1,4);
+                
                 ApplyTorque(targetThrottle);
 
-                DrainFuel(CarData.Instance.FuelContinuousDrain * Time.deltaTime);
+                DrainFuel(CarData.Instance.FuelContinuousDrain * Time.deltaTime * fuelDrainMultiplier * velocity);
             }
             else ApplyTorque(0f);
         }
@@ -65,11 +82,19 @@ namespace Car
         /// <param name="throttle"> The Amount to multiply the motorForce by </param>
         private void ApplyTorque(float throttle)
         {
-            var speedFactor = mainBody.velocity.magnitude / maxSpeed;
+            var speedFactor = mainBody.velocity.magnitude / MaxSpeed;
             var torqueMultiplier = torqueCurve.Evaluate(speedFactor);
-            var tiltForce = Mathf.Abs(mainBody.transform.rotation.eulerAngles.x) * tiltMultiplier;
+            var rotation = mainBody.transform.rotation.eulerAngles.x switch
+            {
+                > 0 and < 180 => -mainBody.transform.rotation.eulerAngles.x,
+                > 180 => mainBody.transform.rotation.eulerAngles.x - 360,
+                < 0 and > -180 => mainBody.transform.rotation.eulerAngles.x,
+                < -180 => -mainBody.transform.rotation.eulerAngles.x - 360,
+                _ => mainBody.transform.rotation.eulerAngles.x
+            };
             
-            tiltForce = Mathf.Clamp(tiltForce, tiltClamp.min, tiltClamp.max);
+            var tiltForce = Mathf.Clamp(-rotation, tiltClamp.min, tiltClamp.max) * tiltMultiplier;
+            
             var force = throttle * motorForce * tiltForce * torqueMultiplier;
             
             foreach (var wheel in wheels)
@@ -87,24 +112,14 @@ namespace Car
             _fuel += matchAmount * fuelAddMultiplier;
             _fuel = Mathf.Clamp(_fuel, 0f, maxFuel);
         }
-        
+
         /// <summary>
         /// Sets the fuel to the maximum capacity
         /// </summary>
-        private void OnFirstMatch() => 
-            _fuel = maxFuel;
-
-
-        /// <summary>
-        /// Drains the fuel by an amount
-        /// </summary>
-        /// <param name="drain"> The amount to drain </param>
-        public void DrainFuel(float drain)
+        private void OnFirstMatch()
         {
-            _fuel -= drain;
-            if (_fuel > 0 || _hasHadZeroFuel) return;
-            _hasHadZeroFuel = true;
-            StartCoroutine(WaitToCreatePopUp());
+            _hasHadZeroFuel = false;
+            _fuel = maxFuel;
         }
 
         /// <summary>

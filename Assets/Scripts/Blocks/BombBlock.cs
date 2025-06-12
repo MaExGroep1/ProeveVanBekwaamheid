@@ -1,3 +1,4 @@
+using System.Collections;
 using Grid;
 using UnityEngine;
 
@@ -7,10 +8,13 @@ namespace Blocks
     {
         protected override void TryToMatch()
         {
-            var direction =  transform.position - _gridPosition;
+            var direction = transform.position - _gridPosition;
             var normalized = direction.normalized;
 
             GridManager.Instance.HandleBombBlockMatch(_cords, CalculateDirection(normalized), this);
         }
+
+        public void SetDestroyDestination(Transform destination) =>
+            _destroyDestination = destination;
     }
 }

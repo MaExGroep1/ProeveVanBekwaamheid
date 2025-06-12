@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8265344733294659107}
   - component: {fileID: 8799441275572288593}
+  - component: {fileID: 1081005421469435913}
   m_Layer: 0
   m_Name: LaserPointerWeapon
   m_TagString: Untagged
@@ -46,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a27318189492424dbd6a28d9211e3bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
+  baseDamage: 2.5
   fireTime: 5
   fireDelay: 4
   baseRange: 50
@@ -55,6 +56,24 @@ MonoBehaviour:
     m_Bits: 1
   laser: {fileID: 7723881346776181513}
   rayCastOrigin: {fileID: 2833863131539630522}
+  audioSource: {fileID: 1081005421469435913}
+--- !u!114 &1081005421469435913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6596067815567844865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a34862c0e928f9448955227d5c4b8aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClips:
+  - {fileID: 8300000, guid: 50e13ef2744229049a3aa6306c11e3fa, type: 3}
+  volume: 0.004
+  loop: 0
+  soundObjectSpawn: {fileID: 8265344733294659107}
 --- !u!1 &7723881346776181513
 GameObject:
   m_ObjectHideFlags: 0

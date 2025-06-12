@@ -1,14 +1,13 @@
 using System;
 using Car;
 using Interfaces;
+using Sound;
 using UnityEngine;
 
 namespace Enemy
 {
     public class EnemyBehaviour : MonoBehaviour, IDamageable
     {
-        public float Worth { get; private set; }            // the amount of points the user gets when killing the enemy
-        public bool MarkedForDeletion { get; private set; }
 
         [Header("Stats")]
         [SerializeField] private float health;              // the health of the enemy
@@ -23,11 +22,18 @@ namespace Enemy
         [Header("Near Player")]
         [SerializeField] private float nearPlayerDistance;  // the distance the enemy will stop chasing the player
         
+        [Header("audio")]
+        [SerializeField] private SoundService soundService;  // sound service for playing sound clips
+        
         private Rigidbody _rigidBody;                       // the enemy's rigidbody
         private Transform _target;                          // the transform of the target
         private bool _hasBeenNearPlayer;                    // if the player has been near the player
 
         private Action _nearPlayer;                         // invokes ones the enemy gets near the player
+        
+        public float Worth { get; private set; }            // the amount of points the user gets when killing the enemy
+        public bool MarkedForDeletion { get; private set; } // whether the enemy has been marked for deletion
+
         
         private void Awake() =>_rigidBody = GetComponent<Rigidbody>();
         
@@ -163,6 +169,7 @@ namespace Enemy
             health -= damage;
             if (health > 0) return;
 
+            soundService.PlaySound();
             MarkedForDeletion = true;
             gameObject.layer = LayerMask.NameToLayer("IgnorePlayer");
             EnemyManager.Instance.DestroyEnemy(this);

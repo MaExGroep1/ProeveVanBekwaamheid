@@ -1,15 +1,18 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Blocks;
+using Car;
 using Enemy;
 using UnityEngine;
 using UnityEngine.Rendering;
+using Upgrade;
 
 namespace Weapon
 {
     public class ProjectileWeapon : MonoBehaviour
     {
-        [SerializeField] private float damage;                              //The damage that the projectile will do when it hits an enemy
+        [SerializeField] private float baseDamage;                          //The base damage that the projectile will do when it hits an enemy
         [SerializeField] private float projectileTime;                      //The damage that the projectile will do when it hits an enemy
         [SerializeField] private float range;                               //The range in which the weapon tries to find a target and the distance the projectile will fly when no enemies are found
         [SerializeField] private float fireDelay;                           //The time the weapon waits for the next shot after it shoots, this does not include spawn speed and reload speed
@@ -17,14 +20,17 @@ namespace Weapon
         [SerializeField] private LeanTweenType projectileSpawnEaseType;     //The leanTween easing used for spawning the weapon
         [SerializeField] private Transform ammoSpawnPoint;                  //Reference to a gameObject transform that has the location and rotation for spawning the ammunition
         [SerializeField] private WeaponProjectile ammunitionPrefab;         //prefab of the ammunition
-        
+
+        private float _damage;                                              //The damage that the projectile will do when it hits an enemy, updates on upgrades
         private GameObject _target;                                         //The target that will be shot
         
         /// <summary>
-        /// Starting the shoot sequence the moment the weapon is instantiated
+        /// Starting the shoot sequence the moment the weapon is instantiated and increases damage to ensure _damage has a value
         /// </summary>
         private void Start()
         {
+            AssignEvents();
+            IncreaseDamage();
             ShootSequence();
         }
 
@@ -35,19 +41,6 @@ namespace Weapon
         {
             var ammo = SpawnAmmo();
             StartCoroutine(ShootDelay(ammo));
-        }
-
-        /// <summary>
-        /// instantiates the ammo on the right place and rotation and tweens the scale from 0 to 1
-        /// </summary>
-        /// <returns>returns the spawned ammo</returns>
-        private WeaponProjectile SpawnAmmo()
-        {
-            var ammo = Instantiate(ammunitionPrefab, ammoSpawnPoint.position, ammoSpawnPoint.rotation, transform);
-            ammo.Initialize(damage, projectileTime, range);
-            ammo.transform.localScale = Vector3.zero;
-            LeanTween.scale(ammo.gameObject, Vector3.one, spawnSpeed).setEase(projectileSpawnEaseType);
-            return ammo;
         }
         
         /// <summary>
@@ -83,6 +76,34 @@ namespace Weapon
             return target;
         }
 
+        /// <summary>
+        /// assigns events
+        /// </summary>
+        private void AssignEvents()
+        {
+            if (!UpgradeManager.Instance.OnUpgradeCompleted.TryAdd(BlockType.Weapon, IncreaseDamage)) UpgradeManager.Instance.OnUpgradeCompleted[BlockType.Weapon] += IncreaseDamage;
+        }
+
+        /// <summary>
+        /// instantiates the ammo on the right place and rotation and tweens the scale from 0 to 1
+        /// </summary>
+        /// <returns>returns the spawned ammo</returns>
+        private WeaponProjectile SpawnAmmo()
+        {
+            var ammo = Instantiate(ammunitionPrefab, ammoSpawnPoint.position, ammoSpawnPoint.rotation, transform);
+            ammo.Initialize(_damage, projectileTime, range);
+            ammo.transform.localScale = Vector3.zero;
+            LeanTween.scale(ammo.gameObject, Vector3.one, spawnSpeed).setEase(projectileSpawnEaseType);
+            return ammo;
+        }
+
+        /// <summary>
+        /// takes the bseDamage of the weapon and multiplies it by the WeaponAttackMultiplier
+        /// </summary>
+        private void IncreaseDamage()
+        {
+            _damage = CarData.Instance.WeaponAttackMultiplier * baseDamage;
+        }
 
         /// <summary>
         /// Waits until ammo has stopped tweening to avoid issues, then waits for firedelay, the continues the shoot loop

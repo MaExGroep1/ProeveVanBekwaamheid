@@ -1,5 +1,6 @@
 using System;
 using Enemy;
+using Sound;
 using UnityEngine;
 
 namespace Car
@@ -8,25 +9,19 @@ namespace Car
     [RequireComponent(typeof(CarMovement))]
     public class CarEnemyInteraction : MonoBehaviour
     {
-        [SerializeField] private float knockBack;             // the knock back that the car has
-        [SerializeField] private float minimumKnockBack;      // the minimum knock back of the impact
-        [SerializeField] private float airForceMultiplier;      // the minimum knock back of the impact
-        [SerializeField] private float minimumEnemyDamage;    // the minimum knock back of the impact
+        [SerializeField] private float knockBack;                       // the knock back that the car has
+        [SerializeField] private float minimumKnockBack;                // the minimum knock back of the impact
+        [SerializeField] private float airForceMultiplier;              // the minimum knock back of the impact
+        [SerializeField] private float minimumEnemyDamage;              // the minimum knock back of the impact
+        [SerializeField] private float playerKnockBackMultiplier;       // the minimum knock back of the impact
+        [SerializeField] private SoundService audioSource;              // sound service for playing sound clips
+
         
         private Rigidbody _rigidBody;       // the rigid body of the car
         private CarMovement _carMovement;   // the movement script of the car
 
 
         private void Awake() => SetVariables();
-
-        /// <summary>
-        /// Sets the movement scripts and the rigidbody
-        /// </summary>
-        private void SetVariables()
-        {
-            _carMovement = GetComponent<CarMovement>();
-            _rigidBody = GetComponent<Rigidbody>();
-        }
         
         /// <summary>
         /// Adds force to the player and enemy based on the impact
@@ -39,6 +34,8 @@ namespace Car
         /// <param name="enemyAttack"> The enemy attack </param>
         public void OnHitEnemy(EnemyBehaviour enemy, Rigidbody enemyRigidbody, float playerForce , float enemyForce , float enemyDefence , float enemyAttack)
         {
+            audioSource.PlaySound();
+            
             var impact = playerForce + enemyForce;
             
             var enemyImpact = impact * CarData.Instance.AttackSpeedReduction / enemyDefence;
@@ -56,9 +53,18 @@ namespace Car
 
             if (enemy.MarkedForDeletion) return;
             
-            _rigidBody.AddForce(new Vector3(-totalKnockBack,0));
+            _rigidBody.AddForce(new Vector3(-totalKnockBack* playerKnockBackMultiplier *_rigidBody.mass,0));
             
             enemyRigidbody.AddForce(new Vector3(totalKnockBack,totalKnockBack * airForceMultiplier));
+        }
+
+        /// <summary>
+        /// Sets the movement scripts and the rigidbody
+        /// </summary>
+        private void SetVariables()
+        {
+            _carMovement = GetComponent<CarMovement>();
+            _rigidBody = GetComponent<Rigidbody>();
         }
     }
 }

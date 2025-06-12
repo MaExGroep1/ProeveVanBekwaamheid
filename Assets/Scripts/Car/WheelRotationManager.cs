@@ -2,27 +2,33 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Blocks;
+using Car;
 using UnityEngine;
 using Upgrade;
+using Upgrade.UpgradeParts;
 
 public class WheelRotationManager : MonoBehaviour
 {
-    private bool _isRotating = true;                      // Bool to enable and disable the wheel rotation
+    [SerializeField] private WheelCollider wheelCollider;           // Reference to the WheelCollider
+    [SerializeField] private Transform[] wheelTransforms;           // References to the wheel transforms
+    [SerializeField] private int rotationStopUpgradeLevel;          // The upgrade level where rotation will be disabled
+    [SerializeField] private SpeedUpgradeBehaviour speedUpgrades;   // The speed upgrade, used to check when to disable rotation for the upgrades
     
-    [SerializeField] private WheelCollider wheelCollider; // Reference to the WheelCollider
-    [SerializeField] private Transform[] wheelTransforms; // References to the wheel transforms
+    private Vector3 _lastPosition;                                  // The last position of the wheel
+    private bool _isRotating = true;                                // Bool to enable and disable the wheel rotation
+    private List<Vector3> _wheelRotations = new List<Vector3>();    // Stores the base rotations of the wheels to be able to reset it
     
-    private Vector3 _lastPosition;                          // The last position of the wheel
-
     /// <summary>
     /// assigns events and Initializes
     /// </summary>
     private void Start()
     {
         AssignEvents();
+        GetBaseWheelRotations();
         InitializeWheel();
     }
-    
+
+
     /// <summary>
     /// Will rotate wheels if _isRotating is ture
     /// </summary>
@@ -30,16 +36,54 @@ public class WheelRotationManager : MonoBehaviour
     {
         if (_isRotating) RotateWheels();
     }
+    
+    private void GetBaseWheelRotations()
+    {
+        for (int i = 0; i < wheelTransforms.Length; i++)
+        {
+            _wheelRotations.Add(wheelTransforms[i].localRotation.eulerAngles);
+        }
+    }
+    
+    /// <summary>
+    /// assigns events
+    /// </summary>
     private void AssignEvents()
     {
-        if (!UpgradeManager.Instance.OnUpgradeCompleted.TryAdd(BlockType.Speed, EnableWheelRotating)) 
-            UpgradeManager.Instance.OnUpgradeCompleted[BlockType.Speed] += EnableWheelRotating;         //tries to subscribe EnableWheelRotating to OnUpgradeCompleted for speed upgrade
+        speedUpgrades.OnUpgradeComplete += EnableWheelRotating; 
+        speedUpgrades.OnUpgrade += DisableWheelRotating;
+        speedUpgrades.OnHoverWheels += RotationPermaStop;
         
-        if (!UpgradeManager.Instance.OnUpgrade.TryAdd(BlockType.Speed, DisableWheelRotating)) 
-            UpgradeManager.Instance.OnUpgrade[BlockType.Speed] += DisableWheelRotating;                 //tries to subscribe DisableWheelRotating to OnUpgrade for speed upgrade
     }
 
+    /// <summary>
+    /// unassigns all events
+    /// </summary>
+    private void UnassignEvents()
+    {
+        speedUpgrades.OnUpgradeComplete -= EnableWheelRotating; 
+        speedUpgrades.OnUpgrade -= DisableWheelRotating;
+        speedUpgrades.OnHoverWheels -= RotationPermaStop;
+    }
+    
+    /// <summary>
+    /// Permanently stops the wheel rotation and sets the wheels to rotation 0, for when wheels are aquired that do not rotate
+    /// </summary>
+    private void RotationPermaStop()
+    {
+        DisableWheelRotating();
+        UnassignEvents();
+        for (int i = 0; i < wheelTransforms.Length; i++)
+        {
+            wheelTransforms[i].localEulerAngles = _wheelRotations[i];
+        } 
+        enabled = false;
+    }
+
+
+    
     private void EnableWheelRotating() => _isRotating = true;   //sets isRotating to true (used for events)
+    
     private void DisableWheelRotating() => _isRotating = false; //sets isRotating to true (used for events)
     
     

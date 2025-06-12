@@ -16,7 +16,7 @@ namespace UI.PopUp
         
         private float _backgroundAlpha;                         // the target alpha of the background
         
-        public bool HasOpened { get; private set; }
+        public bool HasOpened { get; private set; }             // whether the pop-up has been opened
         
         private void Awake() => OpenMenu();
         

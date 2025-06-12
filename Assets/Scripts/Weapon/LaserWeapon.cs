@@ -1,21 +1,27 @@
 using System;
 using System.Collections;
+using Blocks;
+using Car;
 using Interfaces;
+using Sound;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Upgrade;
 
 namespace Weapon
 {
     public class LaserWeapon : MonoBehaviour
     {
-        [SerializeField] private float damage;              //the damage the laser does when hitting an enemy per frame * deltatime
+        [SerializeField] private float baseDamage;          //the base damage the laser does when hitting an enemy per frame * deltatime
         [SerializeField] private float fireTime;            //the time the laser will fire before turning off
         [SerializeField] private float fireDelay;           //the time the laser is turned off before firing
         [SerializeField] private float baseRange;           //the base range that the laser visual has
         [SerializeField] private LayerMask laserLayerMask;  //layer mask for what layers the laser can hit
         [SerializeField] private GameObject laser;          //the ref to the laser visual object
         [SerializeField] private Transform rayCastOrigin;   //the ref to the transform of where the raycast for finding targets originates from
+        [SerializeField] private SoundService audioSource;  //Sound service for playing sound clips
         
+        private float _damage;                              //The damage that the projectile will do when it hits an enemy, updates on upgrades
         private bool _canFire;                              //fires the laser on true and disables on false
 
         private bool CanFire                                //getter/setter for _canFire, when changed will reset the FireTimer and when turned false will disable the laser visual
@@ -34,15 +40,26 @@ namespace Weapon
         /// </summary>
         private void Start()
         {
+            AssignEvents();
+            IncreaseDamage();
             StartCoroutine(FireTimer());
         }
-        
+
+
         /// <summary>
         /// Shoots the laser when CanFire is true
         /// </summary>
         private void Update()
         {
             if (CanFire) Shoot();
+        }
+        
+        /// <summary>
+        /// assigns events
+        /// </summary>
+        private void AssignEvents()
+        {
+            if (!UpgradeManager.Instance.OnUpgradeCompleted.TryAdd(BlockType.Weapon, IncreaseDamage)) UpgradeManager.Instance.OnUpgradeCompleted[BlockType.Weapon] += IncreaseDamage;
         }
 
         /// <summary>
@@ -53,6 +70,8 @@ namespace Weapon
             var laserBeam = laser;
             var rayDirection = laserBeam.transform.right;
             
+            audioSource.PlaySound();
+            
             if (!Physics.Raycast(rayCastOrigin.position, rayDirection, out var hitInfo, Mathf.Infinity,  laserLayerMask, QueryTriggerInteraction.Ignore))
             {
                 ScaleLaser(Vector3.zero);
@@ -60,7 +79,7 @@ namespace Weapon
             }
             ScaleLaser(hitInfo.point);
             if (!hitInfo.collider.gameObject.TryGetComponent(out IDamageable target)) return;
-            target.TakeDamage(damage * Time.deltaTime);
+            target.TakeDamage(_damage * Time.deltaTime);
         }
 
         /// <summary>
@@ -84,6 +103,14 @@ namespace Weapon
 
             scale.x = distance; 
             laserBeam.transform.localScale = scale;
+        }
+        
+        /// <summary>
+        /// takes the bseDamage of the weapon and multiplies it by the WeaponAttackMultiplier
+        /// </summary>
+        private void IncreaseDamage()
+        {
+            _damage = CarData.Instance.WeaponAttackMultiplier * baseDamage;
         }
 
         /// <summary>

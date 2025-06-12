@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5859088580774921539}
   - component: {fileID: 4213371003727733846}
   - component: {fileID: 7365303183506815987}
+  - component: {fileID: -7791996041128298408}
   m_Layer: 5
   m_Name: Block
   m_TagString: Untagged
@@ -33,8 +34,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.025, y: 0.025}
+  m_AnchorMax: {x: 0.975, y: 0.975}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -66,9 +67,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -860167721, guid: fab4f574bfe88e04ab292b9db31948ff, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -90,3 +91,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 4213371003727733846}
   rect: {fileID: 4665785431003485375}
+  audioSource: {fileID: -7791996041128298408}
+--- !u!114 &-7791996041128298408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3278270646690986175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a34862c0e928f9448955227d5c4b8aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClips:
+  - {fileID: 8300000, guid: ec7a2864114337143942eda537b94fce, type: 3}
+  volume: 0.02
+  loop: 0
+  soundObjectSpawn: {fileID: 4665785431003485375}
