@@ -44,7 +44,7 @@ Material:
     - _Speed: 0.75
     - _Time: 0
     m_Colors:
-    - _Aspect: {r: 9, g: 16, b: 0, a: 0}
-    - _FocalPoint: {r: 0.33, g: 0.58, b: 0, a: 0}
+    - _Aspect: {r: 1440, g: 2960, b: 0, a: 0}
+    - _FocalPoint: {r: 0.32698843, g: 0.5873772, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

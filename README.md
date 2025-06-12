@@ -1,3 +1,22 @@
+# Herkansing Info
+
+## User tests en Verbetervoorstellen
+### [Usertest 3](https://drive.google.com/drive/folders/1FObCZi0Nw9jGWSnN_vFURsq95DGPxCau?ths=true)
+[Plan](https://docs.google.com/document/d/1zqXslpJa4m1YCRhEw9yJfYjjfPnMq343a7ELrJOWgho/edit?usp=sharing)<br>
+[Test Footage](https://drive.google.com/drive/folders/1AaNL5Poy55b818QSPZ93KDXMU5S3P71-?ths=true)<br>
+[Rapport](https://docs.google.com/document/d/1om9-GidKGQmR8jgoq-FuKIPStUPjZGJIjC4j0JwiyDw/edit?usp=sharing)<br>
+Het rapport bevat alle gelinkede user stories die zijn gemaakt uit de observaties van de usertests en waarom we hebben gekozen om die te maken.
+
+### [Usertest 4](https://drive.google.com/drive/folders/1IPY16x6oqRlNNmB5p6H1A7w5ZABTTQ-S?ths=true)
+[Plan](https://docs.google.com/document/d/1mqw3zm9p6_xg6VijIMEYip0G_S2dAjwoYaz_bxEOF6A/edit?usp=sharing)<br>
+[Test Footage](https://drive.google.com/drive/folders/1XTqDd_8NdUKlRBFd5O5s3txvVVX9KxFV?ths=true)<br>
+[Rapport](https://docs.google.com/document/d/1XvC_HYMbNdb8XTmP16WWj1PbMDUCXocGEiFkigUhvqw/edit?usp=sharing)<br>
+Het rapport bevat alle gelinkede user stories die zijn gemaakt uit de observaties van de usertests en waarom we hebben gekozen om die te maken. 
+
+## [Reflectie](https://docs.google.com/document/d/1UeJiyu_9c_IK9fw10z_EiM9dSBj7kYIDJ-2IVXyfhVE/edit?usp=sharing)
+<br>
+<br>
+
 # ProeveVanBekwaamheid
 
 ## Geproduceerde Game Onderdelen
@@ -138,4 +157,4 @@
 ## Reflectie
 [Brayden](https://docs.google.com/document/d/1koDQUKuXGNrNStpDqs6viS_Obh9CZnKnw4nOjEQGa1E/edit?tab=t.0#heading=h.jdnvtua4y69b)<br>
 [Sten](https://docs.google.com/document/d/1ndQflF04t8aIIsZCyjs_7hSqhtuIwoPbfhC4A8WyEAs/edit?tab=t.0#heading=h.jdnvtua4y69b)<br>
-[Tom](https://docs.google.com/document/d/1Hj4KduOvEARLYof7y-cTsGoyAPRqj3Ibo5qjFIfz1m8/edit?usp=drive_web&ouid=105528622531826973810)
+[Tom](https://docs.google.com/document/d/1Hj4KduOvEARLYof7y-cTsGoyAPRqj3Ibo5qjFIfz1m8/edit?usp=drive_web&ouid=105528622531826973810)<br>
